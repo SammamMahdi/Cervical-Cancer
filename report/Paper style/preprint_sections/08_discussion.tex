@@ -1,0 +1,57 @@
+\section{Discussion and limitations}
+\label{sec:discussion}
+
+\trustr\ rests on a simple principle---a frozen model's \emph{disagreement with itself} under
+equivalent inputs is an epistemic signal---made to work in 3D by registering runs before measuring
+variance. The probe experiment (\Cref{sec:probe}) suggests \emph{why} it beats the model's own
+confidence: that confidence is a static function of one forward pass, whereas reliability here lives
+in the model's \emph{sensitivity} to the input, which only a re-run exposes. The contribution is
+conceptual rather than a perturbation recipe: \emph{(i)} in 3D, self-disagreement is meaningful only
+after each run's gauge is removed---\emph{naive} variance is near-random ($0.72$ vs.\ $0.50$
+\ause)---so robust registration \emph{before} variance is load-bearing; and \emph{(ii)} the usable
+reliability signal is epistemic input-sensitivity, invisible to a probe on a single forward pass.
+Together they turn a frozen reconstructor into a self-assessing one with no training.
+
+\paragraph{Limitations.} We state the scope honestly; several of these are the natural next problems.
+
+\begin{enumerate}[label=(\roman*),leftmargin=1.8em,itemsep=2pt,topsep=2pt]
+\item \textbf{Cost.} The estimator costs $\le 10$ forward passes; for latency-critical use this is the
+main overhead, though the $N{=}5$ knee (and the cheaper $N{=}3$ point) keeps it modest.
+\item \textbf{Not every perturbation is exactly geometry-preserving.} Photometric jitter and view
+\emph{shuffling} leave the scene unchanged, but leave-one-out \emph{subsetting} removes constraints
+and can alter which surfaces are co-visible, so its disagreement conflates input-sensitivity with a
+coverage change. Empirically the two view-perm modes are nearly indistinguishable on the
+reference-dependent models (A11: $0.582$ vs.\ $0.581$ \ause), and subsetting is decisive only for the
+permutation-equivariant \pii, whose output is invariant to a shuffle; we therefore read its subset
+signal as a conservative lower bound on input-sensitivity rather than a pure geometric probe. Richer
+training-free perturbations---a more diverse photometric/geometric TTA set, or activation-space noise
+injected into the frozen backbone---are a natural complementary family to fuse, and a plausible route
+to closing the residual out-of-distribution gap to input-noise baselines such as MC.
+\item \textbf{The fully-specified estimator is not zero-GT.} Its held-out fusion \emph{weights} and
+its isotonic \emph{calibration} are each fit on a small per-domain held-out split (never the test
+points). What \emph{is} GT-free is the per-point uncertainty \emph{signal}---each perturbation family,
+and the parameter-free \emph{equal} fusion, a close (and OOD-stronger) alternative to the
+weighting---and calibration's GT need reduces to essentially \emph{one global scalar}
+(\Cref{sec:abl-calib}). A fully GT-free variant (equal fusion $+$ a single global scale) is therefore
+available at a small cost; only absolute coverage benefits from a labelled split.
+\item \textbf{Metric-scale data.} Our datasets are metric-scale with reliable GT; in-the-wild scenes
+without GT are future work.
+\item \textbf{The downstream win is geometric.} It is multi-view fusion, not photometric novel-view
+synthesis (\Cref{sec:exp-neg}).
+\item \textbf{A complement, not a replacement.} \trustr\ helps precisely where the built-in confidence
+is mis-calibrated (out-of-distribution and several in-distribution cells) and correctly adds nothing
+where it is already well-calibrated, so the gain is conditional---which we view as evidence the signal
+is real rather than a universal claim.
+\item \textbf{It measures procedural variance, not systematic bias.} \trustr\ measures epistemic
+uncertainty as \emph{input-sensitivity}---the model's procedural, local variance under
+perturbation---so it flags where the model is \emph{unstable}, but not a \emph{systematic bias} where
+the model is stably and confidently wrong (cross-run variance $\approx 0$ yet error large); such bias
+lies outside the reach of any perturbation-variance estimator. Our gains fall on the input-sensitive
+failure modes, consistent with the standard decomposition of epistemic uncertainty into model bias
+versus procedural variance~\cite{epistemic_incomplete}.
+\end{enumerate}
+
+A natural next step is to use per-point \trustr\ uncertainty to gate points in SLAM/SfM back-ends and
+feed-forward Gaussian-Splatting pipelines, and---to reach the bias component above---to complement the
+perturbation signal with a learned or cross-model estimator that can detect stable-but-wrong
+predictions.

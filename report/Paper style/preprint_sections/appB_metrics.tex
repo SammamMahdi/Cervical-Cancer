@@ -1,0 +1,36 @@
+\section{Formal metric definitions}
+\label{app:metrics}
+
+This appendix gives the formal counterparts of the intuitions in \Cref{sec:primer-metrics}. Let $e_i$
+be the per-point error and $U_i$ the predicted uncertainty over $P$ valid points.
+
+\paragraph{Sparsification / \ause.} Sort points by $U_i$ descending; for fraction $r\in[0,1]$ removed,
+$s(r)$ is the RMSE of $e_i$ over the kept points. The \emph{oracle} curve $o(r)$ sorts by the true
+$e_i$. Then $\ause = \int_0^1 |s(r)-o(r)|\,dr$, normalized by the no-removal error so scenes are
+comparable. Lower is better, and it is invariant to any monotone re-scaling of $U$.
+
+\paragraph{\aurg.} $\int_0^1 (s_{\mathrm{rand}}(r)-s(r))\,dr$, the area between the random-removal
+curve and the method curve; higher is better.
+
+\paragraph{Correlation.} Spearman $\rho$ between $U_i$ and $e_i$ (rank correlation; reported) and
+Pearson.
+
+\paragraph{Regression \ece.} Following~\cite{kuleshov}, treat the error as zero-mean Gaussian with
+standard deviation $U_i$; for target coverage $q$, measure the empirical fraction of points whose
+$|e_i|$ falls in the predicted central interval, and report the mean $|\text{observed}-q|$ over
+$q\in[0.05,0.95]$.
+
+\paragraph{Fused-cloud Accuracy / Completeness.} After gauge-freeing alignment, Accuracy is the mean
+nearest-neighbour distance from kept predicted points to the GT cloud; Completeness is the mean
+nearest distance from GT to the kept predicted cloud (mm for DTU, m otherwise).
+
+\paragraph{\ause-MAE.} Besides the headline \ause-RMSE we also report \ause\ under an $L_1$
+(mean-absolute) error aggregation; \Cref{tab:ausemae} shows \trustr's ranking advantage is preserved
+under this variant.
+
+\begin{table}[h]
+\centering\small
+\adjustbox{max width=\columnwidth}{\input{tables/tab_ause_mae}}
+\caption{\ause\ under $L_1$ error aggregation (\dn). \trustr\ vs.\ the built-in confidence.}
+\label{tab:ausemae}
+\end{table}

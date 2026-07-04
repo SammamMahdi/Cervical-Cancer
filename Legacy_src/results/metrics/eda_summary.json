@@ -1,0 +1,36 @@
+{
+  "n_classes": 5,
+  "total_images": 5015,
+  "per_class_total": {
+    "Dyskeratotic": 1036,
+    "Koilocytotic": 1063,
+    "Metaplastic": 1064,
+    "Parabasal": 895,
+    "Superficial-Intermediate": 957
+  },
+  "per_class_cropped": {
+    "Dyskeratotic": 813,
+    "Koilocytotic": 825,
+    "Metaplastic": 793,
+    "Parabasal": 787,
+    "Superficial-Intermediate": 831
+  },
+  "per_class_cluster": {
+    "Dyskeratotic": 223,
+    "Koilocytotic": 238,
+    "Metaplastic": 271,
+    "Parabasal": 108,
+    "Superficial-Intermediate": 126
+  },
+  "imbalance_ratio": 1.189,
+  "image_width": {
+    "min": 62,
+    "max": 2048,
+    "mean": 614.7
+  },
+  "image_height": {
+    "min": 62,
+    "max": 1536,
+    "mean": 485.4
+  }
+}

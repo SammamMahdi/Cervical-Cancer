@@ -1,0 +1,5 @@
+{
+  "figure": "feature_partial_dependence",
+  "generated_at": "2026-06-23T09:15:21",
+  "checkpoint": "student.pt"
+}

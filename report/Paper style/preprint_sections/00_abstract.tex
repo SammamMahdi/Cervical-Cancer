@@ -1,0 +1,26 @@
+\begin{abstract}
+Frozen feed-forward 3D foundation models (\vggt, \pii, \mastr) turn a few images into dense
+point maps in one forward pass, and emit a per-pixel \emph{confidence} channel that downstream
+systems increasingly trust. We show this channel is an unreliable uncertainty: it is weak and
+\emph{uneven} in-distribution (e.g.\ VGGT/7-Scenes \ause---area under the sparsification-error curve, lower is better---$0.71$ vs.\ $0.84$ for random, Spearman
+only $+0.07$) and, crucially, \emph{collapses} where it is most needed --- its correlation with
+true error falls to $\approx\!0$ out-of-distribution (ETH3D, all three models) and turns
+\emph{negative} on several cells (VGGT/BlendedMVS $-0.12$, MASt3R/DTU $-0.10$). We propose
+\trustr, a training-free, inference-only estimator: run the frozen model $N{=}5$ times under
+geometry-preserving perturbations, \emph{robustly register each run's point map into a common
+frame before measuring per-point variance} (Umeyama${+}$IRLS), calibrate with isotonic
+regression, and fuse the two perturbation estimators \emph{together with the model's own
+confidence} by a held-out rank-weighting. Across \textbf{three models
+and four datasets (12 cells)}, \trustr\ significantly reduces \ause\ in \textbf{9} (by
+$3\text{--}36\%$), \emph{including the out-of-distribution set for all three architectures}; the
+wins are \emph{predicted} by where the built-in confidence is mis-calibrated, and the three
+non-wins are precisely the BlendedMVS cells (the models' own training corpus), where it is
+already well calibrated --- a mechanistic coupling
+stronger than blanket superiority. A central finding is that \trustr\ \emph{matches or beats an
+MLP probe trained on the model's own frozen features} on every dataset, indicating the usable
+signal is \emph{consistent with} epistemic input-sensitivity rather than something static in the representation. Using
+\trustr\ to filter multi-view fusion yields near-oracle cloud accuracy in-distribution while
+preserving far more completeness. We report honest negatives (no novel-view-synthesis gain; a
+null out-of-distribution fusion gain; one falsified hypothesis). Everything runs on a single
+16\,GB consumer GPU.
+\end{abstract}

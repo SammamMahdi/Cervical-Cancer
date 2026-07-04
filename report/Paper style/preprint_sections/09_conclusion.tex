@@ -1,0 +1,20 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We showed that the built-in confidence of frozen feed-forward 3D foundation models is an
+\emph{uneven} uncertainty---weak in-distribution, $\rho{\approx}0$ out-of-distribution, and
+\emph{anti-correlated} on several cells---and introduced \trustr, a training-free, single-GPU
+estimator that registers perturbed runs before measuring variance. Across three models and four
+datasets \trustr\ significantly reduces \ause\ in \textbf{9 of 12} cells (by $3\text{--}36\%$),
+\emph{wins out-of-distribution for all three architectures} where the model's own confidence
+collapses, \emph{exceeds a probe trained on the model's frozen features}---evidence that the signal
+is \emph{consistent with} epistemic input-sensitivity---and delivers a near-oracle in-distribution multi-view-fusion gain,
+with honest negatives reported. We hope the OOD characterization and the training-free benchmark are a useful
+reliability layer for the fast-growing \emph{family of systems built on DUSt3R/VGGT-style point-map models}.
+
+The estimator is, deliberately, the simplest thing that works: re-run a frozen model, align, and
+look at where it disagrees with itself. Its main limitation is also conceptual---input-perturbation
+variance measures the model's \emph{procedural} sensitivity, not a systematic bias where the model is
+stably and confidently wrong---and the natural next steps (a learned single-pass amortization of the
+signal, a bias-aware complement, and uncertainty-gated SLAM/Gaussian-Splatting back-ends) all build on
+the same primitive.

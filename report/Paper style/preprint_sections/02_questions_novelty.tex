@@ -1,0 +1,109 @@
+\section{Research questions, hypotheses, and novelty}
+\label{sec:questions}
+
+Feed-forward 3D models ship a per-pixel confidence channel, but its reliability as an uncertainty
+estimate has not been examined systematically. We ask whether that channel can be trusted and, where
+it cannot, whether a better per-point uncertainty can be obtained \emph{without retraining the model}.
+Stated precisely, the goal is:
+
+\begin{quote}
+Given a \emph{frozen, pretrained} feed-forward 3D model $f$ and a set of input images, produce a
+per-point uncertainty map $U$ over $f$'s predicted geometry such that $U$ is \textbf{(a)} better
+correlated with true geometric error than the model's built-in confidence, \textbf{(b)}
+well-calibrated, and \textbf{(c)} useful---using $U$ to filter or weight points measurably improves
+a downstream task---all \emph{without any additional training of $f$} and within a
+single-consumer-GPU budget.
+\end{quote}
+
+\subsection{Research questions and hypotheses}
+\label{sec:rqs}
+
+We organize the paper around four research questions, each with the hypothesis we set out to test.
+
+\begin{description}[leftmargin=1.4em,itemsep=3pt,topsep=3pt]
+\item[RQ1 (quality of the status quo).] \emph{How well does the built-in confidence of a feed-forward
+3D model predict its actual geometric error?}\\
+\textbf{H1:} the built-in confidence is substantially mis-calibrated and only weakly rank-correlated
+with true error, leaving clear headroom for a better signal. (Answered in \Cref{sec:rq1}.)
+
+\item[RQ2 (a training-free estimator).] \emph{Can perturbation-based self-disagreement---running the
+frozen model under geometry-preserving input perturbations and measuring how much it disagrees with
+itself---yield uncertainty better than the built-in confidence?}\\
+\textbf{H2:} yes; the variance of $f$'s predictions under perturbation, \emph{after} the runs are
+aligned into a common coordinate frame, beats the built-in confidence on sparsification and
+calibration. (Answered in \Cref{sec:exp}.)
+
+\item[RQ3 (architecture and uncertainty).] \emph{Does the architectural difference between
+reference-view-dependent models (\vggt, \mastr) and permutation-equivariant models (\pii) manifest
+as measurable differences in which perturbation is most informative?}\\
+\textbf{H3:} input-view permutation disagreement is a \emph{stronger} signal for the
+reference-dependent \vggt\ than for the permutation-equivariant \pii. (Answered---and
+\emph{falsified}, instructively---in \Cref{sec:exp} and Appendix~\ref{app:negatives}.)
+
+\item[RQ4 (downstream utility).] \emph{Does uncertainty-guided point filtering or weighting improve a
+real downstream task?}\\
+\textbf{H4:} initializing or fusing 3D from uncertainty-filtered points yields better geometry/views
+than using the raw output or built-in-confidence filtering. (Answered with a \emph{mixed} verdict in
+\Cref{sec:exp} and \Cref{sec:ablations}: a clear win for multi-view fusion, a null result for
+novel-view synthesis.)
+\end{description}
+
+\subsection{What is novel}
+\label{sec:novelty}
+
+\trustr's novelty is \emph{not} ``uncertainty estimation'' in general---that is a mature field. It is
+the specific, previously-empty intersection of four things.
+
+\begin{enumerate}[leftmargin=1.5em,itemsep=2pt,topsep=2pt]
+\item \textbf{First systematic treatment of uncertainty for the feed-forward 3D
+foundation-model family} (DUSt3R\,$\rightarrow$\,\vggt\,$\rightarrow$\,\pii). Prior uncertainty work
+targets monocular depth~\cite{poggi}, optical flow~\cite{ilg}, or classification---not multi-view
+point-map regression from these models. The field's own survey~\cite{survey3d} flags this as open,
+and the adjacent methods we are aware of train a new head and are concurrent (an evidential
+head~\cite{trust3r_evidential}, an automated-capture module~\cite{auto3r}, 4D-specific
+priors~\cite{robust4d}).
+\item \textbf{A training-free estimator} that requires zero modification or retraining of the base
+model. It therefore transfers across DUSt3R/\mastr/\vggt/\pii\ and to \emph{future} models, and runs
+on one consumer GPU.
+\item \textbf{The alignment-before-variance insight}, which is genuinely 3D-specific. In 2D,
+test-time-augmentation variance can be read off directly; in 3D, each run expresses geometry in its
+own arbitrary frame (the ``gauge,'' \Cref{sec:primer}), so the runs must be \emph{robustly
+registered before} variance is even meaningful. We show this step is the single largest contributor
+to the signal, not an implementation detail.
+\item \textbf{A benchmark, a calibration protocol, and a downstream-utility study in one paper}---
+turning ``here is a number'' into ``here is a trustworthy, useful number, proven on standard data
+with honest negatives.''
+\end{enumerate}
+
+\noindent\textbf{Contrast with the closest neighbours.} The base models' \emph{built-in confidence}
+is a learned loss-weight, not a calibrated uncertainty; we beat it and explain when. \emph{Test-time
+augmentation for uncertainty}~\cite{ayhan,ttaaleatoric} is established for 2D
+classification/segmentation but was never formulated for 3D point maps, which additionally require
+cross-prediction geometric alignment. \emph{Deep ensembles}~\cite{ensembles} and
+\emph{MC-dropout}~\cite{mcdropout} need multiple trained models or dropout layers---neither available
+for a single frozen released checkpoint---whereas we perturb one frozen model at inference.
+
+\subsection{Outcome of the hypotheses}
+\label{sec:hyp-status}
+
+Each hypothesis's outcome is summarized in \Cref{tab:hyp-status}. Reporting the falsified hypothesis
+(H3) and the null downstream result (part of H4) is a deliberate part of the contribution: the value
+of a reliability study is undercut if it hides its own unreliable findings.
+
+\begin{table*}[t]
+\centering\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Hyp. & Claim (abbreviated) & Verdict & Where \\
+\midrule
+H1 & built-in confidence weak / mis-calibrated; headroom exists & Supported & \Cref{sec:rq1} \\
+H2 & perturbation variance (after alignment) beats confidence & Supported (9/12) & \Cref{sec:exp} \\
+H3 & view-permutation stronger for \vggt\ than \pii & \textbf{Falsified} (reversed) & Appendix~\ref{app:negatives} \\
+H4 & uncertainty-guided downstream gain & Mixed: fusion \checkmark, NVS \ding{55} & \Cref{sec:exp}, \Cref{sec:ablations} \\
+\bottomrule
+\end{tabular}
+\caption{Where each hypothesis stands. H1/H2 are supported; H3 is falsified in an informative way
+(the permutation signal is in fact \emph{stronger} on \pii, via leave-one-out subsetting rather than
+shuffling); H4 is mixed---a near-oracle multi-view-fusion gain but no novel-view-synthesis gain.}
+\label{tab:hyp-status}
+\end{table*}

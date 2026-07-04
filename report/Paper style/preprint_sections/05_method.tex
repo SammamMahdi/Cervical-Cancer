@@ -1,0 +1,326 @@
+\section{Method: ReVar3R, derived stage by stage}
+\label{sec:method}
+
+This section builds \trustr\ from first principles. We first state the central idea and why it
+estimates \emph{epistemic} uncertainty (\Cref{sec:method-idea}), then derive each of the five stages,
+pairing every non-obvious design choice with the ablation that justifies it (the ablations
+themselves are reported in full in \Cref{sec:ablations}).
+
+\subsection{The central principle}
+\label{sec:method-idea}
+
+\paragraph{From ensembles to input perturbation.} The gold-standard way to estimate epistemic
+uncertainty is a \emph{deep ensemble}~\cite{ensembles}: train several independent models and use the
+variance of their predictions. Where the models agree, the answer is well-determined (low epistemic
+uncertainty); where they disagree, the data under-determines the answer (high epistemic uncertainty).
+MC-dropout~\cite{mcdropout} is the cheap approximation---keep dropout on at test time and treat each
+stochastic pass as an ensemble member. Neither is available to us: we have a \emph{single} released
+checkpoint, training is off-limits, and the released checkpoints contain no dropout.
+
+Our substitute is to get the diversity from different \emph{but equivalent inputs} rather than
+different weights. If the scene is genuinely unchanged---if the perturbation is
+\emph{geometry-preserving}---then an ideal, fully-confident model would return identical 3D every
+time. Any variation across runs therefore reflects the model's \emph{sensitivity to irrelevant
+changes}: its instability, which is exactly its epistemic uncertainty. We state the principle as:
+
+\begin{quote}
+\emph{Ask the frozen model the same geometric question several times in slightly different but
+equivalent ways; register the answers into one frame; and read off how much they disagree, per point.
+A model that understands the scene answers consistently; a model that is guessing wobbles, and the
+size of the wobble is the uncertainty.}
+\end{quote}
+
+\paragraph{Why this is epistemic, and how we verify it.} A single deterministic forward pass cannot
+report whether its answer would survive a small equivalent change---so input-sensitivity is, by
+construction, a multi-pass property invisible to one pass. We do not merely assert this: in
+\Cref{sec:exp} we train an MLP probe on the model's own frozen features to predict error from a
+single pass, and \trustr\ \emph{beats the trained probe}. It could only do so if the usable signal is
+not a static feature of one pass but a property of the model's behaviour \emph{across} passes---which
+is the mechanistic justification for the whole approach.
+
+\paragraph{Why ``geometry-preserving'' is non-negotiable.} We want any output change to mean ``the
+model is unstable,'' not ``we changed the question.'' So every perturbation must leave the true 3D
+invariant. A brightness or colour jitter changes appearance but not geometry; re-ordering the input
+views does not change the scene at all. A horizontal \emph{flip}, by contrast, mirrors the scene
+(left becomes right) and is therefore \emph{forbidden} (the implementation excludes reflections), as
+is any real viewpoint change. A non-geometry-preserving perturbation \emph{should} change the output,
+and its variance would conflate model instability with an induced geometric change.
+
+\paragraph{Why this is not ``2D test-time augmentation in 3D.''} TTA-for-uncertainty is established
+in 2D: jitter the input, run several times, take the variance of the outputs. In 2D the $N$ augmented
+outputs live in the \emph{same} output space (the same label grid), so their variance is meaningful
+directly. In 3D point maps the $N$ runs live in \emph{incompatible coordinate frames} (the gauge
+ambiguity of \Cref{sec:primer-gauge}); taking their variance directly measures frame mismatch, not
+uncertainty. The load-bearing idea is therefore \emph{alignment-before-variance}: the runs must be
+registered into a common frame \emph{before} variance is taken. This is not bookkeeping---removing it
+nearly doubles the error metric (\Cref{sec:method-align})---and it is what makes 3D point-map
+uncertainty a different problem from 2D TTA. \emph{The contribution is conceptual
+(alignment-before-variance and the epistemic-signal finding), not a perturbation recipe.}
+
+\subsection{The pipeline at a glance}
+\label{sec:method-overview}
+
+\trustr\ produces a calibrated per-point uncertainty from a frozen model in five training-free
+stages---perturb \& predict, align, aggregate, calibrate, fuse---summarized in
+Algorithm~\ref{alg:revar3r} and \Cref{fig:pipeline}. The entire computation is $N$ forward passes of
+a frozen model plus standard array arithmetic; nothing is trained.
+
+\begin{algorithm*}[t]
+\caption{\trustr\ uncertainty (training-free)}
+\label{alg:revar3r}
+\small
+\begin{algorithmic}[1]
+\Require frozen model $f$; views $\{I_v\}_{v=1}^{V}$; samples $N$; families $\mathcal{K}{=}\{\mathrm{photo},\mathrm{view}\}$
+\Ensure calibrated per-point uncertainty $\Uc$
+\For{each family $k \in \mathcal{K}$}
+  \For{$n = 1 \ldots N$}
+    \State $\hat X^{(n)}_k \gets f\big(T^{(n)}_k(\{I_v\})\big)$ \Comment{geometry-preserving perturb $+$ frozen pass}
+    \State canonicalize $\hat X^{(n)}_k$ to the reference view order / pixel grid
+  \EndFor
+  \State register every run to $\hat X^{(1)}_k$ by robust similarity (Umeyama${+}$IRLS)
+  \State $\Um_k(i) \gets \big(\tfrac1N\textstyle\sum_n \lVert p^{(n)}_i - \bar p_i\rVert^2\big)^{1/2}$ \Comment{trace-variance}
+\EndFor
+\State $\Um_{\mathrm{bi}} \gets \max(c) - c$ \Comment{built-in confidence as a 3rd family}
+\State $\Um \gets$ held-out inverse-\ause\ rank fusion of $\{\Um_k\} \cup \{\Um_{\mathrm{bi}}\}$
+\State \Return $\Uc \gets h(\Um)$ \Comment{isotonic calibration on a held-out split}
+\end{algorithmic}
+\end{algorithm*}
+
+\subsection{Stage A --- geometry-preserving perturbations}
+\label{sec:method-perturb}
+
+We run $f$ a total of $N{=}5$ times per family under perturbations $T$ that leave the underlying 3D
+invariant. Four families probe complementary axes of sensitivity; the two we deploy in the headline
+estimator are photometric and view-permutation.
+
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt,topsep=2pt]
+\item \textbf{Photometric.} Brightness/contrast/gamma and colour jitter plus mild Gaussian
+noise/blur. Probes \emph{appearance} sensitivity (``does the geometry wobble if the lighting
+changes?''). The pixel grid is unchanged, so per-pixel correspondence across runs is exact and no
+inverse warp is needed.
+\item \textbf{Geometric.} A small \emph{in-plane} affine (rotation $\pm 6^\circ$, zoom $\pm 0.15$,
+scaled by strength) about the image centre, with reflect-padding and \emph{no flips}; the per-view
+inverse affine is stored and undone before aggregation. Probes a complementary in-plane axis.
+\item \textbf{MC / latent-noise.} Stronger additive input-image noise ($\approx 3\times$ photometric)
+as a deliberately simple, fixed-magnitude stand-in for MC-dropout (the checkpoints have no dropout, so
+the input is the only stochastic surface available without retraining). It is a \emph{baseline}, not
+a tuned competitor.
+\item \textbf{Input-view permutation / subset.} Manipulates only the \emph{list of input views}:
+\emph{shuffle} re-orders all views, \emph{subset} additionally drops one (leave-one-out). This is the
+key 3D-native probe, and its behaviour depends on architecture (\Cref{sec:primer-gauge}): for a
+reference-dependent model (\vggt, \mastr) changing which view is ``first'' changes the gauge anchor
+and surfaces instability; for the permutation-equivariant \pii, re-ordering is \emph{inert} by
+construction, so any signal must come from \emph{subset} (which genuinely changes coverage). Dropped
+views are filled with NaN so the aggregator ignores them rather than mistaking absence for agreement.
+\end{itemize}
+
+\paragraph{The recipe is not tuned.} Two ablations show the perturbation design is not a sensitive
+hyper-parameter. The method is essentially \emph{insensitive} to photometric strength
+(\ause\ varies by $\approx 0.01$ across low/medium/high; A4), and no single family is best across
+cells---the fusion of families beats every single family (A2). The one knob that genuinely matters is
+the next stage.
+
+\subsection{Stage B --- alignment before variance (the crux)}
+\label{sec:method-align}
+
+This is the most important stage. Each run $\hat X^{(n)}$ expresses geometry in its own gauge
+(\Cref{sec:primer-gauge}), so taking per-pixel variance now would be dominated by a \emph{common-mode}
+offset---the same scale/rotation/translation difference at every pixel---which has nothing to do with
+point-specific uncertainty and swamps the real signal. We therefore register every run onto a common
+reference (run~$1$) before any variance.
+
+\paragraph{Registration is a least-squares similarity fit.} Given a source point set $\{p_i\}$ (run
+$n$) and a reference $\{p_i^{\mathrm{ref}}\}$ (run $1$), with pixel-identity correspondence, we seek
+the scale $s$, rotation $R\in SO(3)$, and translation $t$ minimizing
+\begin{equation}
+\textstyle \sum_i w_i \, \big\lVert\, sR\,p_i + t - p_i^{\mathrm{ref}} \,\big\rVert^2 .
+\label{eq:umeyama-obj}
+\end{equation}
+Umeyama's closed form~\cite{umeyama} solves the unweighted problem exactly: centre both clouds
+($\bar p,\bar q$), form the $3{\times}3$ cross-covariance $\Sigma = \tfrac1n\sum_i (q_i{-}\bar q)(p_i
+{-}\bar p)^{\!\top}$, take its SVD $\Sigma = U D V^{\!\top}$, and set
+\begin{equation}
+R = U S V^{\!\top},\quad
+s = \tfrac{1}{\sigma_p^2}\,\tr(D S),\quad
+t = \bar q - sR\,\bar p,
+\label{eq:umeyama-sol}
+\end{equation}
+where $\sigma_p^2 = \tfrac1n\sum_i\lVert p_i-\bar p\rVert^2$ and $S = I$ unless
+$\det(U)\det(V) < 0$, in which case $S = \mathrm{diag}(1,1,-1)$. This \emph{reflection guard} is
+essential: without it the ``optimal'' transform could be a reflection ($\det R = -1$), mirroring the
+scene---geometrically wrong. Intuitively, the cross-covariance encodes how the two centred clouds are
+rotated relative to one another; the SVD extracts that rotation, and the scale falls out as the ratio
+of the source's spread in the rotated frame to its own spread.
+
+\paragraph{Why a robust fit is non-negotiable.} Plain least-squares is dominated by the
+\emph{largest} residuals---but the largest residuals are exactly the high-uncertainty points we are
+trying to \emph{detect}. If they drag the fit, the alignment is biased and their error is smeared
+onto the good points, destroying the signal. We therefore wrap Umeyama in iteratively re-weighted
+least squares with a Cauchy loss (Algorithm~\ref{alg:align}): each iteration forms Cauchy weights
+$w_i = \big(1+(r_i/\sigma)^2\big)^{-1}$ on the residual $r_i$ (a point at $10\times$ the typical
+residual receives $\approx\tfrac{1}{100}$ the weight), drops the worst $10\%$, and refits, for five
+iterations. Because a $7$-DoF transform is wildly over-determined by hundreds of thousands of points,
+the fit uses a deterministic random subsample ($\le 8000$ points) and is applied to all
+points---statistically identical and far faster.
+
+\begin{algorithm*}[t]
+\caption{Robust gauge alignment (Umeyama ${+}$ IRLS)}
+\label{alg:align}
+\small
+\begin{algorithmic}[1]
+\Require source $\{p_i\}$, reference $\{p_i^{\mathrm{ref}}\}$; iterations $K$; drop fraction $\delta{=}0.1$
+\Ensure similarity $(s,R,t)$ mapping source $\to$ reference
+\State $(s,R,t) \gets$ Umeyama closed form on all pairs \Comment{least-squares init}
+\For{$k = 1 \ldots K$}
+  \State $r_i \gets \lVert sR\,p_i + t - p_i^{\mathrm{ref}}\rVert$ \Comment{residuals}
+  \State discard the worst $\lceil \delta n \rceil$ points by $r_i$
+  \State $w_i \gets \big(1 + (r_i/\sigma)^2\big)^{-1}$ \Comment{Cauchy weights, $\sigma$ MAD-scaled}
+  \State $(s,R,t) \gets$ weighted Umeyama on the kept points
+\EndFor
+\State \Return $(s,R,t)$ \Comment{applied to \emph{all} points}
+\end{algorithmic}
+\end{algorithm*}
+
+\paragraph{The ablation that proves it is the crux.} Switching the alignment method among
+$\{\text{none},\,\text{Umeyama},\,\text{robust}\}$ is ablation A7, and it is the single largest swing
+in the entire study: \emph{no} alignment gives \ause\ $0.715$ (near-random); plain Umeyama
+$0.583$; robust Umeyama $0.496$. Removing alignment nearly doubles the error metric, because
+un-aligned variance measures gauge mismatch. This is the empirical proof that
+alignment-before-variance is the method, not a detail.
+
+\subsection{Stage C --- aggregation}
+\label{sec:method-agg}
+
+After alignment the $N$ runs of each canonical pixel $i$ share one frame and cluster around a
+centroid $\bar p_i$. We collapse that cluster into one scalar, the \emph{trace-variance}
+\begin{equation}
+\Um_i \;=\; \Big(\tfrac1N\textstyle\sum_{n}\lVert p_i^{(n)}-\bar p_i\rVert^2\Big)^{1/2},
+\label{eq:tracevar}
+\end{equation}
+the root-mean-square distance of the $N$ runs from their mean---equivalently, the square root of the
+trace of the per-pixel sample covariance, hence the name. It captures the total spatial spread
+regardless of direction, and is computed NaN-aware so a dropped view is ignored rather than counted
+as zero disagreement. Two ablations justify the choice: trace-variance beats the median-absolute-
+deviation (more robust but discards magnitude) and the largest-eigenvalue (captures only the dominant
+direction of disagreement) variants (A5); and measuring spread in native 3D-point space beats
+measuring it in depth or disparity space by a wide margin (A6: point $\gg$ depth $\gg$ disparity).
+
+\subsection{Stage D --- calibration}
+\label{sec:method-calib}
+
+After Stage C the raw spread $\Um$ \emph{ranks} points well but has arbitrary units---it is not yet a
+probability or an interval. Calibration learns a monotone map $\Uc = h(\Um)$ so that the reported
+uncertainty matches the observed error frequencies. Two properties frame it. First, $h$ is fit
+\emph{per base-model on a held-out split}, never on the points it scores (no leakage). Second,
+because $h$ is monotone it \emph{cannot change the ranking}, so it cannot change \ause\ or Spearman;
+it moves only \ece. This is exactly why we report both---one judges ordering, the other magnitudes.
+
+We use \emph{isotonic regression}: the best non-decreasing fit to the $(\text{raw},|\text{error}|)$
+pairs, computed by the Pool-Adjacent-Violators algorithm (walk left to right, merging any adjacent
+pair that violates monotonicity into their average until the sequence is non-decreasing). It can
+match \emph{any} monotone shape of the error-versus-uncertainty relationship yet cannot overfit the
+ordering, and it cuts \ece\ roughly $3\times$ on the raw single-family signal. The alternative,
+temperature scaling (a single scalar $\tau$ with $\sigma=\tau\Um$), can only rescale, not re-shape,
+and the ablation shows it actually \emph{hurts}---worse than no calibration---because the raw signal
+is mis-\emph{shaped}, not merely mis-\emph{scaled} (A8: isotonic \ece\ $0.094$ versus temperature
+$0.372$ versus none $0.296$).
+
+\paragraph{How much ground truth does calibration actually need?} This is the natural objection, and
+we answer it precisely (the full study is \Cref{sec:abl-calib}). Ranking---\ause\ and the
+fusion---needs \emph{no} ground truth. The registered cross-run spread is a faithful rank predictor
+but systematically \emph{under}-estimates the absolute error magnitude (it measures epistemic
+input-sensitivity, not total error), so as a raw $\sigma$ with no ground truth it is maximally
+mis-calibrated (\ece\ $\approx 0.50$). A \emph{single global scale}, estimable from any small labelled
+sample, removes that bias and recovers most of the calibration (mean \ece\ $0.50\to0.14$); a small
+held-out isotonic split refines it to $0.08$. \textbf{The method's ground-truth requirement therefore
+collapses to one scalar for absolute coverage}, and the ranking is entirely ground-truth-free.
+
+\subsection{Stage E --- held-out rank-weighted fusion}
+\label{sec:method-fuse}
+
+Different families are not equally informative---view-permutation is gold for \vggt\ but near-inert
+for \pii---so a naive average lets a weak or mis-scaled family drag down a strong one. The fix has
+three parts (Algorithm~\ref{alg:fuse}).
+
+\emph{(1) Fuse in rank space.} Map each family's per-pixel uncertainties to their $[0,1]$ rank
+$r_k(i)$ (order only). This makes the fusion immune to a pathological scale or heavy tail in any one
+family---a family rescaled by $10^6$ cannot dominate, because only its ordering enters.
+
+\emph{(2) Weight by held-out competence.} Give a family more say if it ranks error well:
+\begin{equation}
+\Uc_i \;=\; \sum_k w_k\, r_k(i), \qquad
+w_k \;\propto\; \big(\mathrm{AUSE}_k + \epsilon\big)^{-2},
+\label{eq:fusion}
+\end{equation}
+normalized so $\sum_k w_k = 1$, where $\mathrm{AUSE}_k$ is family $k$'s sparsification error on a
+held-out split (the sharpening power $2$ is mild). A family that is useless on a given model---e.g.\
+view-shuffle on the equivariant \pii---earns \ause\ $\approx$ random and weight $\approx 0$
+automatically. The same method therefore adapts to each architecture with no manual tuning, and the
+\emph{fitted} weight on the view-perm family (high for \vggt/\mastr, $\approx 0$ for \pii) is itself
+the clean RQ3 finding (\Cref{sec:exp-arch}).
+
+\emph{(3) Include the built-in confidence as a third candidate family.} The headline estimator fuses
+\emph{three} families---photometric, view-perm, and the built-in confidence $\max(c)-c$---all under
+the same held-out inverse-\ause\ scheme. Because the built-in confidence is just another candidate,
+the fusion never collapses far below it on a cell where it is genuinely good, and it \emph{recovers}
+the one cell (\pii/DTU) where the perturbation families alone narrowly lose---lifting the headline
+from $8/12$ to $9/12$ significant wins.
+
+\begin{algorithm*}[t]
+\caption{Held-out inverse-\ause\ rank fusion}
+\label{alg:fuse}
+\small
+\begin{algorithmic}[1]
+\Require family uncertainties $\{\Um_k\}$ over view-sets $\mathcal{S}$; per-point error $e$
+\Ensure fused per-point uncertainty $\Um$
+\State split $\mathcal{S}$ into two folds $\mathcal{S}_0, \mathcal{S}_1$
+\For{$(\mathrm{tr},\mathrm{te}) \in \{(\mathcal{S}_0,\mathcal{S}_1),(\mathcal{S}_1,\mathcal{S}_0)\}$}
+  \For{each family $k$}
+    \State $a_k \gets \ause(e, \Um_k)$ on $\mathrm{tr}$ \Comment{competence; never sees \texttt{te}}
+  \EndFor
+  \State $w_k \propto 1/(a_k + \epsilon)^2$, normalized so $\textstyle\sum_k w_k = 1$
+  \State on $\mathrm{te}$: $\Um(i) \gets \sum_k w_k\, r_k(i)$, \; $r_k(i){=}\mathrm{rank}\,\Um_k(i)$
+\EndFor
+\State \Return $\Um$
+\end{algorithmic}
+\end{algorithm*}
+
+\paragraph{Is the comparison circular?} Including the built-in confidence as a fusion family invites
+the worry that beating that same confidence is rigged. It is not, and we prove it in
+\Cref{sec:abl-fusion}: a held-out fusion of the two \emph{perturbation} families alone---built-in
+removed entirely---already significantly beats the built-in baseline on $8$ of $12$ cells; adding the
+built-in family reaches $9/12$ only by recovering \pii/DTU. The training-free perturbation signal
+carries the result on its own (this is review question Q3). The held-out weighting closely tracks a
+simple equal average but is never worse (A12), so we adopt it as the principled, leakage-free default.
+The whole estimator uses $\le 10$ forward passes and fits in $16$\,GB.
+
+\subsection{Design rationale at a glance}
+\label{sec:method-rationale}
+
+\Cref{tab:rationale} consolidates every non-obvious choice, the alternative we considered, the reason
+ours wins, and the ablation that backs it---so that each decision in the pipeline is auditable.
+
+\begin{table*}[t]
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\adjustbox{max width=\textwidth}{%
+\begin{tabular}{@{}p{3.1cm}p{2.9cm}p{5.4cm}p{3.1cm}@{}}
+\toprule
+Choice & Alternative & Why ours wins & Evidence \\
+\midrule
+Align runs \emph{before} variance & variance directly (2D-TTA style) & runs are in different gauges; naive variance measures frame mismatch & A7: $0.715\!\to\!0.496$ (largest swing) \\
+\emph{Robust} (IRLS+Cauchy) align & plain least-squares Umeyama & LS is dragged by the high-error points we want to detect & A7: $0.583\!\to\!0.496$ \\
+Spread in \emph{3D-point} space & depth or disparity space & native 3D coordinates carry the most error signal & A6: point $\gg$ depth $\gg$ disp.\ \\
+\emph{Trace-variance} aggregator & MAD, max-eigenvalue & total spread beats robust-but-lossy / direction-only & A5: trace best \\
+\emph{Multiple} families & any single family & no single family is best across cells & A2: fused $<$ every single \\
+\emph{Rank-space} fusion & z-norm average & immune to scale blow-ups (fixed a DTU collapse) & unit test + DTU history \\
+\emph{Held-out inverse-\ause} weights & equal weights & adapts per architecture; recovers \pii/DTU; leakage-free & 9/12 vs 8/12 \\
+Add built-in confidence (\,$\beta$\,) & perturbations only & never collapses below a good confidence; recovers \pii/DTU & 8/12 $\to$ 9/12 (Q3) \\
+\emph{Isotonic} calibration & temperature scaling & signal is mis-\emph{shaped}, not mis-\emph{scaled} & A8: $0.094$ vs $0.372$ \\
+$N{=}5$ passes & fewer / more & quality knee; $N{=}3$ already $\approx 93\%$ of the gain & A3 saturates by $5$ \\
+\bottomrule
+\end{tabular}}
+\caption{Every non-obvious design choice, its alternative, the reason, and the ablation that backs
+it. \ause\ numbers are \vggt/7-Scenes (\Cref{sec:ablations}).}
+\label{tab:rationale}
+\end{table*}

@@ -1,0 +1,202 @@
+{
+  "sipakmed": {
+    "dataset": "sipakmed",
+    "n_items": 4049,
+    "native_classes": {
+      "Superficial-Intermediate": 831,
+      "Koilocytotic": 825,
+      "Dyskeratotic": 813,
+      "Metaplastic": 793,
+      "Parabasal": 787
+    },
+    "e0_coverage": {
+      "normal": 2411,
+      "abnormal": 1638,
+      "excluded": 0,
+      "excluded_fraction": 0.0
+    },
+    "size_stats": {
+      "sampled": 400,
+      "corrupt_or_zero": 0,
+      "width": {
+        "min": 71,
+        "max": 513,
+        "mean": 217.6,
+        "median": 196
+      },
+      "height": {
+        "min": 59,
+        "max": 436,
+        "mean": 188.9,
+        "median": 163
+      },
+      "formats": {
+        ".bmp": 400
+      }
+    }
+  },
+  "herlev": {
+    "dataset": "herlev",
+    "n_items": 917,
+    "native_classes": {
+      "severe_dysplastic": 197,
+      "light_dysplastic": 182,
+      "carcinoma_in_situ": 150,
+      "moderate_dysplastic": 146,
+      "normal_columnar": 98,
+      "normal_superficiel": 74,
+      "normal_intermediate": 70
+    },
+    "e0_coverage": {
+      "normal": 144,
+      "abnormal": 675,
+      "excluded": 98,
+      "excluded_fraction": 0.1069
+    },
+    "size_stats": {
+      "sampled": 400,
+      "corrupt_or_zero": 0,
+      "width": {
+        "min": 42,
+        "max": 768,
+        "mean": 152.7,
+        "median": 121
+      },
+      "height": {
+        "min": 41,
+        "max": 439,
+        "mean": 139.7,
+        "median": 109
+      },
+      "formats": {
+        ".bmp": 400
+      }
+    }
+  },
+  "apacc": {
+    "dataset": "apacc",
+    "n_items": 1125,
+    "native_classes": {
+      "healthy": 576,
+      "unhealthy": 549
+    },
+    "e0_coverage": {
+      "normal": 576,
+      "abnormal": 549,
+      "excluded": 0,
+      "excluded_fraction": 0.0
+    },
+    "size_stats": {
+      "sampled": 400,
+      "corrupt_or_zero": 0,
+      "width": {
+        "min": 130,
+        "max": 645,
+        "mean": 326.3,
+        "median": 327
+      },
+      "height": {
+        "min": 110,
+        "max": 847,
+        "mean": 339.1,
+        "median": 337
+      },
+      "formats": {
+        ".png": 400
+      }
+    }
+  },
+  "hicervix": {
+    "dataset": "hicervix",
+    "n_items": 8051,
+    "native_classes": {
+      "negative": 2996,
+      "ASC": 1827,
+      "AGC": 1639,
+      "microbe": 1589
+    },
+    "e0_coverage": {
+      "normal": 2996,
+      "abnormal": 1827,
+      "excluded": 3228,
+      "excluded_fraction": 0.4009
+    },
+    "size_stats": {
+      "sampled": 400,
+      "corrupt_or_zero": 0,
+      "width": {
+        "min": 97,
+        "max": 3220,
+        "mean": 730.9,
+        "median": 585
+      },
+      "height": {
+        "min": 78,
+        "max": 2160,
+        "mean": 678.6,
+        "median": 538
+      },
+      "formats": {
+        ".jpg": 400
+      }
+    }
+  },
+  "cric": {
+    "dataset": "cric",
+    "n_items": 11534,
+    "native_classes": {
+      "Negative for intraepithelial lesion": 6779,
+      "HSIL": 1703,
+      "LSIL": 1360,
+      "ASC-H": 925,
+      "ASC-US": 606,
+      "SCC": 161
+    },
+    "e0_coverage": {
+      "normal": 6779,
+      "abnormal": 4755,
+      "excluded": 0,
+      "excluded_fraction": 0.0
+    },
+    "size_stats": {
+      "sampled": 400,
+      "corrupt_or_zero": 0,
+      "width": {
+        "min": 1376,
+        "max": 1376,
+        "mean": 1376.0,
+        "median": 1376
+      },
+      "height": {
+        "min": 1020,
+        "max": 1020,
+        "mean": 1020.0,
+        "median": 1020
+      },
+      "formats": {
+        ".png": 400
+      }
+    }
+  },
+  "sipakmed_clusters": {
+    "n_cells": 4049,
+    "n_clusters": 966,
+    "cells_per_class": {
+      "Superficial-Intermediate": 831,
+      "Parabasal": 787,
+      "Metaplastic": 793,
+      "Koilocytotic": 825,
+      "Dyskeratotic": 813
+    },
+    "clusters_per_class": {
+      "Metaplastic": 271,
+      "Koilocytotic": 238,
+      "Dyskeratotic": 223,
+      "Parabasal": 108,
+      "Superficial-Intermediate": 126
+    },
+    "cells_per_cluster_min": 1,
+    "cells_per_cluster_max": 26,
+    "cells_per_cluster_mean": 4.19
+  }
+}

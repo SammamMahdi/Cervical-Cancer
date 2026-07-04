@@ -1,0 +1,19 @@
+{
+  "dataset": "herlev",
+  "n": 917,
+  "accuracy": 0.6390403489640131,
+  "balanced_accuracy": 0.6514355677992041,
+  "sensitivity": 0.6251851851851852,
+  "specificity": 0.6776859504132231,
+  "auroc": 0.727517600244873,
+  "confusion_matrix": [
+    [
+      164,
+      78
+    ],
+    [
+      253,
+      422
+    ]
+  ]
+}

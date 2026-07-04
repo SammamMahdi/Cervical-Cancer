@@ -1,0 +1,58 @@
+{
+  "run_id": "20260623_102008",
+  "started": "2026-06-23T10:20:08",
+  "ended": null,
+  "config": {
+    "split": "cluster-grouped 80/10/10",
+    "img_size": 224,
+    "teacher_img_size": 380,
+    "batch_size": 64,
+    "ema": true,
+    "teacher": {
+      "backbone": "efficientnet_b4",
+      "hidden": 512,
+      "dropout": 0.4,
+      "stage1": {
+        "lr": 0.001,
+        "epochs": 50,
+        "patience": 8
+      },
+      "stage2": {
+        "lr": 1e-05,
+        "epochs": 120,
+        "patience": 10
+      },
+      "reduce_lr": {
+        "factor": 0.3,
+        "patience": 4,
+        "min_lr": 1e-07
+      },
+      "optimizer": "adamw",
+      "weight_decay": 0.0001,
+      "label_smoothing": 0.05
+    },
+    "student": {
+      "backbone": "efficientnet_b0",
+      "hidden": 512,
+      "dropout": 0.3,
+      "lr": 0.0005,
+      "epochs": 60,
+      "patience": 10,
+      "optimizer": "adamw",
+      "weight_decay": 0.0001,
+      "label_smoothing": 0.05,
+      "temperature": 4.0,
+      "alpha": 0.5
+    },
+    "distill": true,
+    "kd_mode": "fixed",
+    "imbalance": "weights",
+    "aug": "photometric",
+    "teacher_backbone": "efficientnet_b4",
+    "student_backbone": "ccannet",
+    "smoke": false
+  },
+  "stages": {},
+  "events": [],
+  "final": null
+}

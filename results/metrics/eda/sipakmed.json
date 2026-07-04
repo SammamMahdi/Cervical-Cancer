@@ -1,0 +1,36 @@
+{
+  "dataset": "sipakmed",
+  "n_items": 4049,
+  "native_classes": {
+    "Superficial-Intermediate": 831,
+    "Koilocytotic": 825,
+    "Dyskeratotic": 813,
+    "Metaplastic": 793,
+    "Parabasal": 787
+  },
+  "e0_coverage": {
+    "normal": 2411,
+    "abnormal": 1638,
+    "excluded": 0,
+    "excluded_fraction": 0.0
+  },
+  "size_stats": {
+    "sampled": 400,
+    "corrupt_or_zero": 0,
+    "width": {
+      "min": 71,
+      "max": 513,
+      "mean": 217.6,
+      "median": 196
+    },
+    "height": {
+      "min": 59,
+      "max": 436,
+      "mean": 188.9,
+      "median": 163
+    },
+    "formats": {
+      ".bmp": 400
+    }
+  }
+}

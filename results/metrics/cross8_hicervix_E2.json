@@ -1,0 +1,28 @@
+{
+  "task": "E2_nonsquamous",
+  "n": 8051,
+  "n_pos": 3228,
+  "n_neg": 4823,
+  "excluded": 0,
+  "nonsquamous_leaves": [
+    5,
+    6,
+    7
+  ],
+  "auroc": 0.9561240529361452,
+  "accuracy": 0.8879642280462055,
+  "balanced_accuracy": 0.8817994039814899,
+  "sensitivity": 0.8506815365551424,
+  "specificity": 0.9129172714078374,
+  "confusion_matrix": [
+    [
+      4403,
+      420
+    ],
+    [
+      482,
+      2746
+    ]
+  ],
+  "threshold": 0.5
+}

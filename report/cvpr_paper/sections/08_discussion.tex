@@ -1,0 +1,39 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\noindent\textbf{The distillation paradox.} The student is \emph{smaller and stronger} than its
+teacher in-distribution ($0.966$ vs.\ $0.943$, every metric; \cref{tab:indist}) yet \emph{no more
+robust} out-of-distribution (both collapse under the same domain shift). Distillation here acts as a
+regulariser---the temperature-softened teacher targets smooth the student's decision surface on the
+training distribution---but it transfers the teacher's \emph{inductive biases}, including its reliance
+on preparation-entangled features. Compression bought accuracy and efficiency, not generalisation. A
+practitioner who reads only the in-distribution number would deploy a model that is wrong more often
+than a constant predictor on two of three external sites.
+
+\noindent\textbf{Why a single in-distribution metric misleads.} Three numbers that look reassuring in
+isolation each hide the failure: accuracy ($0.966$) is inflated by field-of-view leakage; ECE
+(binary $0.008$ in-distribution) is domain-local and balloons to $0.22$--$0.33$ under shift; and AUROC
+stays $>0.5$ externally even where
+\emph{accuracy is below the majority baseline}, so a threshold-free metric alone would also mislead in
+the opposite direction. The collapse is only visible when these are read \emph{together} and
+\emph{per-domain}---which is the audit protocol we advocate.
+
+\noindent\textbf{What would actually help.} Our diagnosis points to specific, testable remedies rather
+than generic ``train on more data''. (i) \textbf{Per-domain threshold calibration:} the oracle analysis
+shows a single re-tuned $\tau$ recovers $0.75$/$0.65$ on \herlev/\hicervix, so even a handful of
+labelled target cells would substantially help where ranking signal survives. (ii)
+\textbf{Preparation-invariant features:} stain normalisation~\cite{macenko2009stain} and
+preparation-aware augmentation to break the shortcut~\cite{geirhos2020shortcut}. (iii)
+\textbf{Leakage-safe evaluation:} cluster-grouped splits so the internal number is honest from the
+start. (iv) \textbf{Report the floor:} always print the majority baseline next to accuracy, so a
+below-baseline operating point cannot hide.
+
+\noindent\textbf{Limitations.} We audit one architecture family (EfficientNet) and one training
+source (\sipakmed); the \emph{magnitude} of collapse may differ for other backbones, though the
+mechanism---non-transferable operating point plus preparation shortcut---is general. The oracle
+thresholds are computed on the test set and are an \emph{upper bound} on what calibration could
+recover, not a deployable result. The binary crosswalk, while deterministic and documented, discards
+glandular and out-of-scope cells; we report that excluded fraction but do not evaluate on them. Grad-CAM
+is a localisation, not a faithfulness, guarantee. None of these qualifies the central finding: strong
+internal numbers do not imply cross-site readiness, and the gap is measurable and mechanistically
+explainable.

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "efficientnet_b0",
+    "params_M": 4.014,
+    "flops_G": null,
+    "latency_ms": 7.9477,
+    "throughput_img_s": 125.8218,
+    "peak_vram_mb": 36.9111
+  },
+  {
+    "name": "student",
+    "params_M": 4.6685,
+    "flops_G": 0.4096,
+    "latency_ms": 5.3807,
+    "throughput_img_s": 185.8485,
+    "peak_vram_mb": 59.4565
+  },
+  {
+    "name": "student",
+    "params_M": 4.6685,
+    "flops_G": 0.4096,
+    "latency_ms": 5.394,
+    "throughput_img_s": 185.3923,
+    "peak_vram_mb": 209.1904
+  },
+  {
+    "name": "student",
+    "params_M": 4.6685,
+    "flops_G": 0.4096,
+    "latency_ms": 6.0852,
+    "throughput_img_s": 164.3325,
+    "peak_vram_mb": 59.4565
+  },
+  {
+    "name": "student_cmp_ccannet",
+    "params_M": 2.0459,
+    "flops_G": 3.5443,
+    "latency_ms": 1.098,
+    "throughput_img_s": 910.7186,
+    "peak_vram_mb": 341.1092
+  },
+  {
+    "name": "ccannet",
+    "params_M": 2.0459,
+    "flops_G": 3.5443,
+    "latency_ms": 1.1077,
+    "throughput_img_s": 902.7536,
+    "peak_vram_mb": 349.9725
+  }
+]

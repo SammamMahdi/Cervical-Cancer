@@ -1,0 +1,33 @@
+{
+  "dataset": "apacc",
+  "n_items": 1125,
+  "native_classes": {
+    "healthy": 576,
+    "unhealthy": 549
+  },
+  "e0_coverage": {
+    "normal": 576,
+    "abnormal": 549,
+    "excluded": 0,
+    "excluded_fraction": 0.0
+  },
+  "size_stats": {
+    "sampled": 400,
+    "corrupt_or_zero": 0,
+    "width": {
+      "min": 130,
+      "max": 645,
+      "mean": 326.3,
+      "median": 327
+    },
+    "height": {
+      "min": 110,
+      "max": 847,
+      "mean": 339.1,
+      "median": 337
+    },
+    "formats": {
+      ".png": 400
+    }
+  }
+}

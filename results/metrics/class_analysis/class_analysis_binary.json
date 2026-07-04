@@ -1,0 +1,83 @@
+{
+  "tag": "binary",
+  "n": 4049,
+  "n_features": 53,
+  "classes": [
+    "Normal",
+    "Abnormal"
+  ],
+  "silhouette": 0.0949,
+  "per_class_silhouette": {
+    "Normal": 0.1089,
+    "Abnormal": 0.0743
+  },
+  "n_significant_features_q05": 50,
+  "top_relevant_features": [
+    {
+      "feature": "cytoplasm_minoraxis",
+      "effect_size": 0.723,
+      "q": 0.0
+    },
+    {
+      "feature": "cytoplasm_equivdiameter",
+      "effect_size": 0.718,
+      "q": 0.0
+    },
+    {
+      "feature": "cytoplasm_area",
+      "effect_size": 0.718,
+      "q": 0.0
+    },
+    {
+      "feature": "cytoplasm_majoraxis",
+      "effect_size": 0.672,
+      "q": 0.0
+    },
+    {
+      "feature": "nucleus_i1_mean",
+      "effect_size": 0.637,
+      "q": 0.0
+    },
+    {
+      "feature": "cytoplasm_i1_mean",
+      "effect_size": 0.628,
+      "q": 0.0
+    },
+    {
+      "feature": "cytoplasm_solidity",
+      "effect_size": 0.573,
+      "q": 0.0
+    },
+    {
+      "feature": "nc_ratio",
+      "effect_size": 0.57,
+      "q": 0.0
+    },
+    {
+      "feature": "cytoplasm_extent",
+      "effect_size": 0.563,
+      "q": 0.0
+    },
+    {
+      "feature": "nucleus_extent",
+      "effect_size": 0.498,
+      "q": 0.0
+    }
+  ],
+  "defining_features_per_class": {
+    "Normal": [
+      "cytoplasm_equivdiameter (+)",
+      "cytoplasm_minoraxis (+)",
+      "cytoplasm_i1_mean (+)",
+      "nucleus_i1_mean (+)",
+      "cytoplasm_majoraxis (+)"
+    ],
+    "Abnormal": [
+      "cytoplasm_equivdiameter (-)",
+      "cytoplasm_minoraxis (-)",
+      "cytoplasm_i1_mean (-)",
+      "nucleus_i1_mean (-)",
+      "cytoplasm_majoraxis (-)"
+    ]
+  }
+}

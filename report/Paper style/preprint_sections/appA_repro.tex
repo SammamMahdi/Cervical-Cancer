@@ -1,0 +1,53 @@
+\section{Protocol and reproducibility}
+\label{app:repro}
+
+\paragraph{Hardware / software.} All experiments run on a single NVIDIA RTX 5060 Ti (16\,GB,
+Blackwell sm\_120), PyTorch 2.11 + CUDA 12.8, bfloat16, on a host capped at ${\sim}7$\,GiB RAM. A full
+\trustr\ uncertainty map is $N{=}5$ forward passes per family; peak VRAM $\approx 11$\,GB.
+
+\paragraph{Models.} \vggt-1B (\texttt{facebook/VGGT-1B}), \pii\ (\texttt{yyfz233/Pi3X}), and \mastr\
+(metric checkpoint). \mastr\ is pairwise; we obtain a common frame by \emph{anchored-pairwise}
+inference (pair view-0 with each other view and read every point map in view-0's frame), avoiding
+global alignment. View-0 anchors every pair and is thus the most constrained view; perturbation
+variance is computed identically for anchor and non-anchor views, and we report per-view results
+including the anchor.
+
+\paragraph{Configuration.} $5$ input views, $N{=}5$ samples, $518$\,px, robust-Umeyama alignment
+(IRLS, $5$ iterations, Cauchy weights, drop worst $10\%$, fit on an $8$k-point subsample;
+Algorithm~\ref{alg:align}), trace-variance aggregation in 3D-point space, isotonic calibration fit per
+model on a held-out split, held-out inverse-\ause\ rank fusion of the photometric and view-perm
+families together with the built-in confidence.
+
+\paragraph{Perturbations.} Photometric: brightness/contrast/gamma and colour jitter, mild Gaussian
+noise and blur (medium strength; strength is ablated, \Cref{sec:abl-rest}). View-perm: random
+re-ordering and leave-one-out/subset resampling of the input views.
+
+\paragraph{Correspondence and masking.} Uncertainty is a per-pixel quantity in each input view's own
+image grid, so correspondences across the $N$ perturbed runs are pixel identity within a view, not
+feature matches. Before aggregation each perturbed prediction is mapped back to the canonical view
+order and pixel grid: photometric/MC jitter leave the grid unchanged (identity); the geometric family
+applies its stored inverse affine; the view-permutation family re-indexes the views, filling any view
+dropped by a leave-one-out sample with NaN so it never contributes to that pixel's variance. The $N$
+canonicalized point maps are registered to the first sample by the same robust similarity and reduced
+by NaN-aware trace-variance; a pixel with fewer than two finite samples is set to the per-map maximum
+(a conservative ``maximally uncertain'' fill). For error, the prediction is aligned to GT by a
+gauge-freeing robust similarity over pixels with valid GT only; a view with fewer than $50$ valid
+pixels is dropped, and the same $\ge\!50$-correspondence floor guards every similarity/scale fit (it
+falls back to identity below it). Built-in confidence enters as uncertainty $\max(c)-c$.
+
+\paragraph{Evaluation.} Per-point error is computed after a gauge-freeing robust similarity alignment
+of the prediction to GT. Every number is the mean over $3$ seeds; significance is a paired Wilcoxon
+signed-rank test over view-sets. Each figure reports the oracle (error-sorted) and random references.
+
+\paragraph{A verified metric/geometry core.} Before any real result is trusted, the metrics and
+geometry are proven on synthetic data with known answers (fixed seed, runnable unit tests): the
+oracle ranking yields \ause\ $\approx 0$; a useless signal yields $\approx 0$ \aurg; the Umeyama
+solver inverts a clean transform to $<10^{-6}$; the robust variant recovers the transform with $10\%$
+gross outliers (the exact A7 failure mode); the aggregator recovers an injected spread; and rank
+fusion is provably immune to a family rescaled by $10^6$ (the precise reason rank fusion replaced an
+earlier z-normalized fusion that collapsed on DTU). Every number rests on a metric/geometry core
+independently verified on inputs with known ground truth.
+
+\paragraph{Single source of truth.} All knobs live in one \texttt{base.yaml}; every paper table is
+generated directly from per-run CSVs (no hand-typed numbers). Code, configs, and figure/table scripts
+will be released.

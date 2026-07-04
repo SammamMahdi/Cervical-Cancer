@@ -1,0 +1,290 @@
+{
+  "tag": "student_wave2b_smoke",
+  "checkpoint": "F:\\Cervaical Cancer\\results\\checkpoints\\student_wave2b_smoke.pt",
+  "n_leaves": 8,
+  "backbone": "efficientnet_b0",
+  "abnormal_leaves": [
+    3,
+    4,
+    5,
+    7
+  ],
+  "nonsquamous_leaves": [
+    5,
+    6,
+    7
+  ],
+  "threshold": 0.5,
+  "cross_E0": {
+    "herlev": {
+      "dataset": "herlev",
+      "tier": "E0",
+      "head": "8leaf",
+      "n": 819,
+      "excluded": 98,
+      "excluded_fraction": 0.10687022900763359,
+      "accuracy": 0.4603174603174603,
+      "balanced_accuracy": 0.6452777777777778,
+      "macro_f1": 0.45058584264205925,
+      "sensitivity": 0.36,
+      "specificity": 0.9305555555555556,
+      "auroc": 0.8278189300411523,
+      "threshold": 0.5,
+      "ece": 0.35810655175923634,
+      "confusion_matrix": [
+        [
+          134,
+          10
+        ],
+        [
+          432,
+          243
+        ]
+      ]
+    },
+    "apacc": {
+      "dataset": "apacc",
+      "tier": "E0",
+      "head": "8leaf",
+      "n": 1125,
+      "excluded": 0,
+      "excluded_fraction": 0.0,
+      "accuracy": 0.6142222222222222,
+      "balanced_accuracy": 0.6204889571948998,
+      "macro_f1": 0.5893248862810541,
+      "sensitivity": 0.8816029143897997,
+      "specificity": 0.359375,
+      "auroc": 0.7168083383930378,
+      "threshold": 0.5,
+      "ece": 0.26722973646025566,
+      "confusion_matrix": [
+        [
+          207,
+          369
+        ],
+        [
+          65,
+          484
+        ]
+      ]
+    },
+    "hicervix": {
+      "dataset": "hicervix",
+      "tier": "E0",
+      "head": "8leaf",
+      "n": 4823,
+      "excluded": 3228,
+      "excluded_fraction": 0.4009439821140231,
+      "accuracy": 0.612689197594858,
+      "balanced_accuracy": 0.5329877895942994,
+      "macro_f1": 0.5098718025717824,
+      "sensitivity": 0.20415982484948003,
+      "specificity": 0.8618157543391188,
+      "auroc": 0.5592351560884318,
+      "threshold": 0.5,
+      "ece": 0.24852192996029757,
+      "confusion_matrix": [
+        [
+          2582,
+          414
+        ],
+        [
+          1454,
+          373
+        ]
+      ]
+    },
+    "cric": {
+      "dataset": "cric",
+      "tier": "E0",
+      "head": "8leaf",
+      "n": 11534,
+      "excluded": 0,
+      "excluded_fraction": 0.0,
+      "accuracy": 0.41659441650771634,
+      "balanced_accuracy": 0.5024006530962741,
+      "macro_f1": 0.30492949881250864,
+      "sensitivity": 0.9913774973711882,
+      "specificity": 0.013423808821360083,
+      "auroc": 0.5147133575281739,
+      "threshold": 0.5,
+      "ece": 0.5575070578347616,
+      "confusion_matrix": [
+        [
+          91,
+          6688
+        ],
+        [
+          41,
+          4714
+        ]
+      ]
+    }
+  },
+  "E2_nonsquamous": {
+    "task": "E2_nonsquamous",
+    "n": 8051,
+    "n_pos": 3228,
+    "n_neg": 4823,
+    "excluded": 0,
+    "nonsquamous_leaves": [
+      5,
+      6,
+      7
+    ],
+    "auroc": 0.5377094498403329,
+    "accuracy": 0.5990560178859768,
+    "balanced_accuracy": 0.5,
+    "sensitivity": 0.0,
+    "specificity": 1.0,
+    "confusion_matrix": [
+      [
+        4823,
+        0
+      ],
+      [
+        3228,
+        0
+      ]
+    ],
+    "threshold": 0.5
+  },
+  "coverage": {
+    "herlev": {
+      "total": 917,
+      "excluded_before": 98,
+      "excluded_after": 0,
+      "frac_before": 0.10687022900763359,
+      "frac_after": 0.0
+    },
+    "apacc": {
+      "total": 1125,
+      "excluded_before": 0,
+      "excluded_after": 0,
+      "frac_before": 0.0,
+      "frac_after": 0.0
+    },
+    "hicervix": {
+      "total": 8051,
+      "excluded_before": 3228,
+      "excluded_after": 0,
+      "frac_before": 0.4009439821140231,
+      "frac_after": 0.0
+    },
+    "cric": {
+      "total": 11534,
+      "excluded_before": 0,
+      "excluded_after": 0,
+      "frac_before": 0.0,
+      "frac_after": 0.0
+    }
+  },
+  "shared_E0": {
+    "herlev": {
+      "dataset": "herlev_shared",
+      "tier": "E0",
+      "head": "8leaf",
+      "n": 819,
+      "excluded": 98,
+      "excluded_fraction": 0.10687022900763359,
+      "accuracy": 0.4603174603174603,
+      "balanced_accuracy": 0.6452777777777778,
+      "macro_f1": 0.45058584264205925,
+      "sensitivity": 0.36,
+      "specificity": 0.9305555555555556,
+      "auroc": 0.8278189300411523,
+      "threshold": 0.5,
+      "ece": 0.35810655175923634,
+      "confusion_matrix": [
+        [
+          134,
+          10
+        ],
+        [
+          432,
+          243
+        ]
+      ]
+    },
+    "apacc": {
+      "dataset": "apacc_shared",
+      "tier": "E0",
+      "head": "8leaf",
+      "n": 1125,
+      "excluded": 0,
+      "excluded_fraction": 0.0,
+      "accuracy": 0.6142222222222222,
+      "balanced_accuracy": 0.6204889571948998,
+      "macro_f1": 0.5893248862810541,
+      "sensitivity": 0.8816029143897997,
+      "specificity": 0.359375,
+      "auroc": 0.7168083383930378,
+      "threshold": 0.5,
+      "ece": 0.26722973646025566,
+      "confusion_matrix": [
+        [
+          207,
+          369
+        ],
+        [
+          65,
+          484
+        ]
+      ]
+    },
+    "hicervix": {
+      "dataset": "hicervix_shared",
+      "tier": "E0",
+      "head": "8leaf",
+      "n": 4823,
+      "excluded": 3228,
+      "excluded_fraction": 0.4009439821140231,
+      "accuracy": 0.612689197594858,
+      "balanced_accuracy": 0.5329877895942994,
+      "macro_f1": 0.5098718025717824,
+      "sensitivity": 0.20415982484948003,
+      "specificity": 0.8618157543391188,
+      "auroc": 0.5592351560884318,
+      "threshold": 0.5,
+      "ece": 0.24852192996029757,
+      "confusion_matrix": [
+        [
+          2582,
+          414
+        ],
+        [
+          1454,
+          373
+        ]
+      ]
+    },
+    "cric": {
+      "dataset": "cric_shared",
+      "tier": "E0",
+      "head": "8leaf",
+      "n": 11534,
+      "excluded": 0,
+      "excluded_fraction": 0.0,
+      "accuracy": 0.41659441650771634,
+      "balanced_accuracy": 0.5024006530962741,
+      "macro_f1": 0.30492949881250864,
+      "sensitivity": 0.9913774973711882,
+      "specificity": 0.013423808821360083,
+      "auroc": 0.5147133575281739,
+      "threshold": 0.5,
+      "ece": 0.5575070578347616,
+      "confusion_matrix": [
+        [
+          91,
+          6688
+        ],
+        [
+          41,
+          4714
+        ]
+      ]
+    }
+  },
+  "img_size": 224,
+  "stain": "none"
+}

@@ -1,0 +1,20 @@
+{
+  "n_fovs": 400,
+  "n_nuclei": 11534,
+  "nn_distance_px": {
+    "median": 70.09279563550022,
+    "mean": 86.8554253642549,
+    "p25": 43.93176527297759,
+    "p75": 110.22250223978767
+  },
+  "chosen_crop": 80,
+  "sweep": [
+    48,
+    64,
+    80,
+    96,
+    112,
+    144
+  ],
+  "note": "crop ~ median NN distance = one cell's territory; larger -> neighbour clutter"
+}

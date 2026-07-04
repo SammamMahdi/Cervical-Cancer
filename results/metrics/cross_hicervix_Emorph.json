@@ -1,0 +1,14 @@
+{
+  "dataset": "hicervix",
+  "tier": "Emorph",
+  "n": 2996,
+  "excluded": 5055,
+  "excluded_fraction": 0.627872313998261,
+  "accuracy": 0.5617489986648865,
+  "per_label_accuracy": {
+    "negative": {
+      "n": 2996,
+      "accuracy": 0.5617489986648865
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "real_counts": {
+    "Superficial-Intermediate": 665,
+    "Parabasal": 629,
+    "Metaplastic": 634,
+    "Koilocytotic": 660,
+    "Dyskeratotic": 650
+  },
+  "target": 665,
+  "synthesized": {
+    "Parabasal": 36,
+    "Metaplastic": 31,
+    "Koilocytotic": 5,
+    "Dyskeratotic": 15
+  }
+}

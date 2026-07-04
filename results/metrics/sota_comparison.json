@@ -1,0 +1,20 @@
+[
+  {
+    "arm": "cmp_ccannet",
+    "indist_acc": 0.8940886699507389,
+    "indist_macro_f1": 0.8944948193262195,
+    "e0_internal": 0.9433497536945813,
+    "mean_external_e0": 0.5502606850290189,
+    "generalization_gap": 0.39308906866556237,
+    "ece_pre": 0.03170630562403251,
+    "ece_post": 0.027296057025447268,
+    "efficiency": {
+      "name": "ccannet",
+      "params_M": 2.0459,
+      "flops_G": 3.5443,
+      "latency_ms": 1.1077,
+      "throughput_img_s": 902.7536,
+      "peak_vram_mb": 349.9725
+    }
+  }
+]

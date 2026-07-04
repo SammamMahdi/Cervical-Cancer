@@ -1,0 +1,6 @@
+actual\predicted,Superficial-Intermediate,Parabasal,Metaplastic,Koilocytotic,Dyskeratotic
+Superficial-Intermediate,82.0,0.0,1.0,1.0,0.0
+Parabasal,0.0,79.0,0.0,0.0,0.0
+Metaplastic,0.0,0.0,78.0,1.0,1.0
+Koilocytotic,0.0,0.0,2.0,80.0,0.0
+Dyskeratotic,0.0,0.0,0.0,6.0,75.0

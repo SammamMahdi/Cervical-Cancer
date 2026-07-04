@@ -1,0 +1,8 @@
+{
+  "class_name": "Parabasal",
+  "class_idx": 1,
+  "n": 36,
+  "source": "cellgan",
+  "ckpt": "cellgan.pt",
+  "note": "synthetic augmentation; never counted as real data"
+}

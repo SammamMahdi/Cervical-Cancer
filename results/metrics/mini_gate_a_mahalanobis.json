@@ -1,0 +1,87 @@
+{
+  "which": "student",
+  "max_n": 2000,
+  "scorer": "class-conditional Mahalanobis, shared LedoitWolf cov, score=min_k Maha^2",
+  "ledoitwolf_shrinkage": 0.018642046326503764,
+  "feature_dim": 1280,
+  "per_domain": {
+    "sipakmed_internal": {
+      "n": 406,
+      "mean": 1662.0022570326607,
+      "std": 668.9978726077273,
+      "median": 1513.779241117154,
+      "p25": 1171.5705207922795,
+      "p75": 1989.6613069634693
+    },
+    "herlev": {
+      "n": 819,
+      "mean": 2885.341982235435,
+      "std": 669.6836284995314,
+      "median": 2790.313160352105,
+      "p25": 2408.8804395408188,
+      "p75": 3235.0137099474623,
+      "n_total_available": 819
+    },
+    "hicervix": {
+      "n": 2000,
+      "mean": 4005.096269499141,
+      "std": 1311.4414432537785,
+      "median": 3758.4494053195185,
+      "p25": 3033.6997544933383,
+      "p75": 4736.606130487255,
+      "n_total_available": 4823
+    },
+    "apacc": {
+      "n": 1125,
+      "mean": 4508.228222368918,
+      "std": 1354.5092342711107,
+      "median": 4243.389967145282,
+      "p25": 3506.2722508508855,
+      "p75": 5326.766741704323,
+      "n_total_available": 1125
+    },
+    "cric": {
+      "n": 2000,
+      "mean": 4253.6187725351465,
+      "std": 1241.967979424218,
+      "median": 4008.042994668451,
+      "p25": 3346.9177100338593,
+      "p75": 4937.451355302574,
+      "n_total_available": 11534
+    }
+  },
+  "ood_auroc_internal_vs_external": {
+    "herlev": 0.9053844349410852,
+    "hicervix": 0.9650455665024631,
+    "apacc": 0.9833585112205802,
+    "cric": 0.9801046798029557
+  },
+  "energy_auroc_baseline": {
+    "herlev": 0.722,
+    "hicervix": 0.905,
+    "apacc": 0.537,
+    "cric": 0.683
+  },
+  "mahalanobis_vs_energy": {
+    "herlev": {
+      "mahalanobis": 0.9053844349410852,
+      "energy": 0.722,
+      "beats_energy": true
+    },
+    "hicervix": {
+      "mahalanobis": 0.9650455665024631,
+      "energy": 0.905,
+      "beats_energy": true
+    },
+    "apacc": {
+      "mahalanobis": 0.9833585112205802,
+      "energy": 0.537,
+      "beats_energy": true
+    },
+    "cric": {
+      "mahalanobis": 0.9801046798029557,
+      "energy": 0.683,
+      "beats_energy": true
+    }
+  }
+}

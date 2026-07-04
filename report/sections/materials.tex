@@ -1,0 +1,19 @@
+\section{Materials}
+
+This study draws on four publicly available cervical-cytology datasets: one for model development and three reserved exclusively for external evaluation. Table~\ref{tab:datasets} summarizes their composition, native label taxonomies, imaging granularity, and slide-preparation characteristics. A defining feature of this collection is that no two datasets share a common annotation schema; this taxonomic heterogeneity is the central obstacle that motivates the deterministic label-alignment procedure described later.
+
+\subsection{Training dataset: SIPaKMeD}
+
+Model training relies on the SIPaKMeD dataset \citep{plissiti2018sipakmed}, comprising 5{,}015 Papanicolaou-stained images acquired from conventional cervical smears. The corpus combines two levels of granularity: 4{,}049 cropped single-cell images and 966 cluster field-of-view (FoV) images. Every image is annotated into one of five cytomorphology classes that describe cell appearance rather than dysplasia grade: Superficial-Intermediate (957), Parabasal (895), Metaplastic (1{,}064), Koilocytotic (1{,}063), and Dyskeratotic (1{,}036). The resulting class distribution is only mildly imbalanced, with a maximum-to-minimum ratio of 1.19. The imagery is markedly heterogeneous in scale, spanning 62--2048 px in width (mean 614.7) and 62--1536 px in height (mean 485.4), reflecting both the dual cell-versus-cluster granularity and variation in acquisition. Critically, the five SIPaKMeD categories form a morphology-based taxonomy with no native notion of normal versus abnormal, which must be reconstructed for any cross-dataset comparison.
+
+\subsection{External evaluation datasets}
+
+To probe generalization beyond the training distribution, we evaluate on three independent datasets, each with its own taxonomy, preparation, and segmentation pipeline.
+
+The Herlev dataset \citep{jantzen2005herlev} contains 917 single-cell images drawn from conventional Papanicolaou smears and labelled under a seven-class WHO-dysplasia scheme: normal\_superficiel, normal\_intermediate, normal\_columnar, light\_dysplastic, moderate\_dysplastic, severe\_dysplastic, and carcinoma\_in\_situ. Each cell is distributed alongside a companion segmentation mask (the {-d.bmp} files), which we discard so that evaluation operates on the raw cell image alone. Of the three external sources, Herlev is the closest to SIPaKMeD in stain and preparation, both being conventional smears.
+
+The APACC dataset provides 1{,}125 automatically segmented single-cell crops in its test split, annotated under a coarse four-category native taxonomy (healthy, unhealthy, rubbish, and bothcells). The two non-cellular categories, rubbish and bothcells, are excluded, leaving a healthy-versus-unhealthy partition. Because its crops are produced by automatic segmentation rather than expert delineation, APACC carries the greatest preparation distance from SIPaKMeD and the noisiest cell-level inputs.
+
+The HiCervix dataset \citep{cai2024hicervix} represents a liquid-based cytology (LBC) source and contributes a test split of 8{,}051 single cells carrying hierarchical Bethesda-system labels \citep{nayar2015bethesda}. We retain the level-1 categories negative and ASC (4{,}823 cells) and exclude the glandular AGC and microbe categories (3{,}228 cells), since glandular lesions have no squamous counterpart in the five-class morphology space; this excluded fraction is reported explicitly as a measure of evaluation honesty.
+
+Taken together, these datasets span morphology-based, WHO-dysplasia, coarse healthy/unhealthy, and Bethesda annotation systems across conventional-smear, liquid-based, and auto-segmented preparations. No single label projection maps these schemes onto one another, which establishes the need for the shared binary normal/abnormal alignment developed in the following section.

@@ -1,0 +1,26 @@
+{
+  "dataset": "apacc",
+  "tier": "E0",
+  "head": "8leaf",
+  "n": 1125,
+  "excluded": 0,
+  "excluded_fraction": 0.0,
+  "accuracy": 0.9982222222222222,
+  "balanced_accuracy": 0.9981785063752278,
+  "macro_f1": 0.9982210401143594,
+  "sensitivity": 0.9963570127504554,
+  "specificity": 1.0,
+  "auroc": 0.9999873507387169,
+  "threshold": 0.5,
+  "ece": 0.006101339372069699,
+  "confusion_matrix": [
+    [
+      576,
+      0
+    ],
+    [
+      2,
+      547
+    ]
+  ]
+}

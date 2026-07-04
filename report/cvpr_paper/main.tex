@@ -1,0 +1,66 @@
+% =====================================================================
+%  Cervical-cytology audit -- CVPR two-column preprint (camera-ready style)
+%  Build: tectonic main.tex   (cvpr.sty inlines eso-pic; ieeenat_fullname bib)
+% =====================================================================
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage{cvpr}                 % CVPR two-column camera-ready style
+\usepackage{microtype}
+\usepackage{amsfonts}
+\usepackage{pifont}               % \ding check / cross glyphs
+\usepackage{dblfloatfix}          % robust placement of full-width (starred) floats
+\graphicspath{{figures/}}
+\setcounter{totalnumber}{12}
+
+% float tuning (two-column aware) so full-width figures distribute, not pile up
+\renewcommand{\topfraction}{0.92}\renewcommand{\bottomfraction}{0.70}
+\renewcommand{\textfraction}{0.06}\renewcommand{\floatpagefraction}{0.78}
+\renewcommand{\dbltopfraction}{0.92}\renewcommand{\dblfloatpagefraction}{0.78}
+
+% hyperref last, then cleveref
+\definecolor{linknavy}{rgb}{0.10,0.30,0.55}
+\usepackage[pagebackref,breaklinks,colorlinks,allcolors=linknavy]{hyperref}
+\usepackage[capitalize]{cleveref}
+
+% ---- macros ----
+\newcommand{\sipakmed}{\textsc{SIPaKMeD}\xspace}
+\newcommand{\herlev}{\textsc{Herlev}\xspace}
+\newcommand{\apacc}{\textsc{APACC}\xspace}
+\newcommand{\hicervix}{\textsc{HiCervix}\xspace}
+\newcommand{\pabn}{P(\mathrm{abn})}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+\newcommand{\best}[1]{\textbf{#1}}   % highlight the winning value in a table/row
+\DeclareMathOperator{\softmax}{softmax}
+
+\def\confName{Preprint}
+\def\confYear{2026}
+
+\title{Internal Excellence, External Collapse: Auditing and Diagnosing a\\
+Knowledge-Distilled Cervical Cytology Classifier Across Datasets}
+\author{Anonymous\\ Preprint}
+
+\begin{document}
+\maketitle
+
+\input{sections/00_abstract}
+\input{sections/01_intro}
+\input{sections/02_questions_novelty}
+\input{sections/03_primer}
+\input{sections/03b_related}
+\input{sections/04_problem}
+\input{sections/05_method}
+\input{sections/06_experiments}
+\input{sections/07_analysis}
+\input{sections/08_discussion}
+\input{sections/09_conclusion}
+
+\appendix
+\input{sections/appA_repro}
+
+{\small
+\bibliographystyle{ieeenat_fullname}
+\bibliography{refs}
+}
+
+\end{document}

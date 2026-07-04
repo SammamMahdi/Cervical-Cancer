@@ -1,0 +1,8 @@
+{
+  "class_name": "Dyskeratotic",
+  "class_idx": 4,
+  "n": 15,
+  "source": "cellgan",
+  "ckpt": "cellgan.pt",
+  "note": "synthetic augmentation; never counted as real data"
+}

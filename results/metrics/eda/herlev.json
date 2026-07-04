@@ -1,0 +1,38 @@
+{
+  "dataset": "herlev",
+  "n_items": 917,
+  "native_classes": {
+    "severe_dysplastic": 197,
+    "light_dysplastic": 182,
+    "carcinoma_in_situ": 150,
+    "moderate_dysplastic": 146,
+    "normal_columnar": 98,
+    "normal_superficiel": 74,
+    "normal_intermediate": 70
+  },
+  "e0_coverage": {
+    "normal": 144,
+    "abnormal": 675,
+    "excluded": 98,
+    "excluded_fraction": 0.1069
+  },
+  "size_stats": {
+    "sampled": 400,
+    "corrupt_or_zero": 0,
+    "width": {
+      "min": 42,
+      "max": 768,
+      "mean": 152.7,
+      "median": 121
+    },
+    "height": {
+      "min": 41,
+      "max": 439,
+      "mean": 139.7,
+      "median": 109
+    },
+    "formats": {
+      ".bmp": 400
+    }
+  }
+}

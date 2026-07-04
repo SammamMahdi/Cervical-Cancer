@@ -1,0 +1,6 @@
+dataset,n_items,n_native_classes,e0_normal,e0_abnormal,e0_excluded,excluded_fraction,corrupt_or_zero,mean_width,mean_height
+sipakmed,4049,5,2411,1638,0,0.0,0,217.6,188.9
+herlev,917,7,144,675,98,0.1069,0,152.7,139.7
+apacc,1125,2,576,549,0,0.0,0,326.3,339.1
+hicervix,8051,4,2996,1827,3228,0.4009,0,730.9,678.6
+cric,11534,6,6779,4755,0,0.0,0,1376.0,1020.0

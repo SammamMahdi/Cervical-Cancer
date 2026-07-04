@@ -1,0 +1,34 @@
+\section{Additional sparsification curves}
+\label{app:curves}
+
+\Cref{fig:morecurves} shows sparsification curves for \vggt\ and \pii\ beyond the main 7-Scenes panel
+(\Cref{fig:spars}); in both, \trustr\ tracks the oracle and clearly separates from the built-in
+confidence and random references.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}{0.49\linewidth}\includegraphics[width=\linewidth]{rq3_sparsification_vggt.pdf}
+    \caption{\vggt}\end{subfigure}\hfill
+  \begin{subfigure}{0.49\linewidth}\includegraphics[width=\linewidth]{rq3_sparsification_pi3.pdf}
+    \caption{\pii}\end{subfigure}
+  \caption{Additional sparsification curves (7-Scenes).}
+  \label{fig:morecurves}
+\end{figure}
+
+Beyond 7-Scenes, \Cref{fig:morecurves2} shows the curves on DTU, on the out-of-distribution ETH3D
+set, and for the third architecture (\mastr): \trustr\ tracks the oracle in-distribution and, OOD,
+still separates from the (here near-flat) built-in confidence.
+
+\begin{figure*}[t]
+  \centering
+  \begin{subfigure}{0.32\textwidth}\includegraphics[width=\linewidth]{rq2_sparsification_clean_vggt_dtu.pdf}
+    \caption{\vggt\ / DTU}\end{subfigure}\hfill
+  \begin{subfigure}{0.32\textwidth}\includegraphics[width=\linewidth]{rq2_sparsification_clean_vggt_eth3d.pdf}
+    \caption{\vggt\ / ETH3D (OOD)}\end{subfigure}\hfill
+  \begin{subfigure}{0.32\textwidth}\includegraphics[width=\linewidth]{rq2_sparsification_clean_mast3r_sevenscenes.pdf}
+    \caption{\mastr\ / 7-Scenes}\end{subfigure}
+  \caption{Per-dataset and per-model sparsification (DTU, OOD ETH3D, and the third architecture,
+  \mastr). \trustr\ (fused) tracks the oracle and beats the built-in confidence; OOD the gain is
+  smaller but the curve still separates.}
+  \label{fig:morecurves2}
+\end{figure*}

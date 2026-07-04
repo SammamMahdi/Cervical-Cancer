@@ -1,0 +1,5 @@
+{
+  "figure": "cellgan_samples_ep60",
+  "generated_at": "2026-06-23T09:17:48",
+  "checkpoint": "student.pt"
+}

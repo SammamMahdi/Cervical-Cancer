@@ -1,0 +1,110 @@
+{
+  "tag": "5class",
+  "n": 4049,
+  "n_features": 53,
+  "classes": [
+    "Superficial-Intermediate",
+    "Parabasal",
+    "Metaplastic",
+    "Koilocytotic",
+    "Dyskeratotic"
+  ],
+  "silhouette": 0.0888,
+  "per_class_silhouette": {
+    "Superficial-Intermediate": 0.074,
+    "Parabasal": 0.2231,
+    "Metaplastic": 0.0487,
+    "Koilocytotic": -0.0037,
+    "Dyskeratotic": 0.1067
+  },
+  "n_significant_features_q05": 53,
+  "top_relevant_features": [
+    {
+      "feature": "cytoplasm_area",
+      "effect_size": 0.68,
+      "q": 0.0
+    },
+    {
+      "feature": "cytoplasm_equivdiameter",
+      "effect_size": 0.68,
+      "q": 0.0
+    },
+    {
+      "feature": "cytoplasm_minoraxis",
+      "effect_size": 0.665,
+      "q": 0.0
+    },
+    {
+      "feature": "cytoplasm_majoraxis",
+      "effect_size": 0.633,
+      "q": 0.0
+    },
+    {
+      "feature": "nc_ratio",
+      "effect_size": 0.569,
+      "q": 0.0
+    },
+    {
+      "feature": "nucleus_i1_mean",
+      "effect_size": 0.55,
+      "q": 0.0
+    },
+    {
+      "feature": "cytoplasm_i1_mean",
+      "effect_size": 0.529,
+      "q": 0.0
+    },
+    {
+      "feature": "cytoplasm_solidity",
+      "effect_size": 0.51,
+      "q": 0.0
+    },
+    {
+      "feature": "nucleus_i2_mean",
+      "effect_size": 0.456,
+      "q": 0.0
+    },
+    {
+      "feature": "nucleus_i1_entropy",
+      "effect_size": 0.456,
+      "q": 0.0
+    }
+  ],
+  "defining_features_per_class": {
+    "Superficial-Intermediate": [
+      "cytoplasm_area (+)",
+      "cytoplasm_equivdiameter (+)",
+      "cytoplasm_minoraxis (+)",
+      "cytoplasm_majoraxis (+)",
+      "cytoplasm_solidity (+)"
+    ],
+    "Parabasal": [
+      "nucleus_i1_mean (+)",
+      "nucleus_i2_var (+)",
+      "cytoplasm_i1_var (-)",
+      "cytoplasm_i2_mean (-)",
+      "nucleus_equivdiameter (+)"
+    ],
+    "Metaplastic": [
+      "nucleus_i0_kurt (+)",
+      "nucleus_i0_entropy (-)",
+      "cytoplasm_perimeter (-)",
+      "nucleus_i0_mean (-)",
+      "nucleus_perimeter (-)"
+    ],
+    "Koilocytotic": [
+      "cytoplasm_i2_skew (+)",
+      "cytoplasm_i2_kurt (+)",
+      "cytoplasm_ratio_b (+)",
+      "cytoplasm_i2_mean (+)",
+      "cytoplasm_i1_var (+)"
+    ],
+    "Dyskeratotic": [
+      "cytoplasm_i1_mean (-)",
+      "nucleus_i1_mean (-)",
+      "nucleus_ratio_a (+)",
+      "cytoplasm_i2_var (-)",
+      "nucleus_ratio_b (-)"
+    ]
+  }
+}

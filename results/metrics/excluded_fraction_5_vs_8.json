@@ -1,0 +1,30 @@
+{
+  "herlev": {
+    "total": 917,
+    "excluded_before": 98,
+    "excluded_after": 0,
+    "frac_before": 0.10687022900763359,
+    "frac_after": 0.0
+  },
+  "apacc": {
+    "total": 1125,
+    "excluded_before": 0,
+    "excluded_after": 0,
+    "frac_before": 0.0,
+    "frac_after": 0.0
+  },
+  "hicervix": {
+    "total": 8051,
+    "excluded_before": 3228,
+    "excluded_after": 0,
+    "frac_before": 0.4009439821140231,
+    "frac_after": 0.0
+  },
+  "cric": {
+    "total": 11534,
+    "excluded_before": 0,
+    "excluded_after": 0,
+    "frac_before": 0.0,
+    "frac_after": 0.0
+  }
+}

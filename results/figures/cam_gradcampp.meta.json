@@ -1,0 +1,5 @@
+{
+  "figure": "cam_gradcampp",
+  "generated_at": "2026-06-23T09:13:13",
+  "checkpoint": "student.pt"
+}

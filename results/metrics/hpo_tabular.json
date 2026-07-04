@@ -1,0 +1,12 @@
+{
+  "objective": "val macro-F1 (tabular XGBoost)",
+  "n_trials": 3,
+  "best_value": 0.8887916087859693,
+  "best_params": {
+    "max_depth": 3,
+    "learning_rate": 0.2526878207508456,
+    "n_estimators": 517,
+    "subsample": 0.6849356442713105,
+    "colsample_bytree": 0.6727299868828402
+  }
+}

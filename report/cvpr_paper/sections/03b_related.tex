@@ -1,0 +1,34 @@
+\section{Related work}
+\label{sec:related}
+
+\noindent\textbf{Deep learning for cervical cytology.} Curated single-cell benchmarks---\sipakmed's
+five Pap morphology classes~\cite{plissiti2018sipakmed} and the older \herlev\ WHO-dysplasia
+set~\cite{jantzen2005herlev}---have driven a large body of work reporting near-ceiling within-dataset
+accuracy with convolutional backbones, and recent liquid-based resources such as
+\hicervix~\cite{cai2024hicervix} extend this with hierarchical Bethesda labels. The near-universal
+protocol, however, trains and tests on one collection, leaving transfer to other slide-preparation
+pipelines unmeasured.
+
+\noindent\textbf{Knowledge distillation for efficient medical models.}
+Distillation~\cite{hinton2015distilling} compresses a high-capacity teacher into a deployable student
+and is widely used for edge-oriented medical imaging. Reported gains are almost always
+in-distribution; whether a distilled student inherits the teacher's (lack of) robustness is rarely
+tested. We find the student can be \emph{stronger} than its teacher in-distribution yet equally
+fragile out-of-distribution.
+
+\noindent\textbf{Generalisation and shortcut learning.} Deep classifiers frequently latch onto
+dataset-specific cues---stain, scanner, segmentation, background---rather than the causal
+signal~\cite{geirhos2020shortcut}; in histopathology and cytology this manifests as sharp accuracy
+drops across sites. Our diagnosis localises the cytology version of this effect to slide-preparation
+distance and a non-transferable operating point.
+
+\noindent\textbf{Calibration and explainability in medical imaging.} Modern networks are
+miscalibrated~\cite{guo2017calibration}; calibration is especially load-bearing for screening, where a
+decision threshold must be trusted. Grad-CAM~\cite{selvaraju2017gradcam} is the standard
+attribution tool. We report both, and show in-distribution calibration that does \emph{not} survive
+domain shift---a failure mode that a single ECE number, measured in-distribution, hides.
+
+\noindent\textbf{Cross-dataset label alignment.} Morphology and Bethesda taxonomies do not map
+one-to-one, and stain-normalisation~\cite{macenko2009stain} only addresses appearance, not labels.
+Prior cross-dataset cytology comparisons often relabel informally; we instead fix a deterministic
+many-to-one binary crosswalk and report the excluded fraction as an honesty metric.

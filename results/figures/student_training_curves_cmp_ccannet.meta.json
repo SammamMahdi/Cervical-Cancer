@@ -1,0 +1,5 @@
+{
+  "figure": "student_training_curves_cmp_ccannet",
+  "generated_at": "2026-06-23T13:09:23",
+  "checkpoint": "student.pt"
+}

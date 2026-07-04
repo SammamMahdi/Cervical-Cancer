@@ -1,0 +1,61 @@
+{
+  "which": "student",
+  "note": "oracle/Platt tuned on each domain's own labels = upper bound",
+  "domains": {
+    "sipakmed_internal": {
+      "n": 406,
+      "base_abnormal_rate": 0.4014778325123153,
+      "acc_tau50": 0.9827586206896551,
+      "balacc_tau50": 0.9815572218435205,
+      "ece_pre": 0.02089616181183372,
+      "tau_oracle": 0.49,
+      "acc_oracle": 0.9827586206896551,
+      "balacc_oracle": 0.9815572218435205,
+      "ece_post": 0.007871890021778018
+    },
+    "herlev": {
+      "n": 819,
+      "base_abnormal_rate": 0.8241758241758241,
+      "acc_tau50": 0.7142857142857143,
+      "balacc_tau50": 0.7856944444444445,
+      "ece_pre": 0.11139383656896709,
+      "tau_oracle": 0.25,
+      "acc_oracle": 0.8241758241758241,
+      "balacc_oracle": 0.8223148148148147,
+      "ece_post": 0.030678117463986368
+    },
+    "apacc": {
+      "n": 1125,
+      "base_abnormal_rate": 0.488,
+      "acc_tau50": 0.6462222222222223,
+      "balacc_tau50": 0.651610883424408,
+      "ece_pre": 0.21631425450286934,
+      "tau_oracle": 0.92,
+      "acc_oracle": 0.7093333333333334,
+      "balacc_oracle": 0.7070952868852459,
+      "ece_post": 0.030622754342988744
+    },
+    "hicervix": {
+      "n": 4823,
+      "base_abnormal_rate": 0.3788098693759071,
+      "acc_tau50": 0.532034003732117,
+      "balacc_tau50": 0.5393992756625692,
+      "ece_pre": 0.23116032922927413,
+      "tau_oracle": 0.56,
+      "acc_oracle": 0.5506945884304375,
+      "balacc_oracle": 0.5452359212027276,
+      "ece_post": 0.018579284950821534
+    },
+    "cric": {
+      "n": 11534,
+      "base_abnormal_rate": 0.41225940697069535,
+      "acc_tau50": 0.4133865094503208,
+      "balacc_tau50": 0.4993576842196373,
+      "ece_pre": 0.5120989009780158,
+      "tau_oracle": 0.93,
+      "acc_oracle": 0.519420842725854,
+      "balacc_oracle": 0.552484903818606,
+      "ece_post": 0.022577680764204192
+    }
+  }
+}

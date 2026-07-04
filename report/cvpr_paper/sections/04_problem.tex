@@ -1,0 +1,66 @@
+\section{Problem setup: data and label alignment}
+\label{sec:problem}
+
+\noindent\textbf{Datasets.} We train on \sipakmed---$5{,}015$ Pap images
+($4{,}049$ cropped single cells $+$ $966$ cluster field-of-view images) in five morphology classes,
+conventional smear---and evaluate, frozen, on three external single-cell Pap sets
+(\cref{tab:datasets}): \herlev\ ($917$
+cells, $7$ WHO-dysplasia classes, conventional smear), \apacc\ ($1{,}125$ auto-segmented crops, coarse
+healthy/unhealthy), and \hicervix\ ($4{,}823$ scorable of $8{,}051$ test cells, hierarchical Bethesda,
+liquid-based). The three external sets deliberately span the preparation axis of \cref{sec:primer}.
+
+\begin{table*}[tb]
+\caption{\textbf{Datasets.} \sipakmed\ is the sole training source; the others are frozen external
+evaluation sets spanning slide preparations and incompatible native label spaces.}
+\label{tab:datasets}
+\centering\small
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Dataset & Role & Preparation / type & Native labels & Size \\
+\midrule
+\sipakmed~\cite{plissiti2018sipakmed} & Train ($+$val) & Conventional smear; cells $+$ FoV & 5 cytomorphology & $5{,}015$ imgs ($4{,}049$ cells) \\
+\herlev~\cite{jantzen2005herlev}      & External eval & Conventional smear; single cells & 7 WHO dysplasia & $917$ cells \\
+\apacc                                 & External eval & Auto-segmented single-cell crops & 4 coarse & $1{,}125$ cells \\
+\hicervix~\cite{cai2024hicervix}       & External eval & Liquid-based cytology (LBC) & Hierarchical Bethesda & $4{,}823$ ($8{,}051$ total) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\noindent\textbf{Why a binary alignment.} The five \sipakmed\ morphology classes do not share a label
+space with the WHO/Bethesda grades of the external sets: projecting a grade onto a morphology class is
+one-to-many or undefined (e.g.\ NILM may be any of three normal morphologies; LSIL spans Koilocytotic
+and Dyskeratotic). The only level at which \emph{both} the model's prediction and the native label map
+\emph{deterministically and many-to-one} is the binary Normal-versus-Abnormal decision. We therefore
+score the abnormality mass $\pabn$ (\cref{eq:pabn}) at threshold $\tau{=}0.5$ against a binary
+ground truth obtained from the crosswalk in \cref{tab:mapping}.
+
+\noindent\textbf{The crosswalk and its honesty gate.} \cref{tab:mapping} lists the deterministic map.
+On the model side, $\{$Superficial-Intermediate, Parabasal, Metaplastic$\}\!\to\!$Normal and
+$\{$Koilocytotic, Dyskeratotic$\}\!\to\!$Abnormal. On the label side, normal squamous and benign
+categories map to Normal and dysplastic/SIL categories to Abnormal. Crucially, \emph{glandular and
+out-of-scope native classes have no squamous home in the five-class space and are excluded}: \herlev\
+\emph{columnar}, \hicervix\ \emph{AGC} (glandular) and \emph{microbe}, and \apacc\ \emph{rubbish}/
+\emph{bothcells}. We report the excluded fraction per dataset, because silently dropping hard,
+unmappable cells would inflate the binary score. This deterministic, documented mapping is what lets
+us later attribute the cross-dataset collapse to the model rather than to the labels.
+
+\begin{table*}[tb]
+\caption{\textbf{Binary label crosswalk.} Deterministic Normal/Abnormal mapping; the model-side
+decision is $\pabn$ (\cref{eq:pabn}). Glandular and out-of-scope native categories are excluded and
+their fraction reported.}
+\label{tab:mapping}
+\centering\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Source & $\rightarrow$ Normal & $\rightarrow$ Abnormal \quad(/ Excluded) \\
+\midrule
+\sipakmed\ (model) & Superficial-Interm., Parabasal, Metaplastic & Koilocytotic, Dyskeratotic \\
+\herlev & superficiel, intermediate, columnar$^\dagger$ & light/moderate/severe dyspl., carcinoma-in-situ \\
+\apacc & healthy & unhealthy \quad(rubbish, bothcells excl.) \\
+\hicervix & \texttt{level\_1}{=}negative & \texttt{level\_1}{=}ASC \quad(AGC, microbe excl.) \\
+\bottomrule
+\end{tabular}\\[2pt]
+{\footnotesize $^\dagger$\herlev\ columnar (glandular) is mapped to Normal in this legacy crosswalk; a
+stricter variant excludes it. The choice moves the headline by $<\!1$ point and does not affect the
+diagnosis (\cref{sec:analysis}).}
+\end{table*}

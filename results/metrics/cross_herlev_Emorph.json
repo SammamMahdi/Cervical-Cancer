@@ -1,0 +1,22 @@
+{
+  "dataset": "herlev",
+  "tier": "Emorph",
+  "n": 326,
+  "excluded": 591,
+  "excluded_fraction": 0.6444929116684842,
+  "accuracy": 0.6840490797546013,
+  "per_label_accuracy": {
+    "light_dysplastic": {
+      "n": 182,
+      "accuracy": 0.7912087912087912
+    },
+    "normal_intermediate": {
+      "n": 70,
+      "accuracy": 0.44285714285714284
+    },
+    "normal_superficiel": {
+      "n": 74,
+      "accuracy": 0.6486486486486487
+    }
+  }
+}

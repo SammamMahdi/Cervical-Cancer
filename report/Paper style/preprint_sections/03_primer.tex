@@ -1,0 +1,134 @@
+\section{Background and preliminaries}
+\label{sec:primer}
+
+We fix the concepts and notation the paper relies on: the point-map output of feed-forward models,
+the gauge ambiguity that makes 3D uncertainty non-trivial, the epistemic/aleatoric distinction, and
+the sparsification metrics used throughout. Appendix~\ref{app:glossary} collects the recurring terms.
+
+\subsection{What a feed-forward 3D model produces}
+\label{sec:primer-pointmap}
+
+For decades, turning photographs into 3D meant a long, brittle pipeline: detect keypoints, match
+them across images, estimate camera poses, triangulate, and run a large non-linear optimization
+(\emph{bundle adjustment}). Every stage could fail, and the whole process needed many well-textured,
+well-overlapping images. The recent breakthrough is the \emph{feed-forward 3D foundation
+model}---DUSt3R~\cite{dust3r} and its successors \mastr~\cite{mast3r}, \vggt~\cite{vggt}, and
+\pii~\cite{pi3}---a large neural network that takes a handful of images and, in a \emph{single
+forward pass}, regresses the 3D geometry directly: no explicit matching, triangulation, or bundle
+adjustment. ``Feed-forward'' means one pass with no iterative optimization; ``foundation model''
+means large, pretrained, and general-purpose. We treat these models as \emph{frozen black boxes}:
+we run them and never change their weights.
+
+Their primary output is a \emph{point map}. For each input image the model returns, \emph{for every
+pixel}, a 3D coordinate $(x,y,z)$: an $H{\times}W$ image becomes an $H{\times}W$ grid of 3D points.
+Formally, for $V$ images $\{I_1,\dots,I_V\}$ the model returns per-view point maps
+$P_v \in \mathbb{R}^{H\times W\times 3}$, and usually also a depth map, camera estimates, and a
+per-pixel \emph{confidence} channel $c_v \in \mathbb{R}^{H\times W}$. Stacking the point maps from
+all views yields a dense 3D reconstruction. The whole value of these models is what happens
+\emph{next}---fusing the points into a clean cloud, initializing a 3D Gaussian-Splatting
+model~\cite{instantsplat,gsplat}, feeding a SLAM or mapping back-end---and each of those consumers
+must decide \emph{which points to believe}. That per-pixel confidence channel is what they currently
+use for the decision, and the subject of this paper is whether they should.
+
+\subsection{The gauge ambiguity}
+\label{sec:primer-gauge}
+
+A subtlety underlies the entire method. A feed-forward model can only ever recover
+geometry \emph{up to a global similarity transform}---\textbf{seven degrees of freedom}: one global
+\emph{scale}, a three-DoF \emph{rotation}, and a three-DoF \emph{translation}. The reason is that
+from images alone, the absolute size, orientation, and position of a scene are unobservable: a
+doll-house photographed close up and a real house photographed from far away produce identical
+pixels. The network must pick \emph{some} convention---a \emph{gauge}---to emit numbers, but the
+choice is arbitrary. Two consequences follow, and both matter:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=2pt,topsep=2pt]
+\item \textbf{Two runs of the same model on the same scene can land in different gauges.} One run
+might center the scene at the origin at unit scale; another might place the \emph{same} scene
+shifted, rotated, and $1.2\times$ larger. The underlying geometry is identical---only the coordinate
+convention differs.
+\item \textbf{Which gauge depends on the architecture.} For \vggt\ and \mastr\ the gauge is anchored
+on a \emph{reference view} (typically the first input image): the whole cloud is expressed relative
+to that view. \pii\ is \emph{permutation-equivariant}: its output does not depend on which view is
+``first.'' This architectural difference is central to the method, because it decides \emph{which}
+input perturbation is informative (\Cref{sec:method,sec:exp}).
+\end{enumerate}
+
+This matters for the method because the uncertainty signal is the \emph{disagreement between runs}. If we
+measured that disagreement naively---subtracting one run's coordinates from another's---we would
+mostly be measuring the disagreement of \emph{coordinate frames} (the gauge), not the model's
+genuine uncertainty. Removing the gauge---\emph{registering every run into one common frame before
+measuring disagreement}---is therefore not an implementation detail but the technical heart of the
+method (\Cref{sec:method-align}).
+
+\subsection{Epistemic and aleatoric uncertainty}
+\label{sec:primer-uncertainty}
+
+A per-point uncertainty is a scalar $U(i)\ge 0$ for each pixel $i$ that should be \emph{high where
+the prediction is wrong and low where it is right}. With it, a downstream system can discard
+untrustworthy points, flag risky regions, or trigger a fallback; without it, every point must be
+trusted equally---including the wrong ones. The standard taxonomy~\cite{kendallgal} splits
+uncertainty into two kinds:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt,topsep=2pt]
+\item \textbf{Aleatoric} uncertainty is irreducible noise in the \emph{data}---sensor noise, motion
+blur, genuine ambiguity. More data or a better model does not remove it. It is often predicted well
+by a trained head that learns ``this kind of pixel is noisy.''
+\item \textbf{Epistemic} uncertainty is the \emph{model's own ignorance}: ``I have not really
+understood this geometry.'' It is \emph{reducible} (more training or capacity would shrink it) and,
+crucially, it is \emph{detectable by probing the model and watching it become unstable}.
+\end{itemize}
+
+The distinction is practical, because it dictates how to \emph{detect} each. A single deterministic
+forward pass produces one answer; it structurally cannot report whether that answer would survive a
+small, equivalent change to the input. Epistemic uncertainty---confidence in one's own
+computation---is therefore, by definition, only visible when the model is actually \emph{re-run}.
+\trustr\ targets epistemic uncertainty, which is exactly why a re-run-based estimator can see
+something the model's own single-pass confidence cannot.
+
+\subsection{Evaluating an uncertainty: sparsification}
+\label{sec:primer-metrics}
+
+We do not have access to the true error at test time (that would require ground truth, which the
+deployed system lacks); we have only the uncertainty $U$. So we evaluate $U$ by how well it would let
+us \emph{triage}. The central tool is the \emph{sparsification curve} (formal definitions in
+Appendix~\ref{app:metrics}).
+
+\paragraph{Sparsification curve.} Sort the points most-uncertain-first. At removal fraction $f$, drop
+the top $f$ fraction and report the error (RMSE) of the \emph{kept} points. A good uncertainty
+removes the \emph{wrong} points first, so the kept-error drops steeply as $f$ grows; a useless one
+removes points essentially at random and the error barely moves. The resulting curve $s(f)$ is the
+sparsification curve.
+
+\paragraph{Oracle and random brackets.} Every such plot is bracketed by two references. The
+\emph{oracle} sorts by the \emph{true} error---the steepest possible descent, the ceiling of what any
+uncertainty could achieve. \emph{Random} sorts by noise---the no-skill floor. These turn an absolute
+number into an interpretable ``where between perfect and useless does this signal lie.''
+
+\paragraph{The metrics, and what each one can and cannot move.}
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt,topsep=2pt]
+\item \textbf{\ause} (Area Under the Sparsification Error, \emph{lower is better}) is our headline
+metric: the normalized area \emph{between the method's sparsification curve and the oracle's}. Zero
+means oracle-equivalent. Because it depends only on the \emph{ranking} of points by uncertainty, no
+monotone rescaling (no calibration) can change it---\ause\ measures pure ranking quality and cannot
+be gamed by rescaling.
+\item \textbf{AURG} (Area Under the Random Gain, \emph{higher is better}) is the area gained over the
+random floor; it is $\approx 0$ for a no-skill signal.
+\item \textbf{Spearman $\rho$} (\emph{higher is better}) is the rank correlation between uncertainty
+and true error---the single most interpretable number. Positive means uncertainty rises with error;
+$\approx 0$ means uninformative; \emph{negative means anti-correlated}---the confidence actively
+misleads, which is the failure mode we document in \Cref{sec:rq1}.
+\item \textbf{\ece} (Expected Calibration Error, \emph{lower is better}) is the only metric that
+calibration moves: it asks whether the \emph{magnitudes} of the uncertainty are honest (does a stated
+``$90\%$ interval'' actually contain $90\%$ of the errors?), independent of ranking.
+\end{itemize}
+
+\paragraph{Two methodological points.} First, \emph{the ground-truth error is
+itself gauge-freed}: before measuring $\lVert \text{pred} - \text{gt}\rVert$, the prediction is
+robustly aligned onto the ground truth, so the reported error reflects \emph{shape}, not a global
+scale or pose offset that the gauge ambiguity (\Cref{sec:primer-gauge}) would otherwise inject.
+Second, we distinguish \emph{pooled} from \emph{per-set} \ause: pooled \ause\ concatenates all points
+into one number, whereas per-set \ause\ is computed per scene and gives the paired sample for a
+significance test. The two can disagree when a dataset mixes heterogeneous scenes (a confidence that
+is locally sensible but globally mis-scaled across scenes scores far better per-set than pooled). All
+significance claims in this paper use a \emph{paired Wilcoxon signed-rank test} over per-scene \ause,
+which factors out such cross-scene effects; a ``win'' means $p<0.05$.

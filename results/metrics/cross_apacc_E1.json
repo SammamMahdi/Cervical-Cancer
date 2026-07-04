@@ -1,0 +1,27 @@
+{
+  "dataset": "apacc",
+  "tier": "E1",
+  "n": 576,
+  "excluded": 549,
+  "excluded_fraction": 0.488,
+  "accuracy": 0.140625,
+  "balanced_accuracy": 0.140625,
+  "macro_f1": 0.1232876712328767,
+  "sensitivity": NaN,
+  "specificity": 0.140625,
+  "auroc": NaN,
+  "threshold": 0.5,
+  "ece": 0.6798548618339989,
+  "confusion_matrix": [
+    [
+      81,
+      495
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "highgrade_recall": NaN,
+  "n_highgrade": 0
+}

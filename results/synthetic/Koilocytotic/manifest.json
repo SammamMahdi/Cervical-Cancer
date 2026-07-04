@@ -1,0 +1,8 @@
+{
+  "class_name": "Koilocytotic",
+  "class_idx": 3,
+  "n": 5,
+  "source": "cellgan",
+  "ckpt": "cellgan.pt",
+  "note": "synthetic augmentation; never counted as real data"
+}

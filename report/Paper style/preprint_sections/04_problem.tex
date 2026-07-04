@@ -1,0 +1,70 @@
+\section{The problem: the built-in confidence collapses}
+\label{sec:rq1}
+
+\subsection{Setup}
+\label{sec:problem-setup}
+
+A frozen model $f$ maps images $\{I_1,\dots,I_V\}$ to per-view point maps
+$X_v\in\mathbb{R}^{H\times W\times 3}$ and a positive confidence
+$c_v\in\mathbb{R}^{H\times W}_{>0}$. We seek a per-point uncertainty $U_v$ that \emph{(i)} ranks the
+true geometric error well and \emph{(ii)} is calibrated, \emph{without} modifying $f$. To define the
+target error without contaminating it with the gauge ambiguity (\Cref{sec:primer-gauge}), we first
+robustly align the prediction to ground truth by a similarity transform, then measure the per-point
+residual $e_v(i)=\lVert X_v(i)-X^{\mathrm{gt}}_v(i)\rVert_2$. The headline metric is \ause\ (lower is
+better), supported by Spearman correlation, \aurg, and regression \ece\ (all introduced intuitively
+in \Cref{sec:primer-metrics}; formally in Appendix~\ref{app:metrics}).
+
+\subsection{Why the built-in confidence cannot be a reliable epistemic signal}
+\label{sec:problem-why}
+
+Every one of these models already emits a per-pixel confidence $c_v(i)$, so the obvious question is
+why not simply use it. There are three structural reasons, each of which motivates the method.
+
+\begin{enumerate}[leftmargin=1.5em,itemsep=2pt,topsep=2pt]
+\item \textbf{It is a learned output, not a measurement.} The confidence is trained as a
+\emph{loss-weight}---it tells the training objective which pixels to emphasize---not as a calibrated
+estimate of test-time error. Nothing in the objective forces $c_v(i)$ to be monotone in real error.
+In particular it can be \emph{confidently wrong}: high confidence exactly where the model errs, the
+most dangerous failure mode for any downstream consumer.
+\item \textbf{Its units are arbitrary and architecture-specific.} \pii's confidence is a logit,
+\mastr's is an unbounded score, \vggt's is yet another scale. There is no shared, meaningful unit, so
+even to evaluate it we must invert it into an uncertainty.
+\item \textbf{It is a single deterministic number from one forward pass, so it cannot express
+epistemic uncertainty.} ``Did the model truly understand this geometry, or is it guessing?'' is a
+question about the \emph{stability} of the computation. One forward pass yields one answer; it cannot
+report whether that answer would survive a small, equivalent change to the input. Epistemic
+uncertainty (\Cref{sec:primer-uncertainty}) is, by definition, only visible when the model is
+re-run.
+\end{enumerate}
+
+\subsection{The empirical finding: an uneven confidence that collapses where it matters}
+\label{sec:problem-rq1}
+
+This is not merely an argument---we measured it. \Cref{tab:rq1} evaluates the built-in confidence as
+an uncertainty signal across all twelve model$\times$dataset cells. Its quality is \emph{non-uniform}.
+It is reasonable on some in-distribution settings (\pii\ reaches Spearman ${+}0.41$ on 7-Scenes and
+${+}0.39$ on DTU; \vggt/DTU is ${+}0.30$) but \emph{weak} on others, sitting close to \emph{random}
+for \vggt/7-Scenes (\ause\ $0.710$ versus $0.837$ for random; Spearman only ${+}0.07$). Crucially, it
+\emph{collapses where it would matter most}: out-of-distribution on ETH3D its correlation with error
+falls to $\approx 0$ for all three models, and on several in-distribution cells it turns
+\emph{negative}---anti-correlated, worse than useless (\vggt/BlendedMVS $-0.12$, \mastr/DTU $-0.10$).
+A reliability signal that flat-lines or inverts under the very shift where reliability matters cannot
+gate a downstream system.
+
+This \emph{non-uniformity}---not a blanket ``confidence is bad''---is precisely the gap \trustr\
+targets, and it is also predictive: it tells us \emph{where} a perturbation-based estimator should
+help (where the confidence is mis-calibrated) and where it should add little (where the confidence is
+already good). We return to this coupling, which turns out to explain the entire pattern of wins and
+non-wins, in \Cref{sec:exp}.
+
+\begin{table*}[tb]
+  \centering\small
+  \adjustbox{max width=\textwidth}{\input{tables/tab1_rq1_full}}
+  \caption{\textbf{The built-in confidence is an uneven uncertainty} (\ause\dn, Spearman $\rho$,
+  random floor), across all three models and four datasets. \best{Bold} marks cells where it is
+  $\le 0$ (anti-correlated). It is reasonable on a few in-distribution cells, weak on others
+  (near-random on 7-Scenes), collapses to $\rho\approx 0$ out-of-distribution (ETH3D), and inverts on
+  \vggt/BlendedMVS and \mastr/DTU. This is the headroom \trustr\ exploits, and its shape predicts
+  where \trustr\ helps.}
+  \label{tab:rq1}
+\end{table*}

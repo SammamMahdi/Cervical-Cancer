@@ -1,0 +1,29 @@
+{
+  "which": "student",
+  "img_size": 224,
+  "fine_layer": true,
+  "n_per_class": 10,
+  "methods": {
+    "gradcam": {
+      "n": 50,
+      "nucleus_hit_rate": 0.16,
+      "energy_in_nucleus": 0.0891,
+      "nucleus_area_frac": 0.0653,
+      "concentration_ratio": 1.3173
+    },
+    "layercam": {
+      "n": 50,
+      "nucleus_hit_rate": 0.48,
+      "energy_in_nucleus": 0.1806,
+      "nucleus_area_frac": 0.0653,
+      "concentration_ratio": 3.2259
+    },
+    "hirescam": {
+      "n": 50,
+      "nucleus_hit_rate": 0.38,
+      "energy_in_nucleus": 0.1781,
+      "nucleus_area_frac": 0.0653,
+      "concentration_ratio": 3.2061
+    }
+  }
+}

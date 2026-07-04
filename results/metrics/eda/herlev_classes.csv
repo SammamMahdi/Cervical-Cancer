@@ -1,0 +1,8 @@
+native_class,count,e0
+severe_dysplastic,197,abnormal
+light_dysplastic,182,abnormal
+carcinoma_in_situ,150,abnormal
+moderate_dysplastic,146,abnormal
+normal_columnar,98,excluded
+normal_superficiel,74,normal
+normal_intermediate,70,normal

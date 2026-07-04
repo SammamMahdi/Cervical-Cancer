@@ -1,0 +1,267 @@
+{
+  "which": "student",
+  "max_n": 2000,
+  "seed": 42,
+  "gate": "Mahalanobis three-tier abstention (FLAG=high-Maha OOD, DEFER=uncertain, RELEASE=confident)",
+  "thresholds": {
+    "maha_flag": 3089.252251589848,
+    "maha_pct": 95.0,
+    "p_margin": 0.15,
+    "set_size_max": 3,
+    "conformal_qhat": 0.9869955462434926,
+    "conformal_alpha": 0.1
+  },
+  "thresholds_fit_on": "SIPaKMeD VAL only (label-free for externals)",
+  "ledoitwolf_shrinkage": 0.018642046326503764,
+  "feature_dim": 1280,
+  "sipakmed_val": {
+    "n": 405,
+    "decision_rates": {
+      "release": 0.8987654320987655,
+      "defer": 0.04938271604938271,
+      "flag": 0.05185185185185185,
+      "n": 405
+    },
+    "maha_mean": 1759.003230892381,
+    "maha_p95": 3089.252251589848
+  },
+  "budgets": [
+    0.0,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "external": {
+    "herlev": {
+      "n": 819,
+      "n_total_available": 819,
+      "abnormal_rate": 0.8241758241758241,
+      "maha_mean": 2885.341982235435,
+      "maha_median": 2790.313160352105,
+      "decision_rates": {
+        "release": 0.38705738705738707,
+        "defer": 0.28815628815628813,
+        "flag": 0.3247863247863248,
+        "n": 819
+      },
+      "selective": {
+        "0pct": {
+          "budget": 0.0,
+          "deferral_rate": 0.0,
+          "released_n": 819,
+          "deferred_n": 0,
+          "balanced_accuracy": 0.8186111111111112,
+          "accuracy": 0.746031746031746,
+          "ece": 0.09291784009580376,
+          "released_abnormal_rate": 0.8241758241758241
+        },
+        "10pct": {
+          "budget": 0.1,
+          "deferral_rate": 0.0989010989010989,
+          "released_n": 738,
+          "deferred_n": 81,
+          "balanced_accuracy": 0.8342821168812034,
+          "accuracy": 0.7506775067750677,
+          "ece": 0.09600580559873405,
+          "released_abnormal_rate": 0.8360433604336044
+        },
+        "20pct": {
+          "budget": 0.2,
+          "deferral_rate": 0.199023199023199,
+          "released_n": 656,
+          "deferred_n": 163,
+          "balanced_accuracy": 0.848004705138784,
+          "accuracy": 0.7637195121951219,
+          "ece": 0.08430962384688716,
+          "released_abnormal_rate": 0.8429878048780488
+        },
+        "40pct": {
+          "budget": 0.4,
+          "deferral_rate": 0.3992673992673993,
+          "released_n": 492,
+          "deferred_n": 327,
+          "balanced_accuracy": 0.8595938375350141,
+          "accuracy": 0.790650406504065,
+          "ece": 0.08031520112197585,
+          "released_abnormal_rate": 0.8292682926829268
+        }
+      },
+      "flag_recall_wholeset": 0.3247863247863248
+    },
+    "apacc": {
+      "n": 1125,
+      "n_total_available": 1125,
+      "abnormal_rate": 0.488,
+      "maha_mean": 4508.228222368918,
+      "maha_median": 4243.389967145282,
+      "decision_rates": {
+        "release": 0.08888888888888889,
+        "defer": 0.035555555555555556,
+        "flag": 0.8755555555555555,
+        "n": 1125
+      },
+      "selective": {
+        "0pct": {
+          "budget": 0.0,
+          "deferral_rate": 0.0,
+          "released_n": 1125,
+          "deferred_n": 0,
+          "balanced_accuracy": 0.6447802823315119,
+          "accuracy": 0.6382222222222222,
+          "ece": 0.24007209552400227,
+          "released_abnormal_rate": 0.488
+        },
+        "10pct": {
+          "budget": 0.1,
+          "deferral_rate": 0.09955555555555555,
+          "released_n": 1013,
+          "deferred_n": 112,
+          "balanced_accuracy": 0.643666196189132,
+          "accuracy": 0.6238894373149062,
+          "ece": 0.24900109989629277,
+          "released_abnormal_rate": 0.46199407699901285
+        },
+        "20pct": {
+          "budget": 0.2,
+          "deferral_rate": 0.2,
+          "released_n": 900,
+          "deferred_n": 225,
+          "balanced_accuracy": 0.646108237226515,
+          "accuracy": 0.6177777777777778,
+          "ece": 0.24915163112998318,
+          "released_abnormal_rate": 0.4411111111111111
+        },
+        "40pct": {
+          "budget": 0.4,
+          "deferral_rate": 0.4,
+          "released_n": 675,
+          "deferred_n": 450,
+          "balanced_accuracy": 0.6528329701320343,
+          "accuracy": 0.6148148148148148,
+          "ece": 0.24167030665506095,
+          "released_abnormal_rate": 0.3985185185185185
+        }
+      },
+      "flag_recall_wholeset": 0.8755555555555555
+    },
+    "hicervix": {
+      "n": 2000,
+      "n_total_available": 4823,
+      "abnormal_rate": 0.379,
+      "maha_mean": 4005.096269499141,
+      "maha_median": 3758.4494053195185,
+      "decision_rates": {
+        "release": 0.1325,
+        "defer": 0.143,
+        "flag": 0.7245,
+        "n": 2000
+      },
+      "selective": {
+        "0pct": {
+          "budget": 0.0,
+          "deferral_rate": 0.0,
+          "released_n": 2000,
+          "deferred_n": 0,
+          "balanced_accuracy": 0.5491345136578588,
+          "accuracy": 0.5805,
+          "ece": 0.20340248120325852,
+          "released_abnormal_rate": 0.379
+        },
+        "10pct": {
+          "budget": 0.1,
+          "deferral_rate": 0.1,
+          "released_n": 1800,
+          "deferred_n": 200,
+          "balanced_accuracy": 0.5570929412740544,
+          "accuracy": 0.5877777777777777,
+          "ece": 0.19965739709512692,
+          "released_abnormal_rate": 0.39111111111111113
+        },
+        "20pct": {
+          "budget": 0.2,
+          "deferral_rate": 0.2,
+          "released_n": 1600,
+          "deferred_n": 400,
+          "balanced_accuracy": 0.5608039045956269,
+          "accuracy": 0.590625,
+          "ece": 0.200583818722589,
+          "released_abnormal_rate": 0.398125
+        },
+        "40pct": {
+          "budget": 0.4,
+          "deferral_rate": 0.4,
+          "released_n": 1200,
+          "deferred_n": 800,
+          "balanced_accuracy": 0.5817486564696155,
+          "accuracy": 0.61,
+          "ece": 0.19004661946528356,
+          "released_abnormal_rate": 0.41
+        }
+      },
+      "flag_recall_wholeset": 0.7245
+    },
+    "cric": {
+      "n": 2000,
+      "n_total_available": 11534,
+      "abnormal_rate": 0.424,
+      "maha_mean": 4253.6187725351465,
+      "maha_median": 4008.042994668451,
+      "decision_rates": {
+        "release": 0.137,
+        "defer": 0.016,
+        "flag": 0.847,
+        "n": 2000
+      },
+      "selective": {
+        "0pct": {
+          "budget": 0.0,
+          "deferral_rate": 0.0,
+          "released_n": 2000,
+          "deferred_n": 0,
+          "balanced_accuracy": 0.4925478249475891,
+          "accuracy": 0.419,
+          "ece": 0.5201937068752013,
+          "released_abnormal_rate": 0.424
+        },
+        "10pct": {
+          "budget": 0.1,
+          "deferral_rate": 0.1,
+          "released_n": 1800,
+          "deferred_n": 200,
+          "balanced_accuracy": 0.4923575458497453,
+          "accuracy": 0.4483333333333333,
+          "ece": 0.49255420265719296,
+          "released_abnormal_rate": 0.45444444444444443
+        },
+        "20pct": {
+          "budget": 0.2,
+          "deferral_rate": 0.2,
+          "released_n": 1600,
+          "deferred_n": 400,
+          "balanced_accuracy": 0.49238782051282054,
+          "accuracy": 0.473125,
+          "ece": 0.46697269909083844,
+          "released_abnormal_rate": 0.48
+        },
+        "40pct": {
+          "budget": 0.4,
+          "deferral_rate": 0.4,
+          "released_n": 1200,
+          "deferred_n": 800,
+          "balanced_accuracy": 0.49209628964708435,
+          "accuracy": 0.5025,
+          "ece": 0.43814129837245364,
+          "released_abnormal_rate": 0.5108333333333334
+        }
+      },
+      "flag_recall_wholeset": 0.847
+    }
+  },
+  "hicervix_nonsquamous_flag_recall": {
+    "n": 2000,
+    "n_total_pos": 3228,
+    "maha_mean": 3916.3560411254985,
+    "flag_recall": 0.769
+  },
+  "cric_flag_recall": 0.847
+}

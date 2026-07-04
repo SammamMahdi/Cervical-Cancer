@@ -1,0 +1,27 @@
+{
+  "dataset": "cric",
+  "tier": "E1",
+  "n": 10928,
+  "excluded": 606,
+  "excluded_fraction": 0.05254031558869429,
+  "accuracy": 0.4087664714494876,
+  "balanced_accuracy": 0.49918957752755444,
+  "macro_f1": 0.36744672912870224,
+  "sensitivity": 0.8749096167751266,
+  "specificity": 0.1234695382799823,
+  "auroc": 0.4997640089865378,
+  "threshold": 0.5,
+  "ece": 0.49503312543445327,
+  "confusion_matrix": [
+    [
+      837,
+      5942
+    ],
+    [
+      519,
+      3630
+    ]
+  ],
+  "highgrade_recall": 0.8264610971674435,
+  "n_highgrade": 2789
+}

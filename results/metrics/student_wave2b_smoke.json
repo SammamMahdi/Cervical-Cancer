@@ -1,0 +1,144 @@
+{
+  "backbone": "efficientnet_b0",
+  "params": 4670084,
+  "config": {
+    "epochs": 1,
+    "lr": 0.0005,
+    "hidden": 512,
+    "dropout": 0.3,
+    "excl_weight": 0.0,
+    "label_smoothing": 0.0,
+    "optimizer": "adamw",
+    "weight_decay": 0.0001,
+    "batch_size": 64,
+    "aug": "photometric",
+    "img_size": 224,
+    "split_kind": "grouped",
+    "external_sources": [],
+    "hicervix_splits": [
+      "train",
+      "val"
+    ],
+    "pretrained": true,
+    "taxonomy": "bethesda8",
+    "n_leaves": 8
+  },
+  "dataset": {
+    "n_total": 3238,
+    "n_sipakmed_singleton": 3238,
+    "n_external": 0,
+    "external_per_source": {},
+    "external_sources": [],
+    "hicervix_splits": [
+      "train",
+      "val"
+    ],
+    "split_kind": "grouped",
+    "taxonomy": "bethesda8",
+    "n_leaves": 8,
+    "w_src": {
+      "sipakmed": 1.0,
+      "external": 0.3
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "partial_loss": 0.45044167543668817,
+      "epoch_time": 17.156206369400024,
+      "test_accuracy": 0.9261083743842364,
+      "test_balanced_accuracy": 0.9263423237406977,
+      "test_macro_f1": 0.9262053389287171,
+      "test_kappa": 0.9076391100596023
+    }
+  ],
+  "sealed_test": {
+    "accuracy": 0.9261083743842364,
+    "balanced_accuracy": 0.9263423237406977,
+    "macro_f1": 0.9262053389287171,
+    "cohen_kappa": 0.9076391100596023,
+    "roc_auc_macro_ovr": 0.9916800669503527,
+    "per_class": {
+      "Superficial-Intermediate": {
+        "precision": 0.9880952380952381,
+        "recall": 0.9880952380952381,
+        "f1-score": 0.9880952380952381,
+        "support": 84.0
+      },
+      "Parabasal": {
+        "precision": 0.9753086419753086,
+        "recall": 1.0,
+        "f1-score": 0.9875,
+        "support": 79.0
+      },
+      "Metaplastic": {
+        "precision": 0.8260869565217391,
+        "recall": 0.95,
+        "f1-score": 0.8837209302325582,
+        "support": 80.0
+      },
+      "Koilocytotic": {
+        "precision": 0.8589743589743589,
+        "recall": 0.8170731707317073,
+        "f1-score": 0.8375,
+        "support": 82.0
+      },
+      "Dyskeratotic": {
+        "precision": 1.0,
+        "recall": 0.8765432098765432,
+        "f1-score": 0.9342105263157895,
+        "support": 81.0
+      },
+      "accuracy": 0.9261083743842364,
+      "macro avg": {
+        "precision": 0.9296930391133291,
+        "recall": 0.9263423237406977,
+        "f1-score": 0.9262053389287171,
+        "support": 406.0
+      },
+      "weighted avg": {
+        "precision": 0.9299808785066155,
+        "recall": 0.9261083743842364,
+        "f1-score": 0.9262468646556247,
+        "support": 406.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        83,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        79,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        76,
+        4,
+        0
+      ],
+      [
+        1,
+        0,
+        14,
+        67,
+        0
+      ],
+      [
+        0,
+        2,
+        1,
+        7,
+        71
+      ]
+    ]
+  }
+}

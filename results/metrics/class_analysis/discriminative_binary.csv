@@ -1,0 +1,17 @@
+class,rank,feature,cohens_d,direction
+Normal,1,cytoplasm_equivdiameter,1.388,higher
+Normal,2,cytoplasm_minoraxis,1.375,higher
+Normal,3,cytoplasm_i1_mean,1.327,higher
+Normal,4,nucleus_i1_mean,1.304,higher
+Normal,5,cytoplasm_majoraxis,1.295,higher
+Normal,6,cytoplasm_area,1.165,higher
+Normal,7,cytoplasm_extent,1.102,higher
+Normal,8,cytoplasm_solidity,1.102,higher
+Abnormal,1,cytoplasm_equivdiameter,-1.388,lower
+Abnormal,2,cytoplasm_minoraxis,-1.375,lower
+Abnormal,3,cytoplasm_i1_mean,-1.327,lower
+Abnormal,4,nucleus_i1_mean,-1.304,lower
+Abnormal,5,cytoplasm_majoraxis,-1.295,lower
+Abnormal,6,cytoplasm_area,-1.165,lower
+Abnormal,7,cytoplasm_extent,-1.102,lower
+Abnormal,8,cytoplasm_solidity,-1.102,lower

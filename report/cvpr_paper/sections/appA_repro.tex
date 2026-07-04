@@ -1,0 +1,38 @@
+\section{Reproducibility and protocol details}
+\label{sec:appA}
+
+\noindent\textbf{Environment.} PyTorch $2.11$ (CUDA $12.8$), single NVIDIA RTX $5060$\,Ti ($16$\,GB),
+BF16 autocast, deterministic seed $42$, \texttt{num\_workers}$=0$. All numbers in this paper are
+produced by the frozen checkpoints; we report measured values only and do not extrapolate.
+
+\noindent\textbf{Models and optimisation.} EfficientNet-B4 teacher ($18.5$\,M) and B0 student
+($4.67$\,M), ImageNet-pretrained, custom head $\mathrm{BN}\!\to\!\mathrm{Linear}(512)\!\to\!
+\mathrm{ReLU}\!\to\!\mathrm{Dropout}\!\to\!\mathrm{Linear}(5)$. Teacher: Adam, class-weighted CE,
+two stages (frozen lr $10^{-3}$ $\le\!30$ ep; fine-tune lr $10^{-5}$ $\le\!50$ ep), ReduceLROnPlateau
+on val loss. Student: KD (\cref{eq:kd}, $T{=}4$, $\alpha{=}0.1$), Adam lr $5\!\times\!10^{-5}$,
+$\le\!40$ ep, early-stopped on val accuracy. Input $380\!\times\!380$, ImageNet normalisation; train
+augmentation = flips $+$ rotation $\pm72^{\circ}$ $+$ affine scale $0.9\!-\!1.1$; eval = resize $+$
+normalise only.
+
+\noindent\textbf{Split.} Per-class stratified $80/20$ over the $5{,}015$ \sipakmed\ images
+($4{,}012$ train / $1{,}003$ val). We note explicitly (\cref{sec:analysis}) that this random per-cell
+split shares field-of-view across partitions and therefore overstates internal accuracy; a
+cluster-grouped split is the recommended fix.
+
+\noindent\textbf{Binary decision and metrics.} $\pabn=\softmax(z)_{\text{Koilo}}+\softmax(z)_{\text{Dysk}}$
+(\cref{eq:pabn}); predict Abnormal if $\pabn>\tau$, $\tau{=}0.5$. We report accuracy, balanced
+accuracy, sensitivity, specificity, threshold-free AUROC, the class-conditional separation
+$\Delta P$, ECE ($15$ equal-width bins), and---next to every external accuracy---the majority-class
+baseline. Oracle thresholds are swept on the test set and reported only to bound recoverable
+calibration loss; they are not a deployable result.
+
+\noindent\textbf{External evaluation counts.} \herlev\ $917$ cells; \apacc\ $1{,}125$ crops (one
+zero-byte file removed; \texttt{rubbish}/\texttt{bothcells} excluded); \hicervix\ $4{,}823$ scorable of
+$8{,}051$ test cells (\texttt{AGC}/\texttt{microbe} excluded); \herlev\ \texttt{columnar} mapped to Normal
+in the legacy crosswalk (stricter exclusion variant moves the headline $<\!1$ point). Excluded
+fractions are reported so that dropping unmappable cells cannot silently inflate the binary score.
+
+\noindent\textbf{Explainability.} Grad-CAM~\cite{selvaraju2017gradcam} on the student's final
+convolutional block; one representative correctly-classified cell per class
+(\cref{fig:gradcam}, confidences $0.97\!-\!1.00$). Attributions are localisation evidence, not a
+faithfulness guarantee.

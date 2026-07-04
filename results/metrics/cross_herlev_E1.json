@@ -1,0 +1,27 @@
+{
+  "dataset": "herlev",
+  "tier": "E1",
+  "n": 819,
+  "excluded": 98,
+  "excluded_fraction": 0.10687022900763359,
+  "accuracy": 0.6837606837606838,
+  "balanced_accuracy": 0.6333333333333333,
+  "macro_f1": 0.5846961690497121,
+  "sensitivity": 0.7111111111111111,
+  "specificity": 0.5555555555555556,
+  "auroc": 0.6561008230452676,
+  "threshold": 0.5,
+  "ece": 0.16825248238756246,
+  "confusion_matrix": [
+    [
+      80,
+      64
+    ],
+    [
+      195,
+      480
+    ]
+  ],
+  "highgrade_recall": 0.6855983772819473,
+  "n_highgrade": 493
+}

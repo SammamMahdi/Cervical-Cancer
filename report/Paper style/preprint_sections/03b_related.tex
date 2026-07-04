@@ -1,0 +1,43 @@
+\section{Related work}
+\label{sec:related}
+
+\paragraph{Feed-forward 3D foundation models.}
+DUSt3R~\cite{dust3r} replaced the fragile structure-from-motion\,+\,multi-view-stereo pipeline with
+direct point-map regression; \mastr~\cite{mast3r} added robust matching, and \vggt~\cite{vggt},
+Fast3R-style and stateful variants~\cite{fast3r,cut3r} scaled it to many views in one pass.
+\pii~\cite{pi3} removed the reference-view dependence through a permutation-equivariant design. All
+of these models emit a per-pixel confidence that is trained as a reconstruction loss-weight rather
+than a calibrated uncertainty; the field's own survey~\cite{survey3d} names calibrated uncertainty
+for this family ``critical and underexplored,'' and a recent analysis studies the learned geometric
+priors of these models~\cite{geompriors}. Concurrent work adds \emph{trained} uncertainty to these
+backbones---an evidential Normal-Inverse-Wishart head that predicts a closed-form predictive
+distribution in a single pass~\cite{trust3r_evidential}, an automated-capture uncertainty
+module~\cite{auto3r}, and 4D-specific priors~\cite{robust4d}. Each of these trains a new head with
+labelled supervision. \trustr\ is instead fully training-free: it reads epistemic uncertainty from
+the frozen model's own variance under input perturbation, and is therefore complementary to (rather
+than competing with) such trained heads---it applies unchanged to any current or future checkpoint.
+
+\paragraph{Uncertainty estimation and calibration.}
+Bayesian/MC-dropout~\cite{mcdropout} and deep ensembles~\cite{ensembles} estimate epistemic
+uncertainty but require dropout layers or several independently-trained models---neither available
+for a single frozen released checkpoint. Kendall and Gal~\cite{kendallgal} separate aleatoric from
+epistemic uncertainty; calibration is measured by \ece~\cite{guo} and, for regression, by
+reliability~\cite{kuleshov}. We obtain epistemic uncertainty by \emph{input} perturbation of a frozen
+model (no weight perturbation, no retraining) and calibrate post-hoc with isotonic regression.
+Because this signal is a \emph{variance} under input perturbation, it captures the model's
+\emph{procedural}, input-sensitivity component of epistemic uncertainty and not a \emph{systematic
+bias} (a stable-but-wrong prediction)---a scope limit that recent work argues is intrinsic to
+variance-based estimators~\cite{epistemic_incomplete}, and one we make explicit in
+\Cref{sec:discussion}. Our evaluation ports the sparsification/\ause\ protocol~\cite{ilg} and
+self-supervised depth-uncertainty protocols~\cite{poggi} to multi-view point maps, adding the
+alignment step that 3D requires.
+
+\paragraph{Training-free adaptation and test-time augmentation.}
+Test-time augmentation has been used to estimate \emph{aleatoric} uncertainty in 2D
+classification and segmentation~\cite{ayhan,ttaaleatoric,matta}, and training-free adaptation of
+large models~\cite{tda,bolt,lorattt} is by now a proven low-compute archetype. \trustr\ follows this
+template for 3D, but with two differences that the geometry forces: it uses \emph{geometry-preserving}
+perturbations, and it measures \emph{variance after registration} rather than adapting the model.
+As we show, that variance exposes an \emph{epistemic} signal that a trained feature probe on a single
+forward pass cannot recover---so the method is not merely TTA carried over to a new domain, but a
+distinct use of perturbation that the gauge structure of 3D makes both necessary and informative.

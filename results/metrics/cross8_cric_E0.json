@@ -1,0 +1,26 @@
+{
+  "dataset": "cric",
+  "tier": "E0",
+  "head": "8leaf",
+  "n": 11534,
+  "excluded": 0,
+  "excluded_fraction": 0.0,
+  "accuracy": 0.9289058435928559,
+  "balanced_accuracy": 0.9169772922470877,
+  "macro_f1": 0.924975303726955,
+  "sensitivity": 0.8490010515247108,
+  "specificity": 0.9849535329694645,
+  "auroc": 0.986370601733038,
+  "threshold": 0.5,
+  "ece": 0.01681426256904269,
+  "confusion_matrix": [
+    [
+      6677,
+      102
+    ],
+    [
+      718,
+      4037
+    ]
+  ]
+}

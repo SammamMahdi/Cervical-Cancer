@@ -1,0 +1,32 @@
+\section{Notation and terminology}
+\label{app:glossary}
+
+A compact reference for the recurring terms (\Cref{sec:primer}).
+
+\begin{description}[leftmargin=1.1em,itemsep=1.5pt,topsep=3pt,style=unboxed]
+\item[Frozen model.] A pretrained network we run but never modify; there is no training anywhere in the method.
+\item[Point map.] Per-pixel predicted 3D coordinates $(x,y,z)$; the model's main output.
+\item[Built-in confidence.] A per-pixel number the model already emits, trained as a loss weight---not a calibrated error estimate.
+\item[Perturbation / TTA.] A small change to the input (``test-time augmentation'') that should not change the true 3D.
+\item[Geometry-preserving.] A perturbation that leaves the real 3D unchanged, so any output change is the model's fault, not induced.
+\item[Gauge / similarity.] The seven degrees of freedom---scale (1), rotation (3), translation (3)---that the output is only defined up to.
+\item[Reference-dependent.] A model (\vggt, \mastr) whose gauge is anchored on a chosen first view; contrast with permutation-equivariant.
+\item[Permutation-equivariant.] A model (\pii) whose output does not depend on the input view order, so a shuffle is inert.
+\item[Alignment / registration.] Undoing the gauge: scaling/rotating/shifting one run onto another so they share one frame.
+\item[Umeyama.] The closed-form least-squares algorithm for the best similarity transform between two point sets~\cite{umeyama}.
+\item[IRLS / robust fit.] Iteratively re-weighted least squares: fitting while down-weighting outliers so a few bad points cannot ruin the fit.
+\item[Trace-variance.] Our raw uncertainty: the RMS distance of the $N$ registered runs from their per-pixel mean (the spread).
+\item[Calibration.] Rescaling raw uncertainty so its magnitude is meaningful (a stated ``$90\%$ interval'' really contains $90\%$ of errors).
+\item[Isotonic regression.] The best monotone (order-preserving) fit; our calibration map, computed by Pool-Adjacent-Violators.
+\item[Held-out fusion.] Combining perturbation families (and the built-in confidence) with weights fit on a held-out split, never on the scored points.
+\item[Epistemic uncertainty.] The model's own ignorance; reducible, and detectable by probing the model and watching it become unstable.
+\item[Aleatoric uncertainty.] Irreducible noise in the data (sensor noise, blur, genuine ambiguity); not what \trustr\ targets.
+\item[\ause\ ($\downarrow$).] Area Under the Sparsification Error; the headline metric: how well uncertainty \emph{ranks} error vs.\ an oracle. Rank-only.
+\item[\aurg\ ($\uparrow$).] Area gained over the random-removal baseline; $\approx 0$ for a no-skill signal.
+\item[Spearman $\rho$ ($\uparrow$).] Rank correlation between uncertainty and error; $+1$ perfect, $0$ useless, negative actively misleading.
+\item[\ece\ ($\downarrow$).] Expected Calibration Error; whether the uncertainty \emph{magnitudes} are honest. The only metric calibration moves.
+\item[Oracle / random.] The best-possible ranking (sort by true error) and the no-skill baseline; every plot is bracketed by these.
+\item[ID / OOD.] In-distribution (data like training) / out-of-distribution (a domain shift that stresses the model).
+\item[View-set.] The unit of evaluation: a handful of overlapping images of one scene.
+\item[MC baseline.] A simple input-noise stand-in for MC-dropout (the checkpoints have no dropout); a baseline, not a tuned competitor.
+\end{description}

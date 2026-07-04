@@ -1,0 +1,65 @@
+% =====================================================================
+%  ReVar3R -- comprehensive two-column preprint
+%  (CVPR main paper + supplementary merged into one expanded document)
+%  Build: pdflatex preprint -> bibtex preprint -> pdflatex preprint x2
+%  The CVPR main.tex / supplementary.tex are left untouched.
+% =====================================================================
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage{cvpr}                  % CVPR two-column style, camera-ready (no review banner / line numbers)
+\input{preamble}                   % microtype
+\input{macros}                     % \trustr/\ause/\best macros + float tuning (twocolumn-aware)
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{pifont}                % \ding cross/check glyphs (status table)
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{subcaption}
+\usepackage{dblfloatfix}            % robust placement of full-width (starred) floats in two-column
+\setcounter{totalnumber}{12}
+
+% hyperref last, then cleveref (in arxiv_compat)
+\definecolor{linknavy}{rgb}{0.10,0.30,0.55}
+\usepackage[pagebackref,breaklinks,colorlinks,allcolors=linknavy]{hyperref}
+\input{arxiv_compat}               % cleveref (after hyperref) + math operators; abbrevs already in cvpr.sty
+
+\def\paperID{}
+\def\confName{Preprint}
+\def\confYear{2026}
+
+\title{ReVar3R: Training-Free Calibrated Uncertainty for Frozen Feed-Forward 3D Foundation Models}
+\author{Anonymous}
+
+\begin{document}
+\maketitle
+
+\input{preprint_sections/00_abstract}
+
+\input{preprint_sections/01_intro}
+\input{preprint_sections/02_questions_novelty}
+\input{preprint_sections/03_primer}
+\input{preprint_sections/03b_related}
+\input{preprint_sections/04_problem}
+\input{preprint_sections/05_method}
+\input{preprint_sections/06_experiments}
+\input{preprint_sections/07_ablations}
+\input{preprint_sections/08_discussion}
+\input{preprint_sections/09_conclusion}
+
+\appendix
+\input{preprint_sections/appA_repro}
+\input{preprint_sections/appB_metrics}
+\input{preprint_sections/appD_perscene}
+\input{preprint_sections/appE_curves}
+\input{preprint_sections/appF_qualitative}
+\input{preprint_sections/appG_negatives}
+\input{preprint_sections/appH_glossary}
+
+{\small
+\bibliographystyle{ieeenat_fullname}
+\bibliography{refs}
+}
+
+\end{document}

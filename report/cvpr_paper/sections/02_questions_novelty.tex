@@ -1,0 +1,98 @@
+\section{Research questions, hypotheses, and novelty}
+\label{sec:questions}
+
+A cervical-cytology classifier ships a single headline accuracy, but whether that number reflects
+transferable diagnostic competence has not been examined systematically for distilled, edge-oriented
+models. We ask whether the number can be trusted off its training distribution and, where it cannot,
+\emph{why}. Stated precisely, the object of study is:
+
+\begin{quote}
+Given a model $f$ trained on the \sipakmed\ five-class space and reported at high in-distribution
+accuracy, determine whether $f$ \textbf{(a)} retains discriminative skill on independent Pap datasets
+under a deterministic binary alignment, \textbf{(b)} remains calibrated and explainable there, and
+\textbf{(c)} if it fails, whether the failure is attributable to the label mapping or to a genuine
+model/domain effect---using only frozen evaluation, documented mappings, and reported excluded
+fractions.
+\end{quote}
+
+\subsection{Research questions and hypotheses}
+\label{sec:rqs}
+
+We organise the study around four research questions, each with the hypothesis we set out to test.
+
+\begin{description}[leftmargin=1.4em,itemsep=3pt,topsep=3pt]
+\item[RQ1 (compression vs.\ skill).] \emph{Can a knowledge-distilled B0 student match the B4 teacher's
+in-distribution accuracy at a fraction of the parameters?}\\
+\textbf{H1:} yes; the regularising effect of distillation may let the $4.67$\,M-parameter student
+match or even exceed the $18.5$\,M teacher. (Answered in \cref{sec:exp}.)
+
+\item[RQ2 (does accuracy transfer?).] \emph{Does strong in-distribution accuracy translate to
+cross-dataset generalisation on independent Pap datasets?}\\
+\textbf{H2:} no; a large internal-to-external gap is expected because the model sees a single
+preparation protocol. (Answered in \cref{sec:analysis}.)
+
+\item[RQ3 (artefact or genuine failure?).] \emph{Is any cross-dataset failure a label-mapping
+artefact or a genuine model-and-domain failure?}\\
+\textbf{H3:} genuine domain shift compounded by miscalibration, \emph{not} a labelling error---the
+decision score should remain correctly oriented (abnormal ranked above normal) even as accuracy
+falls. (Answered in \cref{sec:analysis}.)
+
+\item[RQ4 (does trust transfer?).] \emph{Do calibration and explainability hold, and does calibration
+transfer out-of-distribution?}\\
+\textbf{H4:} in-distribution the model is well calibrated~\cite{guo2017calibration} and its Grad-CAM
+attributions are cytologically plausible, but the calibrated operating point does \emph{not} transfer
+across domains. (Answered in \cref{sec:exp,sec:analysis}.)
+\end{description}
+
+\subsection{What is novel}
+\label{sec:novelty}
+
+Our novelty is \emph{not} ``cross-dataset evaluation'' in general---generalisation testing is mature.
+It is the specific, rarely-occupied intersection of three things in the cervical-cytology setting.
+
+\begin{enumerate}[leftmargin=1.5em,itemsep=2pt,topsep=2pt]
+\item \textbf{A deterministic, leakage-aware, multi-dataset audit} of a distilled cytology model
+across three external Pap datasets (\herlev, \apacc, \hicervix) under a documented binary crosswalk
+with \emph{reported excluded fractions}---rather than a single-dataset accuracy or an undocumented
+relabelling that silently inflates the score.
+\item \textbf{A mechanistic diagnosis that distinguishes a label artefact from domain failure.} We
+introduce a simple, decisive test---the class-conditional $\pabn$ separation together with the
+AUROC$>0.5$ criterion---and an accuracy-versus-majority-baseline / oracle-threshold analysis that
+localises the failure to operating-point miscalibration and slide-preparation distance. This turns
+``it does not generalise'' into ``here is the cause.''
+\item \textbf{The distillation paradox made explicit.} We show the compressed student is
+\emph{stronger} than its teacher in-distribution yet fails identically out-of-distribution, evidence
+that compression quality and generalisation are decoupled and that distillation does not confer
+robustness~\cite{geirhos2020shortcut}.
+\end{enumerate}
+
+\noindent\textbf{Contrast with the closest practice.} The standard report is a single in-distribution
+accuracy; we show it is optimistic (leaky split) and non-transferable. Where external sets are used,
+the label crosswalk is frequently undocumented; we make it deterministic and report what is excluded.
+And where a drop is observed, it is typically attributed loosely to ``domain shift''; we provide a
+test that \emph{rules out} the competing artefact explanation and pinpoints the operative mechanism.
+
+\subsection{Outcome of the hypotheses}
+\label{sec:hyp-status}
+
+Each hypothesis's outcome is summarised in \cref{tab:hyp-status}. Reporting that the headline accuracy
+fails to transfer---and that the internal estimate is itself optimistic---is the deliberate point: an
+audit is worthless if it suppresses its own inconvenient findings.
+
+\begin{table*}[tb]
+\centering\small
+\caption{\textbf{Where each hypothesis stands.} All four are supported; the load-bearing result is
+H3---the cross-dataset collapse is a \emph{genuine} domain/calibration failure, not an artefact of
+the binary label alignment.}
+\label{tab:hyp-status}
+\begin{tabular}{@{}l p{0.40\textwidth} p{0.33\textwidth} l@{}}
+\toprule
+Hyp. & Claim (abbreviated) & Verdict & Where \\
+\midrule
+H1 & distilled B0 matches/exceeds the B4 teacher in-distribution & \textbf{Supported} (student $>$ teacher on all metrics) & \cref{sec:exp} \\
+H2 & strong in-distribution accuracy does not transfer cross-dataset & \textbf{Supported} ($33$--$43$-pt drop) & \cref{sec:analysis} \\
+H3 & failure is domain shift $+$ miscalibration, not a label artefact & \textbf{Supported} ($\pabn$ separation $>0$, AUROC$>0.5$) & \cref{sec:analysis} \\
+H4 & in-distribution calibration holds but does not transfer & \textbf{Supported} (binary ECE $0.008$ in; $0.22$--$0.33$ out) & \cref{sec:exp,sec:analysis} \\
+\bottomrule
+\end{tabular}
+\end{table*}

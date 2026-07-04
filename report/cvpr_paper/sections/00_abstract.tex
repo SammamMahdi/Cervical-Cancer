@@ -1,0 +1,26 @@
+\begin{abstract}
+Cervical-cytology classifiers are routinely reported at near-ceiling \emph{single-dataset} accuracy
+and presented as deployable screening tools. We show this number is a poor proxy for screening
+readiness. We audit a knowledge-distilled classifier---an EfficientNet-B4 teacher (18.5\,M params)
+distilled into an EfficientNet-B0 student (4.67\,M params)---trained on the five \sipakmed\
+cytomorphology classes. In-distribution the student is genuinely excellent and, notably,
+\emph{surpasses its own teacher} on every metric (accuracy $0.966$ vs.\ $0.943$, macro-$F_1$ $0.967$,
+Cohen's $\kappa$ $0.958$, one-vs-rest AUROC $0.998$, expected calibration error $0.015$);
+Grad-CAM confirms decisions localise to the nucleus and cell body. Yet evaluated unchanged on three
+independent Papanicolaou datasets (\herlev, \apacc, \hicervix) under a deterministic, documented
+binary Normal/Abnormal label alignment, accuracy \emph{collapses} to $0.639$, $0.605$ and $0.532$
+---\emph{below the majority-class baseline} on two of three sets---with AUROC of $0.73$, $0.59$ and
+$0.53$. Crucially, we show this is \emph{not} a labelling artefact: the class-conditional
+$\pabn$ score ranks abnormal above normal cells in \emph{every} dataset (separation
+$+0.284/+0.112/+0.045$, all AUROC$>0.5$); a flipped mapping would invert this. The collapse is instead
+(i) genuine domain shift whose severity \emph{tracks slide-preparation distance} from \sipakmed's
+conventional smear (conventional $\rightarrow$ liquid-based $\rightarrow$ auto-segmented crops:
+$0.73\!\rightarrow\!0.59\!\rightarrow\!0.53$), and (ii) an \emph{operating-point} miscalibration: the
+well-calibrated in-distribution confidence does not transfer (binary ECE rises from $0.008$
+in-distribution to $0.22$--$0.33$ externally), so a fixed threshold discards the available ranking
+signal and underperforms a trivial baseline. We further show the internal
+$0.966$ is itself \emph{optimistic}, inflated by same-field-of-view leakage in the per-cell split.
+We contribute a reproducible cross-dataset audit and a diagnostic methodology that mechanistically
+separates label artefacts from domain failure, and we conclude with evidence-led remedies. The
+headline number is not the property practitioners think it is.
+\end{abstract}

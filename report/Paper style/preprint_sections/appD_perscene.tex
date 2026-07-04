@@ -1,0 +1,10 @@
+\section{Statistical detail}
+\label{app:perscene}
+
+All significance tests in the paper are paired Wilcoxon signed-rank tests computed over individual
+\emph{view-sets} (which span the constituent scenes of each dataset: 7-Scenes chess/fire/heads; DTU
+object scans; ETH3D courtyard/electro/office/pipes/terrace), so the reported $p$-values already
+account for per-scene variation. The seed standard deviations in \Cref{tab:rq2} (e.g.\
+$0.490{\pm}0.006$ on 7-Scenes; $0.640{\pm}0.009$ on OOD ETH3D) quantify run-to-run stability; the
+held-out weighted and equal-weight fusions are comparably stable, and the perturbation-only fusion
+wins the identical $8/12$ cells (\Cref{sec:abl-fusion}).

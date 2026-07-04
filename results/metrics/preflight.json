@@ -1,0 +1,69 @@
+{
+  "datasets": {
+    "sipakmed": {
+      "images": 5015,
+      "present": true
+    },
+    "herlev": {
+      "images": 1834,
+      "present": true
+    },
+    "apacc": {
+      "images": 1125,
+      "present": true
+    },
+    "hicervix": {
+      "images": 40229,
+      "present": true
+    },
+    "cric": {
+      "images": 400,
+      "present": true
+    }
+  },
+  "missing": [],
+  "corrupt_scan": {
+    "sipakmed": {
+      "checked": 600,
+      "zero_byte": 0,
+      "unreadable": 0
+    },
+    "herlev": {
+      "checked": 600,
+      "zero_byte": 0,
+      "unreadable": 0
+    },
+    "apacc": {
+      "checked": 600,
+      "zero_byte": 0,
+      "unreadable": 0
+    },
+    "hicervix": {
+      "checked": 600,
+      "zero_byte": 0,
+      "unreadable": 0
+    },
+    "cric": {
+      "checked": 400,
+      "zero_byte": 0,
+      "unreadable": 0
+    }
+  },
+  "code_hazards": {
+    "ssl_shadow": true,
+    "split_paths_case_ok": true
+  },
+  "env": {
+    "torch": "2.11.0+cu128",
+    "cuda_available": true,
+    "device": "cuda",
+    "recommended_num_workers_notebook": 0,
+    "num_workers_cli_ok": 4,
+    "gpu": "NVIDIA GeForce RTX 5060 Ti",
+    "cuda": "12.8",
+    "vram_total_gb": 17.1,
+    "vram_free_gb": 15.9,
+    "bf16_supported": true
+  },
+  "ok": true
+}

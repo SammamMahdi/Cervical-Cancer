@@ -1,0 +1,8 @@
+class,images
+severe_dysplastic,197
+light_dysplastic,182
+carcinoma_in_situ,150
+moderate_dysplastic,146
+normal_columnar,98
+normal_superficiel,74
+normal_intermediate,70

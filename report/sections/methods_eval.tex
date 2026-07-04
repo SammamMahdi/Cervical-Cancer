@@ -1,0 +1,25 @@
+I'll write the assigned section. This is a self-contained writing task using the shared facts provided.
+
+\section{Cross-dataset Label Alignment and Evaluation Protocol}
+
+\subsection{Binary label alignment}
+
+The five SIPaKMeD training classes encode squamous cytomorphology (Superficial-Intermediate, Parabasal, Metaplastic, Koilocytotic, Dyskeratotic), whereas the external datasets are annotated under fundamentally different schemes: Herlev follows a seven-tier WHO dysplasia grading, while HiCervix adopts the hierarchical Bethesda terminology \citep{nayar2015bethesda}. These taxonomies do not share a label space with the SIPaKMeD morphology classes. Any attempt to project one onto the other at full granularity is either one-to-many or undefined---a single dysplasia grade spans several morphological appearances, and several morphology classes have no unique Bethesda counterpart. The only level at which all four datasets admit a deterministic, many-to-one mapping is the binary distinction between normal and abnormal cervical cytology. We therefore evaluate cross-dataset performance exclusively in this binary regime, which preserves clinical meaning while avoiding spurious correspondences.
+
+On the model side, we collapse the five-way softmax into a single abnormality score by summing the posterior mass assigned to the two atypical classes,
+\begin{equation}
+P(\text{abnormal}) = \mathrm{softmax}(z)_{\text{Koilocytotic}} + \mathrm{softmax}(z)_{\text{Dyskeratotic}},
+\end{equation}
+where $z$ denotes the student logits; the remaining three classes (Superficial-Intermediate, Parabasal, Metaplastic) constitute the normal pool. A cell is called abnormal when $P(\text{abnormal}) \geq \tau$ with a fixed operating point $\tau = 0.5$. On the label side, the per-dataset crosswalk (Table~\ref{tab:mapping}) is fixed in advance and applied without exception. For Herlev, the superficial, intermediate, and columnar normal categories map to Normal, while light, moderate, and severe dysplasia together with carcinoma \emph{in situ} map to Abnormal. For APACC, \emph{healthy} maps to Normal and \emph{unhealthy} to Abnormal. For HiCervix, the level-1 \emph{negative} label maps to Normal and \emph{ASC} to Abnormal.
+
+A deliberate consequence of training on a purely squamous morphology vocabulary is that glandular lesions have no admissible home in the five-class space. Accordingly, Herlev's columnar cells are treated as normal squamous-equivalent only with caution, and the HiCervix glandular (AGC) and microbe categories are excluded outright, as is the case for APACC \emph{rubbish} and \emph{bothcells}. Rather than silently dropping these instances, we report the excluded fraction for each dataset as an explicit honesty metric, so that the denominator underlying every cross-dataset number is transparent.
+
+\subsection{Evaluation metrics}
+
+In-distribution performance on the held-out SIPaKMeD validation split is assessed at full five-class granularity using accuracy, balanced accuracy, macro-averaged F1, Cohen's $\kappa$, and the one-vs-rest macro AUROC, complemented by per-class precision, recall, and F1 and the full $5\times5$ confusion matrix. Probabilistic reliability is quantified with the Expected Calibration Error computed over fifteen equal-width confidence bins, alongside a reliability diagram \citep{guo2017calibration}; the ECE summarizes the average gap between predicted confidence and empirical accuracy and thus probes whether the network's probabilities can be trusted as operating points.
+
+Cross-dataset performance is reported in the binary Normal-versus-Abnormal regime using accuracy, balanced accuracy, sensitivity (recall on the abnormal class), specificity (recall on the normal class), and the threshold-free AUROC computed directly on $P(\text{abnormal})$, together with the binary confusion matrix and the aforementioned excluded fraction. Reporting AUROC separately from the fixed-$\tau$ accuracy is essential: it isolates the model's intrinsic ranking ability from any miscalibration of the decision boundary, allowing us to distinguish a genuine loss of discriminative signal from a mere shift of the optimal operating point across domains.
+
+\subsection{Explainability}
+
+To verify that in-distribution decisions rest on cytologically plausible evidence rather than background artefacts, we apply Grad-CAM \citep{selvaraju2017gradcam} to the student's final convolutional block, gradient-weighting the activation maps with respect to the predicted class to obtain a coarse localization heatmap for one representative cell per class. We emphasize the methodological caveat that Grad-CAM is an attribution technique: it reveals \emph{where} the network attends, not \emph{why} it decides, and spatial coincidence with the nucleus or cytoplasm is evidence of plausible feature use rather than proof of clinically faithful reasoning. We therefore treat the saliency maps as corroborating, not confirmatory, and report them as a transparency aid alongside the quantitative results.

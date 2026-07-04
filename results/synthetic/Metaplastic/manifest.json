@@ -1,0 +1,8 @@
+{
+  "class_name": "Metaplastic",
+  "class_idx": 2,
+  "n": 31,
+  "source": "cellgan",
+  "ckpt": "cellgan.pt",
+  "note": "synthetic augmentation; never counted as real data"
+}

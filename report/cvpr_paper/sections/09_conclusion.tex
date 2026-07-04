@@ -1,0 +1,26 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We audited a knowledge-distilled cervical-cytology classifier the way it would be \emph{used}, not the
+way it is usually \emph{reported}: we froze it after strong in-distribution training and measured it on
+three external Pap datasets spanning the slide-preparation axis. The result is a clean cautionary tale.
+In-distribution the distilled B0 student is excellent and \emph{beats its own B4 teacher}
+(accuracy $0.966$, AUROC $0.998$, ECE $0.015$) at a quarter of the parameters. Pushed across datasets,
+the same weights collapse to $0.639$/$0.605$/$0.532$ accuracy and $0.728$/$0.594$/$0.525$ AUROC---at
+two sites below what a constant majority predictor would score.
+
+Our central contribution is the \emph{diagnosis}, not the collapse. We show it is \emph{not} a labelling
+artefact---the $\pabn$ score is correctly oriented everywhere ($\Delta P>0$, AUROC$>0.5$)---but the
+joint product of an operating point that does not transfer (in-distribution calibration is domain-local:
+binary ECE rises from $0.008$ to $0.22$--$0.33$ across sites) and features entangled with slide
+preparation (retained signal falls monotonically with preparation
+distance: conventional $>$ liquid-based $>$ auto-segmented). We further show the internal $0.966$ is
+itself optimistic under field-of-view leakage, so the true gap is wider still. Each finding is tied to a
+falsifiable test and a concrete remedy---per-domain threshold calibration, preparation-invariant
+features, leakage-safe splits, and always reporting the majority floor.
+
+The broader lesson generalises past cytology: a single in-distribution metric---accuracy, calibration,
+or AUROC alone---can each independently hide a model that is unfit for cross-site deployment. Honest
+medical-imaging evaluation must be multi-metric, per-domain, leakage-aware, and reported against the
+majority baseline. We release the full audit protocol and per-dataset breakdowns
+(\cref{sec:appA}) to make such reporting routine.

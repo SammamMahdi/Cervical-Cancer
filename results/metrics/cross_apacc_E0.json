@@ -1,0 +1,25 @@
+{
+  "dataset": "apacc",
+  "tier": "E0",
+  "n": 1125,
+  "excluded": 0,
+  "excluded_fraction": 0.0,
+  "accuracy": 0.5182222222222223,
+  "balanced_accuracy": 0.5275073998178507,
+  "macro_f1": 0.4397657444431377,
+  "sensitivity": 0.9143897996357013,
+  "specificity": 0.140625,
+  "auroc": 0.6311443786682858,
+  "threshold": 0.5,
+  "ece": 0.33176499124647424,
+  "confusion_matrix": [
+    [
+      81,
+      495
+    ],
+    [
+      47,
+      502
+    ]
+  ]
+}

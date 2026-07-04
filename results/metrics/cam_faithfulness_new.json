@@ -1,0 +1,13 @@
+{
+  "which": "new",
+  "img_size": 380,
+  "n": 80,
+  "cam_grid": [
+    12,
+    12
+  ],
+  "accuracy": 0.975,
+  "mean_confidence": 0.8991,
+  "cam_concentration_top20": 0.3317,
+  "deletion_faithfulness": 0.1879
+}

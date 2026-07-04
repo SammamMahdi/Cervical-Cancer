@@ -1,0 +1,35 @@
+{
+  "dataset": "hicervix",
+  "n_items": 8051,
+  "native_classes": {
+    "negative": 2996,
+    "ASC": 1827,
+    "AGC": 1639,
+    "microbe": 1589
+  },
+  "e0_coverage": {
+    "normal": 2996,
+    "abnormal": 1827,
+    "excluded": 3228,
+    "excluded_fraction": 0.4009
+  },
+  "size_stats": {
+    "sampled": 400,
+    "corrupt_or_zero": 0,
+    "width": {
+      "min": 97,
+      "max": 3220,
+      "mean": 730.9,
+      "median": 585
+    },
+    "height": {
+      "min": 78,
+      "max": 2160,
+      "mean": 678.6,
+      "median": 538
+    },
+    "formats": {
+      ".jpg": 400
+    }
+  }
+}

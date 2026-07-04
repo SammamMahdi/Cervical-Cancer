@@ -1,0 +1,141 @@
+{
+  "run_id": "20260622_175902",
+  "started": "2026-06-22T17:59:02",
+  "ended": "2026-06-22T18:04:58",
+  "config": {
+    "split": "cluster-grouped 80/10/10",
+    "img_size": 224,
+    "teacher_img_size": 380,
+    "batch_size": 64,
+    "ema": false,
+    "teacher": {
+      "backbone": "efficientnet_b4",
+      "hidden": 512,
+      "dropout": 0.4,
+      "stage1": {
+        "lr": 0.001,
+        "epochs": 50,
+        "patience": 8
+      },
+      "stage2": {
+        "lr": 1e-05,
+        "epochs": 120,
+        "patience": 10
+      },
+      "reduce_lr": {
+        "factor": 0.3,
+        "patience": 4,
+        "min_lr": 1e-07
+      },
+      "optimizer": "adamw",
+      "weight_decay": 0.0001,
+      "label_smoothing": 0.05
+    },
+    "student": {
+      "backbone": "efficientnet_b0",
+      "hidden": 512,
+      "dropout": 0.3,
+      "lr": 0.0005,
+      "epochs": 60,
+      "patience": 10,
+      "optimizer": "adamw",
+      "weight_decay": 0.0001,
+      "label_smoothing": 0.05,
+      "temperature": 4.0,
+      "alpha": 0.5
+    },
+    "distill": true,
+    "kd_mode": "fixed",
+    "imbalance": "weights",
+    "aug": "photometric",
+    "teacher_backbone": "efficientnet_b4",
+    "student_backbone": "efficientnet_b0",
+    "smoke": true
+  },
+  "stages": {
+    "teacher-s1_smoke": [
+      {
+        "epoch": 1,
+        "loss": 0.7262040144540116,
+        "val_loss": 0.536545153900429,
+        "accuracy": 0.7841260037059914,
+        "val_accuracy": 0.7950617283950617,
+        "lr": 0.001,
+        "epoch_time": 79.52134728431702,
+        "improved": true
+      },
+      {
+        "epoch": 2,
+        "loss": 0.5899977873990092,
+        "val_loss": 0.5232708433528005,
+        "accuracy": 0.8545398394070414,
+        "val_accuracy": 0.7975308641975308,
+        "lr": 0.001,
+        "epoch_time": 36.31845426559448,
+        "improved": true
+      }
+    ],
+    "teacher-s2_smoke": [
+      {
+        "epoch": 1,
+        "loss": 0.5357042951595643,
+        "val_loss": 0.47479391362931994,
+        "accuracy": 0.8848054354539839,
+        "val_accuracy": 0.8123456790123457,
+        "lr": 1e-05,
+        "epoch_time": 68.95998311042786,
+        "improved": true
+      },
+      {
+        "epoch": 2,
+        "loss": 0.5160549694259201,
+        "val_loss": 0.48177529021545695,
+        "accuracy": 0.8894379246448425,
+        "val_accuracy": 0.8197530864197531,
+        "lr": 1e-05,
+        "epoch_time": 61.781620264053345,
+        "improved": false
+      }
+    ],
+    "student-kd_smoke": [
+      {
+        "epoch": 1,
+        "loss": 0.6893579817024406,
+        "val_loss": 0.38090226392687104,
+        "accuracy": 0.8570105003088326,
+        "val_accuracy": 0.8716049382716049,
+        "lr": 0.0005,
+        "epoch_time": 78.86143922805786,
+        "improved": true
+      },
+      {
+        "epoch": 2,
+        "loss": 0.48494412825017746,
+        "val_loss": 0.36904972938843716,
+        "accuracy": 0.9342186534898085,
+        "val_accuracy": 0.8987654320987655,
+        "lr": 0.0005,
+        "epoch_time": 24.419775247573853,
+        "improved": true
+      }
+    ]
+  },
+  "events": [
+    {
+      "t": "2026-06-22T18:01:00",
+      "msg": "teacher-s1_smoke: done (best val_loss=0.5233 @ ep2)"
+    },
+    {
+      "t": "2026-06-22T18:03:12",
+      "msg": "teacher-s2_smoke: done (best val_loss=0.4748 @ ep1)"
+    },
+    {
+      "t": "2026-06-22T18:04:58",
+      "msg": "student-kd_smoke: done (best val_accuracy=0.8988 @ ep2)"
+    }
+  ],
+  "final": {
+    "teacher_val_acc": 0.8123456790123457,
+    "student_val_acc": 0.8987654320987655
+  }
+}

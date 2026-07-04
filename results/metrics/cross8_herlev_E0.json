@@ -1,0 +1,26 @@
+{
+  "dataset": "herlev",
+  "tier": "E0",
+  "head": "8leaf",
+  "n": 819,
+  "excluded": 98,
+  "excluded_fraction": 0.10687022900763359,
+  "accuracy": 0.9987789987789988,
+  "balanced_accuracy": 0.9992592592592593,
+  "macro_f1": 0.9978992512716071,
+  "sensitivity": 0.9985185185185185,
+  "specificity": 1.0,
+  "auroc": 1.0,
+  "threshold": 0.5,
+  "ece": 0.002309559904619606,
+  "confusion_matrix": [
+    [
+      144,
+      0
+    ],
+    [
+      1,
+      674
+    ]
+  ]
+}

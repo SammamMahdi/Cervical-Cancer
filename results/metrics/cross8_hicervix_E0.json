@@ -1,0 +1,26 @@
+{
+  "dataset": "hicervix",
+  "tier": "E0",
+  "head": "8leaf",
+  "n": 4823,
+  "excluded": 3228,
+  "excluded_fraction": 0.4009439821140231,
+  "accuracy": 0.7675720505909185,
+  "balanced_accuracy": 0.7645442966100394,
+  "macro_f1": 0.7581078485539018,
+  "sensitivity": 0.7520525451559934,
+  "specificity": 0.7770360480640854,
+  "auroc": 0.8496228870751222,
+  "threshold": 0.5,
+  "ece": 0.03280306290196397,
+  "confusion_matrix": [
+    [
+      2328,
+      668
+    ],
+    [
+      453,
+      1374
+    ]
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "method": "aps",
+  "alpha": 0.1,
+  "mondrian": true,
+  "qhat": [
+    0.9773774424830772,
+    0.9707505044287813,
+    0.9908498798999262,
+    0.9926770396181711,
+    0.9785577449784155
+  ],
+  "coverage": 0.9532019704433498,
+  "avg_set_size": 2.0270935960591134,
+  "per_class_coverage": {
+    "Superficial-Intermediate": 0.9642857142857143,
+    "Parabasal": 0.9367088607594937,
+    "Metaplastic": 1.0,
+    "Koilocytotic": 1.0,
+    "Dyskeratotic": 0.8641975308641975
+  },
+  "n": 406
+}

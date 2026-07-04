@@ -1,0 +1,29 @@
+\section{Background and notation}
+\label{sec:primer}
+
+\noindent\textbf{Cervical cytology.} A Papanicolaou (Pap) test stains exfoliated cervical cells;
+a cytologist reads the slide for morphological signs of (pre)malignancy. Two labelling traditions
+coexist. \emph{Morphology} schemes name the cell type or change---\sipakmed\ uses five classes:
+Superficial-Intermediate, Parabasal, Metaplastic (normal/benign squamous), and Koilocytotic,
+Dyskeratotic (abnormal squamous changes)~\cite{plissiti2018sipakmed}. \emph{Diagnostic} schemes name
+the lesion grade---the WHO dysplasia scale (\herlev) and the Bethesda system (NILM, ASC-US, LSIL,
+ASC-H, HSIL, SCC; plus glandular AGC)~\cite{nayar2015bethesda}. These taxonomies are not in
+correspondence: a Bethesda grade does not determine a morphology class and vice versa, which is the
+crux of the cross-dataset label problem (\cref{sec:problem}).
+
+\noindent\textbf{Slide preparation.} Slide preparation is a first-order source of appearance shift
+even when the stain is Pap. Conventional smears (\sipakmed, \herlev) differ from liquid-based cytology
+(\hicervix), which differs again from auto-segmented single-cell crops (\apacc); each changes cell
+density, background, focus and segmentation. We will see the cross-dataset collapse is ordered by this
+preparation distance.
+
+\noindent\textbf{Notation.} A model $f$ maps a cell image $x$ to class logits $z\in\mathbb{R}^5$ over
+the \sipakmed\ classes; $\softmax(z)$ are the class probabilities and $\hat{y}=\arg\max_k z_k$ the
+prediction. For binary cross-dataset scoring we collapse to a single abnormality score
+\begin{equation}
+\pabn \;=\; \softmax(z)_{\mathrm{Koilo}} + \softmax(z)_{\mathrm{Dysk}},
+\label{eq:pabn}
+\end{equation}
+i.e.\ the probability mass on the two abnormal morphology classes, thresholded at $\tau$ (default
+$0.5$). Calibration is measured by the expected calibration error (ECE), the gap between confidence
+and accuracy averaged over confidence bins~\cite{guo2017calibration}.

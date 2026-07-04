@@ -1,0 +1,27 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# ---- Virtual environments ----
+.venv/
+venv/
+/venv
+
+# ---- Raw datasets (large; not redistributed — fetch via the data scripts) ----
+/data/
+*.zip
+
+# ---- Model checkpoints (too large for GitHub, >100MB; regenerate by training) ----
+*.pt
+*.pth
+*.ckpt
+results/checkpoints/
+Legacy_src/results/checkpoints/
+
+# ---- Build / tooling caches & local state ----
+report/_tools/cache/
+.claude/
+.DS_Store
+Thumbs.db

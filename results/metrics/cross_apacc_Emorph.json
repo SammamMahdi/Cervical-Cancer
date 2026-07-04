@@ -1,0 +1,18 @@
+{
+  "dataset": "apacc",
+  "tier": "Emorph",
+  "n": 1125,
+  "excluded": 0,
+  "excluded_fraction": 0.0,
+  "accuracy": 0.5173333333333333,
+  "per_label_accuracy": {
+    "healthy": {
+      "n": 576,
+      "accuracy": 0.13368055555555555
+    },
+    "unhealthy": {
+      "n": 549,
+      "accuracy": 0.9198542805100182
+    }
+  }
+}

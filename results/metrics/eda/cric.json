@@ -1,0 +1,37 @@
+{
+  "dataset": "cric",
+  "n_items": 11534,
+  "native_classes": {
+    "Negative for intraepithelial lesion": 6779,
+    "HSIL": 1703,
+    "LSIL": 1360,
+    "ASC-H": 925,
+    "ASC-US": 606,
+    "SCC": 161
+  },
+  "e0_coverage": {
+    "normal": 6779,
+    "abnormal": 4755,
+    "excluded": 0,
+    "excluded_fraction": 0.0
+  },
+  "size_stats": {
+    "sampled": 400,
+    "corrupt_or_zero": 0,
+    "width": {
+      "min": 1376,
+      "max": 1376,
+      "mean": 1376.0,
+      "median": 1376
+    },
+    "height": {
+      "min": 1020,
+      "max": 1020,
+      "mean": 1020.0,
+      "median": 1020
+    },
+    "formats": {
+      ".png": 400
+    }
+  }
+}

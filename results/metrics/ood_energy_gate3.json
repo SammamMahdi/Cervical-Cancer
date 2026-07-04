@@ -1,0 +1,80 @@
+{
+  "which": "student",
+  "max_n": 2000,
+  "T": 1.0,
+  "energy_definition": "E(x) = -logsumexp(raw_logits, axis=1)  [lower=in-dist]",
+  "per_domain": {
+    "sipakmed_internal": {
+      "n": 406,
+      "mean": -4.386365943204076,
+      "std": 0.7098128326320178,
+      "median": -4.39856696869172,
+      "p25": -4.773520528987735,
+      "p75": -3.8788636261152667
+    },
+    "herlev": {
+      "n": 819,
+      "mean": -3.661752703372188,
+      "std": 0.9384237285556839,
+      "median": -3.509787453720639,
+      "p25": -4.390624434508011,
+      "p75": -2.8305054411430244,
+      "n_total_available": 819
+    },
+    "hicervix": {
+      "n": 2000,
+      "mean": -3.2210991424781374,
+      "std": 0.5559046163819628,
+      "median": -3.1530165492545996,
+      "p25": -3.533916672910977,
+      "p75": -2.8095345395351194,
+      "n_total_available": 4823
+    },
+    "apacc": {
+      "n": 1125,
+      "mean": -4.327490441215944,
+      "std": 0.8945480389215968,
+      "median": -4.190841949111738,
+      "p25": -4.975888895206122,
+      "p75": -3.6160824039909447,
+      "n_total_available": 1125
+    },
+    "cric": {
+      "n": 2000,
+      "mean": -3.9333506515964007,
+      "std": 0.5730661196217843,
+      "median": -3.9620508856332046,
+      "p25": -4.322696380316084,
+      "p75": -3.582032158117876,
+      "n_total_available": 11534
+    }
+  },
+  "ood_auroc_internal_vs_external": {
+    "herlev": 0.7219966678094758,
+    "hicervix": 0.9047179802955665,
+    "apacc": 0.5372851669403393,
+    "cric": 0.6834248768472906
+  },
+  "measured_external_ece": {
+    "herlev": 0.16825248238756246,
+    "hicervix": 0.27218920026394533,
+    "apacc": 0.33176499124647424,
+    "cric": 0.46935532491590415,
+    "sipakmed_internal": 0.035
+  },
+  "order_by_mean_energy": [
+    "sipakmed_internal",
+    "apacc",
+    "cric",
+    "herlev",
+    "hicervix"
+  ],
+  "order_by_measured_ece": [
+    "sipakmed_internal",
+    "herlev",
+    "hicervix",
+    "apacc",
+    "cric"
+  ],
+  "cric_is_highest_energy": false
+}

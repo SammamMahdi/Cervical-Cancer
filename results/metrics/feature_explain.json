@@ -1,0 +1,267 @@
+{
+  "n_cells": 4049,
+  "n_features": 53,
+  "feature_names": [
+    "nucleus_area",
+    "nucleus_majoraxis",
+    "nucleus_minoraxis",
+    "nucleus_eccentricity",
+    "nucleus_orientation",
+    "nucleus_equivdiameter",
+    "nucleus_solidity",
+    "nucleus_extent",
+    "nucleus_perimeter",
+    "nucleus_i0_mean",
+    "nucleus_i0_var",
+    "nucleus_i0_skew",
+    "nucleus_i0_kurt",
+    "nucleus_i0_entropy",
+    "nucleus_i1_mean",
+    "nucleus_i1_var",
+    "nucleus_i1_skew",
+    "nucleus_i1_kurt",
+    "nucleus_i1_entropy",
+    "nucleus_i2_mean",
+    "nucleus_i2_var",
+    "nucleus_i2_skew",
+    "nucleus_i2_kurt",
+    "nucleus_i2_entropy",
+    "nucleus_ratio_a",
+    "nucleus_ratio_b",
+    "cytoplasm_area",
+    "cytoplasm_majoraxis",
+    "cytoplasm_minoraxis",
+    "cytoplasm_eccentricity",
+    "cytoplasm_orientation",
+    "cytoplasm_equivdiameter",
+    "cytoplasm_solidity",
+    "cytoplasm_extent",
+    "cytoplasm_perimeter",
+    "cytoplasm_i0_mean",
+    "cytoplasm_i0_var",
+    "cytoplasm_i0_skew",
+    "cytoplasm_i0_kurt",
+    "cytoplasm_i0_entropy",
+    "cytoplasm_i1_mean",
+    "cytoplasm_i1_var",
+    "cytoplasm_i1_skew",
+    "cytoplasm_i1_kurt",
+    "cytoplasm_i1_entropy",
+    "cytoplasm_i2_mean",
+    "cytoplasm_i2_var",
+    "cytoplasm_i2_skew",
+    "cytoplasm_i2_kurt",
+    "cytoplasm_i2_entropy",
+    "cytoplasm_ratio_a",
+    "cytoplasm_ratio_b",
+    "nc_ratio"
+  ],
+  "split_sizes": {
+    "train": 3238,
+    "val": 405,
+    "test": 406
+  },
+  "tabular_metrics": {
+    "train": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "n": 3238
+    },
+    "val": {
+      "accuracy": 0.8864197530864197,
+      "macro_f1": 0.8862748519200581,
+      "n": 405
+    },
+    "test": {
+      "accuracy": 0.916256157635468,
+      "macro_f1": 0.9160840496865553,
+      "n": 406
+    }
+  },
+  "shap_top": [
+    {
+      "feature": "nucleus_i1_mean",
+      "mean_abs_shap": 0.6245442628860474
+    },
+    {
+      "feature": "cytoplasm_area",
+      "mean_abs_shap": 0.5187287926673889
+    },
+    {
+      "feature": "nc_ratio",
+      "mean_abs_shap": 0.49322524666786194
+    },
+    {
+      "feature": "cytoplasm_i1_mean",
+      "mean_abs_shap": 0.4689123034477234
+    },
+    {
+      "feature": "cytoplasm_perimeter",
+      "mean_abs_shap": 0.4034882187843323
+    },
+    {
+      "feature": "cytoplasm_majoraxis",
+      "mean_abs_shap": 0.3391331434249878
+    },
+    {
+      "feature": "cytoplasm_i0_skew",
+      "mean_abs_shap": 0.30016931891441345
+    },
+    {
+      "feature": "cytoplasm_i2_var",
+      "mean_abs_shap": 0.2449825555086136
+    },
+    {
+      "feature": "cytoplasm_i1_kurt",
+      "mean_abs_shap": 0.21198616921901703
+    },
+    {
+      "feature": "nucleus_perimeter",
+      "mean_abs_shap": 0.20540551841259003
+    },
+    {
+      "feature": "cytoplasm_solidity",
+      "mean_abs_shap": 0.20471908152103424
+    },
+    {
+      "feature": "nucleus_i2_var",
+      "mean_abs_shap": 0.20391888916492462
+    },
+    {
+      "feature": "cytoplasm_minoraxis",
+      "mean_abs_shap": 0.1956227421760559
+    },
+    {
+      "feature": "nucleus_extent",
+      "mean_abs_shap": 0.19192159175872803
+    },
+    {
+      "feature": "cytoplasm_i1_var",
+      "mean_abs_shap": 0.18734733760356903
+    }
+  ],
+  "shap_figure": "f:\\Cervaical Cancer\\results\\figures\\shap_features.png",
+  "shap_example_reasons": [
+    {
+      "path": "004_01.bmp",
+      "reason": "normal (Superficial-Intermediate) because nc_ratio low (+), cytoplasm_area high (+), cytoplasm_minoraxis high (+), cytoplasm_equivdiameter high (+)"
+    },
+    {
+      "path": "004_02.bmp",
+      "reason": "normal (Superficial-Intermediate) because nc_ratio low (+), cytoplasm_area high (+), cytoplasm_minoraxis high (+), cytoplasm_equivdiameter high (+)"
+    },
+    {
+      "path": "004_03.bmp",
+      "reason": "normal (Superficial-Intermediate) because nc_ratio low (+), cytoplasm_area high (+), nucleus_area high (-), cytoplasm_minoraxis high (+)"
+    },
+    {
+      "path": "004_04.bmp",
+      "reason": "normal (Superficial-Intermediate) because nc_ratio low (+), cytoplasm_area high (+), cytoplasm_equivdiameter high (+), cytoplasm_majoraxis high (+)"
+    },
+    {
+      "path": "004_05.bmp",
+      "reason": "normal (Metaplastic) because cytoplasm_perimeter low (+), cytoplasm_i1_kurt low (-), cytoplasm_solidity high (+), nucleus_perimeter low (+)"
+    },
+    {
+      "path": "004_06.bmp",
+      "reason": "normal (Superficial-Intermediate) because cytoplasm_area high (+), nc_ratio low (+), cytoplasm_majoraxis high (+), cytoplasm_equivdiameter high (+)"
+    }
+  ],
+  "permutation_top": [
+    {
+      "feature": "nucleus_i1_mean",
+      "importance_mean": 0.08743842364532016,
+      "importance_std": 0.008261334892240605
+    },
+    {
+      "feature": "nc_ratio",
+      "importance_mean": 0.0334975369458128,
+      "importance_std": 0.006627401008410688
+    },
+    {
+      "feature": "cytoplasm_perimeter",
+      "importance_mean": 0.03004926108374383,
+      "importance_std": 0.0043784208952293464
+    },
+    {
+      "feature": "cytoplasm_i1_mean",
+      "importance_mean": 0.023399014778325133,
+      "importance_std": 0.006631976363466147
+    },
+    {
+      "feature": "cytoplasm_area",
+      "importance_mean": 0.018965517241379314,
+      "importance_std": 0.005172413793103448
+    },
+    {
+      "feature": "nucleus_perimeter",
+      "importance_mean": 0.014778325123152714,
+      "importance_std": 0.006231088985553454
+    },
+    {
+      "feature": "nucleus_i2_var",
+      "importance_mean": 0.01157635467980298,
+      "importance_std": 0.004807689974370236
+    },
+    {
+      "feature": "cytoplasm_majoraxis",
+      "importance_mean": 0.01157635467980297,
+      "importance_std": 0.005833851863215278
+    },
+    {
+      "feature": "cytoplasm_i0_skew",
+      "importance_mean": 0.008374384236453192,
+      "importance_std": 0.004001989361889637
+    },
+    {
+      "feature": "cytoplasm_i2_var",
+      "importance_mean": 0.007881773399014792,
+      "importance_std": 0.0032676106308920207
+    },
+    {
+      "feature": "cytoplasm_i1_kurt",
+      "importance_mean": 0.00788177339901478,
+      "importance_std": 0.0024132903869785068
+    },
+    {
+      "feature": "cytoplasm_solidity",
+      "importance_mean": 0.00714285714285714,
+      "importance_std": 0.0032019704433497755
+    },
+    {
+      "feature": "nucleus_extent",
+      "importance_mean": 0.0064039408866994885,
+      "importance_std": 0.005305581090772938
+    },
+    {
+      "feature": "nucleus_ratio_b",
+      "importance_mean": 0.0061576354679803045,
+      "importance_std": 0.002753778297413538
+    },
+    {
+      "feature": "nucleus_i0_skew",
+      "importance_mean": 0.004679802955665025,
+      "importance_std": 0.004329654145627331
+    }
+  ],
+  "permutation_figure": "f:\\Cervaical Cancer\\results\\figures\\feature_permutation_importance.png",
+  "pdp_figure": "f:\\Cervaical Cancer\\results\\figures\\feature_partial_dependence.png",
+  "pdp_features": [
+    "nucleus_i1_mean",
+    "nc_ratio",
+    "cytoplasm_perimeter",
+    "cytoplasm_i1_mean"
+  ],
+  "late_fusion": {
+    "split_kind": "grouped",
+    "n_val": 405,
+    "n_test": 406,
+    "tabular_only": {
+      "accuracy": 0.916256157635468,
+      "macro_f1": 0.9160840496865553,
+      "n": 406
+    },
+    "image_model_available": false,
+    "note": "student.pt absent \u2014 tabular-only (U7 fusion gated)"
+  }
+}

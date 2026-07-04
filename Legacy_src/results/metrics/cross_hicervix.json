@@ -1,0 +1,19 @@
+{
+  "dataset": "hicervix",
+  "n": 4823,
+  "accuracy": 0.6046029442255857,
+  "balanced_accuracy": 0.5619312339824747,
+  "sensitivity": 0.38587848932676516,
+  "specificity": 0.7379839786381842,
+  "auroc": 0.594012962366169,
+  "confusion_matrix": [
+    [
+      2211,
+      785
+    ],
+    [
+      1122,
+      705
+    ]
+  ]
+}

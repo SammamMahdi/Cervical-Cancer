@@ -1,0 +1,104 @@
+{
+  "clusters": {
+    "n_cells": 4049,
+    "n_clusters": 966,
+    "cells_per_class": {
+      "Superficial-Intermediate": 831,
+      "Parabasal": 787,
+      "Metaplastic": 793,
+      "Koilocytotic": 825,
+      "Dyskeratotic": 813
+    },
+    "clusters_per_class": {
+      "Metaplastic": 271,
+      "Koilocytotic": 238,
+      "Dyskeratotic": 223,
+      "Parabasal": 108,
+      "Superficial-Intermediate": 126
+    },
+    "cells_per_cluster_min": 1,
+    "cells_per_cluster_max": 26,
+    "cells_per_cluster_mean": 4.19
+  },
+  "split": {
+    "n_cells": 4049,
+    "n_clusters": 966,
+    "train": {
+      "cells": 3238,
+      "clusters": 773,
+      "per_class": {
+        "Superficial-Intermediate": 665,
+        "Parabasal": 629,
+        "Metaplastic": 634,
+        "Koilocytotic": 660,
+        "Dyskeratotic": 650
+      }
+    },
+    "val": {
+      "cells": 405,
+      "clusters": 96,
+      "per_class": {
+        "Superficial-Intermediate": 82,
+        "Parabasal": 79,
+        "Metaplastic": 79,
+        "Koilocytotic": 83,
+        "Dyskeratotic": 82
+      }
+    },
+    "test": {
+      "cells": 406,
+      "clusters": 97,
+      "per_class": {
+        "Superficial-Intermediate": 84,
+        "Parabasal": 79,
+        "Metaplastic": 80,
+        "Koilocytotic": 82,
+        "Dyskeratotic": 81
+      }
+    },
+    "cluster_overlap": {
+      "train&val": 0,
+      "train&test": 0,
+      "val&test": 0
+    }
+  },
+  "labelmap": {
+    "version": "v1-2026-06",
+    "classes": [
+      "Superficial-Intermediate",
+      "Parabasal",
+      "Metaplastic",
+      "Koilocytotic",
+      "Dyskeratotic"
+    ],
+    "normal_idx": [
+      0,
+      1,
+      2
+    ],
+    "abnormal_idx": [
+      3,
+      4
+    ],
+    "pred_E0": {
+      "Superficial-Intermediate": "normal",
+      "Parabasal": "normal",
+      "Metaplastic": "normal",
+      "Koilocytotic": "abnormal",
+      "Dyskeratotic": "abnormal"
+    },
+    "pred_E1": {
+      "Superficial-Intermediate": "normal",
+      "Parabasal": "normal",
+      "Metaplastic": "normal",
+      "Koilocytotic": "low",
+      "Dyskeratotic": "low"
+    },
+    "external": [
+      "herlev",
+      "apacc",
+      "hicervix"
+    ],
+    "note": "High-grade recall is 0 by construction (no HSIL output); report excluded fraction per dataset."
+  }
+}
