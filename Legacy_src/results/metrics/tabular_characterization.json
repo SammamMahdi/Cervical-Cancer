@@ -1,0 +1,195 @@
+{
+  "dataset": {
+    "n": 858,
+    "n_cols": 36,
+    "targets": {
+      "Hinselmann": {
+        "pos": 35,
+        "rate": 0.04079254079254079
+      },
+      "Schiller": {
+        "pos": 74,
+        "rate": 0.08624708624708624
+      },
+      "Citology": {
+        "pos": 44,
+        "rate": 0.05128205128205128
+      },
+      "Biopsy": {
+        "pos": 55,
+        "rate": 0.0641025641025641
+      }
+    },
+    "any4": {
+      "pos": 102,
+      "rate": 0.11888111888111888
+    },
+    "imbalance_ratio": {
+      "Hinselmann": 23.514285714285716,
+      "Schiller": 10.594594594594595,
+      "Citology": 18.5,
+      "Biopsy": 14.6
+    },
+    "missing_top": {
+      "STDs: Time since first diagnosis": 0.9172494172494172,
+      "STDs: Time since last diagnosis": 0.9172494172494172,
+      "IUD": 0.13636363636363635,
+      "IUD (years)": 0.13636363636363635,
+      "Hormonal Contraceptives": 0.1258741258741259,
+      "Hormonal Contraceptives (years)": 0.1258741258741259,
+      "STDs:HPV": 0.12237762237762238,
+      "STDs:AIDS": 0.12237762237762238,
+      "STDs:Hepatitis B": 0.12237762237762238,
+      "STDs:HIV": 0.12237762237762238,
+      "STDs": 0.12237762237762238,
+      "STDs:cervical condylomatosis": 0.12237762237762238,
+      "STDs:vulvo-perineal condylomatosis": 0.12237762237762238,
+      "STDs:syphilis": 0.12237762237762238,
+      "STDs:pelvic inflammatory disease": 0.12237762237762238,
+      "STDs:vaginal condylomatosis": 0.12237762237762238,
+      "STDs:genital herpes": 0.12237762237762238,
+      "STDs:molluscum contagiosum": 0.12237762237762238,
+      "STDs:condylomatosis": 0.12237762237762238,
+      "STDs (number)": 0.12237762237762238,
+      "Num of pregnancies": 0.06526806526806526,
+      "Number of sexual partners": 0.030303030303030304,
+      "Smokes": 0.015151515151515152,
+      "Smokes (packs/year)": 0.015151515151515152,
+      "Smokes (years)": 0.015151515151515152,
+      "First sexual intercourse": 0.008158508158508158
+    }
+  },
+  "leakage_demo": {
+    "honest": 0.6496999886788181,
+    "oversample_before_split": 0.9941360287025963,
+    "dx_cancer_from_dx": 0.997718253968254
+  },
+  "model_bakeoff": {
+    "LogReg (L2)": {
+      "auroc": 0.521249858485226,
+      "sd": 0.0417133133447669,
+      "ci": [
+        0.44304407039844745,
+        0.6307486515355799
+      ]
+    },
+    "SVM-RBF": {
+      "auroc": 0.5882637080644553,
+      "sd": 0.02227120284377448,
+      "ci": [
+        0.4983968279963485,
+        0.6737894375210949
+      ]
+    },
+    "kNN": {
+      "auroc": 0.6573832974829239,
+      "sd": 0.011823771202894991,
+      "ci": [
+        0.5799592652508605,
+        0.7427630179684634
+      ]
+    },
+    "GaussianNB": {
+      "auroc": 0.5831352126495339,
+      "sd": 0.02410861633924321,
+      "ci": [
+        0.4570430226292054,
+        0.6417263691632401
+      ]
+    },
+    "MLP": {
+      "auroc": 0.5696214951507604,
+      "sd": 0.030663067305296866,
+      "ci": [
+        0.4931766827385949,
+        0.6703741469181165
+      ]
+    },
+    "RandomForest": {
+      "auroc": 0.6547492358202196,
+      "sd": 0.007129486793556653,
+      "ci": [
+        0.5765102400795208,
+        0.7459707970877024
+      ]
+    },
+    "ExtraTrees": {
+      "auroc": 0.6073512208007849,
+      "sd": 0.014058629966232984,
+      "ci": [
+        0.5348694073776081,
+        0.7101586774952962
+      ]
+    },
+    "HistGB": {
+      "auroc": 0.6339295822483867,
+      "sd": 0.015156710537598829,
+      "ci": [
+        0.5640442832753094,
+        0.7242294710471534
+      ]
+    },
+    "XGBoost": {
+      "auroc": 0.606962526887807,
+      "sd": 0.018263933374009424,
+      "ci": [
+        0.5455106370893619,
+        0.7073164633451511
+      ]
+    }
+  },
+  "top_features": [
+    {
+      "feature": "Num of pregnancies",
+      "auroc_dev": 0.07229706781387979,
+      "mi": 0.0058861164451387005
+    },
+    {
+      "feature": "STDs (number)",
+      "auroc_dev": 0.067383674855655,
+      "mi": 0.0
+    },
+    {
+      "feature": "STDs",
+      "auroc_dev": 0.06737235367372363,
+      "mi": 0.000827516649629878
+    },
+    {
+      "feature": "Age",
+      "auroc_dev": 0.06311558926751948,
+      "mi": 0.008780718523350384
+    },
+    {
+      "feature": "STDs: Number of diagnosis",
+      "auroc_dev": 0.06226650062266503,
+      "mi": 0.005351585519132174
+    },
+    {
+      "feature": "First sexual intercourse",
+      "auroc_dev": 0.04201290614740183,
+      "mi": 0.0069637703952345475
+    },
+    {
+      "feature": "STDs:vulvo-perineal condylomatosis",
+      "auroc_dev": 0.04122042341220422,
+      "mi": 0.007162960658943174
+    },
+    {
+      "feature": "STDs:condylomatosis",
+      "auroc_dev": 0.04059775840597757,
+      "mi": 0.009613121798730973
+    },
+    {
+      "feature": "STDs:HIV",
+      "auroc_dev": 0.03735990037359893,
+      "mi": 0.0
+    },
+    {
+      "feature": "IUD (years)",
+      "auroc_dev": 0.03589946790444909,
+      "mi": 0.0008710680660850567
+    }
+  ],
+  "shap": true,
+  "figures_dir": "E:\\Cervaical Cancer\\Legacy_src\\results\\figures\\tabular"
+}

@@ -1,0 +1,248 @@
+{
+  "split": {
+    "train": 3511,
+    "val": 1000,
+    "test": 504,
+    "seed": 42,
+    "composition": {
+      "test_crops": 414,
+      "test_fullfield": 90,
+      "test_crops_with_parent_slide_in_train": 404,
+      "train_crops": 2830,
+      "train_fullfield": 681
+    }
+  },
+  "classes": [
+    "Dyskeratotic",
+    "Koilocytotic",
+    "Metaplastic",
+    "Parabasal",
+    "Superficial-Intermediate"
+  ],
+  "teacher": {
+    "n": 504,
+    "accuracy": 0.9603174603174603,
+    "accuracy_ci95": [
+      0.9424107142857143,
+      0.9761904761904762
+    ],
+    "balanced_accuracy": 0.9626070026491333,
+    "macro_f1": 0.9613220721782676,
+    "cohen_kappa": 0.9503726971060587,
+    "macro_auroc_ovr": 0.9958086041371719,
+    "macro_auroc_ci95": [
+      0.9922643941517324,
+      0.9983791165688415
+    ],
+    "ece": 0.024255666467878526,
+    "brier": 0.06513178599093089,
+    "per_class": {
+      "Dyskeratotic": {
+        "precision": 0.94,
+        "recall": 0.9690721649484536,
+        "f1": 0.9543147208121827,
+        "support": 97
+      },
+      "Koilocytotic": {
+        "precision": 0.9065420560747663,
+        "recall": 0.9509803921568627,
+        "f1": 0.9282296650717703,
+        "support": 102
+      },
+      "Metaplastic": {
+        "precision": 0.9903846153846154,
+        "recall": 0.9035087719298246,
+        "f1": 0.944954128440367,
+        "support": 114
+      },
+      "Parabasal": {
+        "precision": 0.9791666666666666,
+        "recall": 0.9894736842105263,
+        "f1": 0.9842931937172775,
+        "support": 95
+      },
+      "Superficial-Intermediate": {
+        "precision": 0.9896907216494846,
+        "recall": 1.0,
+        "f1": 0.9948186528497409,
+        "support": 96
+      }
+    },
+    "confusion": [
+      [
+        94,
+        3,
+        0,
+        0,
+        0
+      ],
+      [
+        5,
+        97,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        7,
+        103,
+        2,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        94,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        96
+      ]
+    ],
+    "binary": {
+      "auroc": 0.9970508279100421,
+      "ap": 0.9940999364972404,
+      "sensitivity": 1.0,
+      "specificity": 0.9737704918032787,
+      "accuracy": 0.9841269841269841,
+      "prevalence": 0.3948412698412698
+    },
+    "by_image_type": {
+      "cropped_cells": 0.9637681159420289,
+      "full_field": 0.9444444444444444
+    },
+    "full_holdout": {
+      "n": 1504,
+      "accuracy": 0.9507978723404256,
+      "macro_f1": 0.9521619628114362,
+      "macro_auroc_ovr": 0.99620177401957,
+      "ece": 0.023071588770030682
+    },
+    "cost": {
+      "params": 18601572,
+      "params_millions": 18.601572,
+      "latency_ms_batch1": 141.5462608996313,
+      "throughput_img_per_s": 138.0428362674731
+    },
+    "file_size_mb": 223.980977
+  },
+  "student": {
+    "n": 504,
+    "accuracy": 0.9642857142857143,
+    "accuracy_ci95": [
+      0.9464285714285714,
+      0.9801587301587301
+    ],
+    "balanced_accuracy": 0.9655185093570797,
+    "macro_f1": 0.9645490880825932,
+    "cohen_kappa": 0.9553239897174262,
+    "macro_auroc_ovr": 0.9983631735203614,
+    "macro_auroc_ci95": [
+      0.9969272755663618,
+      0.9993805137001026
+    ],
+    "ece": 0.01995085179805751,
+    "brier": 0.05684390036929229,
+    "per_class": {
+      "Dyskeratotic": {
+        "precision": 0.9306930693069307,
+        "recall": 0.9690721649484536,
+        "f1": 0.9494949494949495,
+        "support": 97
+      },
+      "Koilocytotic": {
+        "precision": 0.9591836734693877,
+        "recall": 0.9215686274509803,
+        "f1": 0.94,
+        "support": 102
+      },
+      "Metaplastic": {
+        "precision": 0.9818181818181818,
+        "recall": 0.9473684210526315,
+        "f1": 0.9642857142857143,
+        "support": 114
+      },
+      "Parabasal": {
+        "precision": 0.9595959595959596,
+        "recall": 1.0,
+        "f1": 0.979381443298969,
+        "support": 95
+      },
+      "Superficial-Intermediate": {
+        "precision": 0.9895833333333334,
+        "recall": 0.9895833333333334,
+        "f1": 0.9895833333333334,
+        "support": 96
+      }
+    },
+    "confusion": [
+      [
+        94,
+        1,
+        1,
+        1,
+        0
+      ],
+      [
+        6,
+        94,
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        3,
+        108,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        95,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        95
+      ]
+    ],
+    "binary": {
+      "auroc": 0.9986819342614712,
+      "ap": 0.9979968342758422,
+      "sensitivity": 0.9798994974874372,
+      "specificity": 0.9868852459016394,
+      "accuracy": 0.9841269841269841,
+      "prevalence": 0.3948412698412698
+    },
+    "by_image_type": {
+      "cropped_cells": 0.9685990338164251,
+      "full_field": 0.9444444444444444
+    },
+    "full_holdout": {
+      "n": 1504,
+      "accuracy": 0.9627659574468085,
+      "macro_f1": 0.9633949339502793,
+      "macro_auroc_ovr": 0.9973233050007876,
+      "ece": 0.016423102230467702
+    },
+    "cost": {
+      "params": 4713128,
+      "params_millions": 4.713128,
+      "latency_ms_batch1": 72.98908717988525,
+      "throughput_img_per_s": 333.72224524275
+    },
+    "file_size_mb": 19.601704
+  }
+}

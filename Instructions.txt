@@ -1,0 +1,1356 @@
+Yes. The previous prompt was strong on **scientific integrity**, but it was too conservative: it mostly told the agent how to *report* bad results. You also want it to behave like a **research strategist**—identify why a result is weak, propose legitimate ways to improve the methodology, run the experiments, and determine which improvements genuinely work.
+
+Here is a rewritten version you can give directly to the agent.
+
+---
+
+# MASTER RESEARCH-REBUILD PROMPT — Q1-LEVEL IMPROVEMENT, EXPERIMENTATION, AND PAPER REWRITE
+
+You are acting as a **senior machine-learning researcher, medical-AI researcher, experimental scientist, and Q1 journal reviewer/editor**.
+
+Your task is to take the current CytoBridge research project and turn it into the **strongest scientifically defensible Q1-level paper possible**.
+
+You have access to the current manuscript, code, datasets/results, and previous experimental outputs. **Study them carefully before making recommendations.**
+
+Your job is NOT merely to rewrite the paper.
+
+Your job is to:
+
+1. audit the current methodology;
+2. identify weaknesses and invalid experiments;
+3. identify why weak results occur;
+4. propose legitimate methodological improvements;
+5. implement/run the improvements where code/data are available;
+6. compare old vs improved results;
+7. determine which improvements genuinely help;
+8. redesign experiments where necessary;
+9. determine whether the multimodal/fusion contribution is worth keeping;
+10. produce a rigorous Q1-oriented manuscript based only on validated results.
+
+---
+
+# PART I — CORE PHILOSOPHY
+
+## The objective is NOT to preserve impressive numbers
+
+Do not optimize for:
+
+> “How do we keep the 0.930 AUROC?”
+
+or:
+
+> “How do we make the paper sound better?”
+
+Instead optimize for:
+
+> **How can we make the methodology genuinely better and obtain the strongest valid results possible?**
+
+You are explicitly encouraged to improve the methodology when results are weak.
+
+However:
+
+### Every improvement must be scientifically legitimate.
+
+You may:
+
+* change model architectures;
+* tune hyperparameters;
+* improve preprocessing;
+* perform leakage-safe resampling;
+* compare class weighting against SMOTE;
+* improve calibration;
+* change fusion strategies;
+* add appropriate baselines;
+* perform augmentation;
+* improve domain generalization;
+* use better validation;
+* optimize thresholds;
+* improve uncertainty estimation;
+* perform ablations;
+* test alternative feature representations;
+* use appropriate ensemble methods.
+
+You may NOT:
+
+* manipulate test labels;
+* repeatedly tune against the test set;
+* report the best seed selectively;
+* hide failed experiments;
+* claim leakage-free evaluation when it is not;
+* fabricate missing results;
+* choose a method solely because it gives the most flattering number;
+* redefine the target after seeing the results.
+
+---
+
+# PART II — FIRST TASK: PERFORM A COMPLETE RESEARCH AUDIT
+
+Before rewriting anything, inspect:
+
+* manuscript;
+* source code;
+* preprocessing;
+* dataset construction;
+* train/validation/test splits;
+* SMOTE;
+* feature engineering;
+* hyperparameter tuning;
+* calibration;
+* fusion;
+* conformal prediction;
+* external validation;
+* all reported metrics;
+* all figures/tables;
+* random seeds.
+
+Create an internal audit with four categories:
+
+### A. Valid and strong
+
+### B. Valid but weak
+
+### C. Methodologically questionable
+
+### D. Invalid/leaky and must be rerun
+
+Do not rewrite around questionable results until they are resolved.
+
+---
+
+# PART III — THE SMOTE ISSUE
+
+The previous tabular pipeline performed SMOTE before cross-validation:
+
+```python
+SMOTE().fit_resample(X, y)
+```
+
+followed by CV.
+
+Treat the resulting:
+
+> **AUROC ≈ 0.930**
+
+as potentially optimistic and NOT as the final valid result.
+
+Do not write that SMOTE was performed inside folds unless the implementation is actually changed.
+
+---
+
+# PART IV — BUILD A PROPER LEAKAGE-FREE TABULAR PIPELINE
+
+Implement:
+
+```text
+Dataset
+   ↓
+CV split
+   ↓
+Training fold
+   ↓
+Fit preprocessing on training fold
+   ↓
+Transform training fold
+   ↓
+SMOTE ONLY on training fold
+   ↓
+Train model
+   ↓
+Transform validation fold
+   ↓
+Predict validation fold
+```
+
+The validation fold must remain untouched.
+
+This applies to:
+
+* imputation;
+* scaling;
+* feature selection;
+* SMOTE;
+* feature engineering;
+* hyperparameter tuning;
+* calibration.
+
+If a separate calibration set is required, create one explicitly.
+
+---
+
+# PART V — DO NOT ACCEPT A BAD TABULAR RESULT WITHOUT INVESTIGATING WHY
+
+If leakage-free performance falls substantially, do not simply write:
+
+> “Tabular AUROC is 0.71.”
+
+Investigate **why**.
+
+Run a structured diagnostic study.
+
+## Experiment Group A — Class imbalance
+
+Compare:
+
+1. no imbalance correction;
+2. class weights;
+3. fold-wise SMOTE;
+4. SMOTE variants if appropriate;
+5. balanced ensemble methods.
+
+Determine whether the apparent signal is robust to imbalance handling.
+
+---
+
+# PART VI — TABULAR MODEL IMPROVEMENT
+
+Benchmark several appropriate models.
+
+At minimum:
+
+### Simple baseline
+
+* Logistic Regression
+
+### Tree models
+
+* Random Forest
+* ExtraTrees
+
+### Boosting
+
+* XGBoost
+* CatBoost
+* LightGBM if available
+
+For every model use the SAME leakage-safe evaluation protocol.
+
+Tune using only the training/development data.
+
+Do not tune against the final test set.
+
+---
+
+# PART VII — HYPERPARAMETER OPTIMIZATION
+
+Use a principled optimization framework such as:
+
+* Optuna;
+* Ray Tune;
+* randomized search;
+* Bayesian optimization.
+
+Tune relevant parameters such as:
+
+### ExtraTrees
+
+* n_estimators
+* max_depth
+* min_samples_split
+* min_samples_leaf
+* max_features
+* class_weight
+
+### XGBoost
+
+* learning_rate
+* max_depth
+* min_child_weight
+* subsample
+* colsample_bytree
+* reg_alpha
+* reg_lambda
+* n_estimators
+
+### CatBoost
+
+* depth
+* learning_rate
+* iterations
+* l2_leaf_reg
+* class weights
+
+Do not blindly maximize AUROC.
+
+Use a development objective that considers:
+
+[
+AUROC + AUPRC + calibration
+]
+
+or evaluate these separately and select based on the research question.
+
+---
+
+# PART VIII — INVESTIGATE FEATURE QUALITY
+
+Inspect the tabular dataset.
+
+Determine:
+
+* missingness;
+* near-zero variance features;
+* highly correlated features;
+* redundant variables;
+* categorical encoding;
+* ordinal variables;
+* continuous variables;
+* potentially problematic features;
+* features with suspiciously high predictive power.
+
+Run:
+
+### Baseline features
+
+versus
+
+### Cleaned features
+
+versus
+
+### Feature-selected model.
+
+Use feature selection **inside the training folds**.
+
+If SHAP is used, use it for interpretation, not leakage.
+
+---
+
+# PART IX — LOOK FOR DATASET PROBLEMS
+
+If tabular performance collapses after leakage correction, investigate:
+
+* class imbalance;
+* label noise;
+* duplicated records;
+* near duplicates;
+* suspicious features;
+* missing-value patterns;
+* cohort imbalance;
+* target leakage;
+* temporal structure;
+* demographic imbalance.
+
+If you discover target leakage in a feature, remove it and document why.
+
+Do not keep a suspicious feature merely because it improves AUROC.
+
+---
+
+# PART X — IMAGE EXPERT: IMPROVE IT, NOT JUST REPORT IT
+
+The current image model has approximately:
+
+* AUROC = 0.998
+* Accuracy = 0.966
+* Balanced Accuracy = 0.968
+* ECE = 0.016
+
+This is already very strong in-domain.
+
+Therefore, **do not spend all effort trying to move 0.998 to 0.999.**
+
+The more valuable goals are:
+
+1. robustness;
+2. external generalization;
+3. calibration;
+4. efficiency;
+5. reproducibility;
+6. domain shift.
+
+---
+
+# PART XI — IMAGE MODEL ABLATION
+
+Compare:
+
+1. EfficientNet-B4 teacher
+2. EfficientNet-B0 without distillation
+3. EfficientNet-B0 with distillation
+
+If computationally feasible, test:
+
+* ResNet baseline;
+* ConvNeXt;
+* EfficientNet variants;
+* another modern lightweight backbone.
+
+The purpose is to establish whether the proposed architecture/training strategy actually contributes.
+
+---
+
+# PART XII — IMPROVE IMAGE GENERALIZATION
+
+Because external performance is much weaker, investigate domain shift.
+
+Try legitimate methods such as:
+
+### Data augmentation
+
+* random crop;
+* horizontal flip where anatomically appropriate;
+* mild rotation;
+* brightness variation;
+* contrast variation;
+* color jitter;
+* stain/color normalization;
+* Gaussian noise;
+* blur.
+
+Do NOT apply unrealistic transformations.
+
+Compare:
+
+> baseline augmentation
+
+vs.
+
+> stronger domain-oriented augmentation.
+
+---
+
+# PART XIII — DOMAIN GENERALIZATION
+
+Investigate whether the image model can be made less dataset-specific.
+
+Potential experiments:
+
+### A. Color normalization
+
+Compare:
+
+* no normalization;
+* standard normalization;
+* stain/color normalization.
+
+### B. Strong augmentation
+
+### C. Mixup
+
+### D. CutMix
+
+### E. Label smoothing
+
+### F. Domain-aware training if appropriate
+
+Do not throw every technique into the final model.
+
+Use ablations to identify which actually helps.
+
+---
+
+# PART XIV — EXTERNAL DATASET STRATEGY
+
+Current external performance is much weaker than SIPaKMeD.
+
+Do NOT hide this.
+
+Instead ask:
+
+> Why does performance degrade?
+
+Analyze:
+
+* resolution;
+* staining;
+* magnification;
+* acquisition device;
+* class definitions;
+* preprocessing;
+* class distribution.
+
+If possible, run:
+
+```text
+Train SIPaKMeD → Test Herlev
+Train SIPaKMeD → Test APACC
+Train SIPaKMeD → Test HiCervix
+```
+
+Then test whether domain-generalization methods improve transfer.
+
+If a method improves external performance while maintaining in-domain performance, that is a **much stronger contribution** than increasing 0.998.
+
+---
+
+# PART XV — DATA AUGMENTATION MUST BE ABLATED
+
+Create:
+
+| Training strategy       | In-domain AUROC | Herlev | APACC | HiCervix |
+| ----------------------- | --------------: | -----: | ----: | -------: |
+| Baseline                |                 |        |       |          |
+| + stronger augmentation |                 |        |       |          |
+| + color normalization   |                 |        |       |          |
+| + Mixup                 |                 |        |       |          |
+| + best combination      |                 |        |       |          |
+
+Only keep techniques that actually improve the evidence.
+
+---
+
+# PART XVI — KNOWLEDGE DISTILLATION
+
+The current teacher/student design should be tested properly.
+
+Compare:
+
+```text
+Teacher
+Student without KD
+Student with KD
+```
+
+Evaluate:
+
+* AUROC;
+* AUPRC;
+* balanced accuracy;
+* ECE;
+* parameter count;
+* FLOPs;
+* inference time.
+
+The question should be:
+
+> Can distillation preserve predictive and calibration performance while reducing computational cost?
+
+That is a much stronger claim.
+
+---
+
+# PART XVII — CALIBRATION IMPROVEMENT
+
+Calibration should be one of the paper's methodological strengths.
+
+Compare:
+
+1. uncalibrated model;
+2. Platt scaling;
+3. isotonic regression;
+4. temperature scaling where appropriate;
+5. proposed prior correction.
+
+Evaluate:
+
+* ECE;
+* adaptive ECE if possible;
+* Brier score;
+* calibration slope;
+* calibration intercept;
+* reliability diagrams.
+
+Use a separate calibration/development set.
+
+Never fit calibration on the final test set.
+
+---
+
+# PART XVIII — PRIOR SHIFT EXPERIMENT
+
+CO-PRIOR should be tested under multiple deployment prevalences.
+
+For example:
+
+[
+\tau \in
+{0.01,0.02,0.05,0.10,0.20}
+]
+
+Evaluate:
+
+* raw probabilities;
+* calibrated probabilities;
+* CO-PRIOR probabilities.
+
+Show whether the method consistently improves calibration across plausible prevalence shifts.
+
+This could become one of the strongest experiments in the paper.
+
+---
+
+# PART XIX — FUSION MUST BE IMPROVED SYSTEMATICALLY
+
+Do not assume equal averaging is optimal.
+
+Compare:
+
+### Fusion 1
+
+Equal probability averaging.
+
+### Fusion 2
+
+Weighted averaging.
+
+### Fusion 3
+
+Logit averaging.
+
+### Fusion 4
+
+Prior-adjusted averaging.
+
+### Fusion 5
+
+Learned logistic fusion.
+
+### Fusion 6
+
+Small MLP fusion if justified.
+
+### Fusion 7
+
+Asymmetric safety-oriented cascade.
+
+Evaluate all using a clean development/test protocol.
+
+Do not train a fusion model on test predictions.
+
+---
+
+# PART XX — IMPORTANT: TEST WHETHER TABULAR INFORMATION IS ACTUALLY COMPLEMENTARY
+
+The critical experiment is not simply:
+
+> “Is tabular AUROC high?”
+
+It is:
+
+> **Does tabular information provide information not already captured by the image model?**
+
+Investigate:
+
+### A. Error complementarity
+
+Calculate:
+
+* image errors;
+* tabular errors;
+* both correct;
+* image wrong/tabular right;
+* image right/tabular wrong.
+
+### B. Prediction correlation
+
+Measure correlation between:
+
+[
+p_{\mathrm{img}}
+]
+
+and
+
+[
+p_{\mathrm{tab}}
+]
+
+### C. Conditional analysis
+
+Evaluate tabular performance specifically on samples where image confidence is low.
+
+If tabular evidence helps in uncertain image cases, this is highly relevant.
+
+---
+
+# PART XXI — CREATE A COMPLEMENTARITY ANALYSIS
+
+Build a matrix:
+
+| Image | Tabular | Interpretation                     |
+| ----- | ------- | ---------------------------------- |
+| High  | High    | concordant high risk               |
+| High  | Low     | modality disagreement              |
+| Low   | High    | possible complementary risk signal |
+| Low   | Low     | concordant low risk                |
+
+Then analyze outcomes.
+
+This may provide a stronger argument for fusion than simply reporting AUROC.
+
+---
+
+# PART XXII — MISSING-MODALITY EXPERIMENTS
+
+Test:
+
+1. image only;
+2. tabular only;
+3. both;
+4. image missing;
+5. tabular missing.
+
+Measure:
+
+* AUROC;
+* AUPRC;
+* ECE;
+* Brier;
+* sensitivity;
+* specificity.
+
+If the system does not truly outperform available-modality baselines, do not oversell “any-modality.”
+
+---
+
+# PART XXIII — IMPROVE THE CASCADE
+
+If the safety-asymmetric rule is retained, do not arbitrarily choose:
+
+[
+\theta=0.7
+]
+
+without justification.
+
+Perform threshold analysis:
+
+[
+\theta \in
+{0.5,0.6,0.7,0.8,0.9}
+]
+
+or use a development-set optimization procedure.
+
+Report the tradeoff:
+
+* sensitivity;
+* specificity;
+* false negatives;
+* false positives;
+* coverage.
+
+Then select the threshold **before final evaluation**.
+
+---
+
+# PART XXIV — CONFORMAL PREDICTION
+
+Investigate why image coverage is approximately:
+
+> 0.855
+
+when target coverage is:
+
+> 0.90.
+
+Do not simply rewrite the text.
+
+Check implementation.
+
+If necessary:
+
+* increase calibration set size;
+* use correct finite-sample quantile;
+* evaluate marginal coverage;
+* investigate class-conditional coverage;
+* compare split conformal variants;
+* compare adaptive methods if appropriate.
+
+Then rerun.
+
+The final manuscript must report the actual observed coverage.
+
+---
+
+# PART XXV — UNCERTAINTY SHOULD BE MORE THAN ONE NUMBER
+
+If possible evaluate:
+
+* confidence;
+* entropy;
+* conformal prediction set;
+* abstention rate;
+* selective risk;
+* risk-coverage curve.
+
+A useful result would be:
+
+> As the system abstains on uncertain cases, error rate decreases.
+
+That is much more meaningful than simply reporting a confidence score.
+
+---
+
+# PART XXVI — SELECTIVE PREDICTION EXPERIMENT
+
+Create a risk-coverage curve.
+
+Report:
+
+[
+Coverage
+]
+
+versus
+
+[
+Error
+]
+
+for:
+
+* image-only;
+* fusion;
+* conformal/final system.
+
+This could significantly strengthen the uncertainty component.
+
+---
+
+# PART XXVII — STATISTICAL VALIDATION
+
+For the major experiments:
+
+* use multiple random seeds;
+* report mean ± standard deviation;
+* bootstrap confidence intervals;
+* use paired statistical comparisons where appropriate.
+
+Do not call a 0.002 AUROC difference meaningful without statistical evidence.
+
+---
+
+# PART XXVIII — EXPERIMENTAL DECISION TREE
+
+After running the experiments, make decisions based on evidence.
+
+### If tabular corrected AUROC is ~0.70 but complementary:
+
+KEEP IT.
+
+Build the paper around heterogeneous evidence fusion.
+
+### If tabular corrected AUROC is ~0.70 and fusion improves calibration/selective prediction:
+
+KEEP IT.
+
+This is a strong methodological story.
+
+### If tabular corrected AUROC is ~0.70 and fusion gives no measurable benefit:
+
+DROP or greatly reduce the fusion contribution.
+
+### If tabular corrected AUROC improves substantially:
+
+KEEP IT and investigate why.
+
+### If external image performance improves substantially through domain-generalization methods:
+
+Make this a major contribution.
+
+### If external performance remains weak:
+
+Present domain shift as an important limitation and research finding.
+
+---
+
+# PART XXIX — DO NOT CHERRY-PICK THE BEST RESULT
+
+Every experiment should be categorized:
+
+| Experiment | Result | Keep? | Reason |
+| ---------- | -----: | ----- | ------ |
+| Method A   |        |       |        |
+| Method B   |        |       |        |
+| Method C   |        |       |        |
+
+If a method fails, record it internally.
+
+Do not claim the final methodology was obvious from the beginning.
+
+---
+
+# PART XXX — THE PAPER'S CONTRIBUTION SHOULD EMERGE FROM THE EXPERIMENTS
+
+Do NOT decide the contribution first and force the experiments to support it.
+
+Instead:
+
+1. Run the corrected experiments.
+2. Identify what genuinely works.
+3. Determine the strongest scientific finding.
+4. Build the contribution around that finding.
+
+Possible final contribution directions:
+
+### Direction A — Unpaired multimodal fusion
+
+If fusion works.
+
+### Direction B — Calibration under prevalence shift
+
+If CO-PRIOR consistently improves calibration.
+
+### Direction C — Domain-generalized cytology
+
+If external performance improves significantly.
+
+### Direction D — Efficient distilled cytology model
+
+If student performance + efficiency is compelling.
+
+### Direction E — Uncertainty-aware screening assistance
+
+If conformal/selective prediction is valid and useful.
+
+The final paper may combine several of these, but do not claim all of them are equally novel.
+
+---
+
+# PART XXXI — Q1-LEVEL RESEARCH QUESTIONS
+
+Build the final paper around 3–4 explicit questions.
+
+For example:
+
+### RQ1
+
+Can knowledge distillation produce a lightweight cytology expert without sacrificing predictive or calibration performance?
+
+### RQ2
+
+Can heterogeneous cytology and HPV-risk evidence be combined when patient-level paired multimodal data are unavailable?
+
+### RQ3
+
+Does prior correction improve calibration under realistic deployment prevalence shifts?
+
+### RQ4
+
+Can uncertainty-aware decision rules reduce risk through abstention and missing-modality operation?
+
+Every RQ must have corresponding experiments.
+
+---
+
+# PART XXXII — PROBLEM FORMULATION
+
+Include:
+
+[
+p_{\mathrm{img}}=f_{\mathrm{img}}(x_{\mathrm{img}})
+]
+
+[
+p_{\mathrm{tab}}=f_{\mathrm{tab}}(x_{\mathrm{tab}})
+]
+
+[
+\hat p_{\mathrm{img}}
+=====================
+
+C_{\mathrm{img}}(p_{\mathrm{img}},\tau)
+]
+
+[
+\hat p_{\mathrm{tab}}
+=====================
+
+C_{\mathrm{tab}}(p_{\mathrm{tab}},\tau)
+]
+
+[
+p_{\mathrm{fused}}
+==================
+
+F(\hat p_{\mathrm{img}},\hat p_{\mathrm{tab}})
+]
+
+Explain every equation in accessible language.
+
+---
+
+# PART XXXIII — RESULTS SECTION
+
+Do not organize results merely by figures.
+
+Organize by findings.
+
+For example:
+
+## 6.1 Lightweight cytology expert
+
+## 6.2 Leakage-controlled tabular expert
+
+## 6.3 Does risk information complement image predictions?
+
+## 6.4 Prior correction under deployment prevalence shift
+
+## 6.5 Fusion ablation
+
+## 6.6 Missing-modality and conflicting-evidence analysis
+
+## 6.7 Uncertainty and selective prediction
+
+## 6.8 Cross-dataset generalization
+
+This creates a much stronger scientific narrative.
+
+---
+
+# PART XXXIV — TABLES THAT SHOULD EXIST
+
+Create:
+
+### Table 1
+
+Dataset characteristics.
+
+### Table 2
+
+Image expert comparison.
+
+### Table 3
+
+Leakage-controlled tabular model comparison.
+
+### Table 4
+
+Fusion ablation.
+
+### Table 5
+
+Calibration results.
+
+### Table 6
+
+Missing-modality results.
+
+### Table 7
+
+External validation.
+
+### Table 8
+
+Computational efficiency.
+
+### Table 9
+
+Ablation study.
+
+Do not create tables merely for appearance. Each table must answer a research question.
+
+---
+
+# PART XXXV — FIGURES THAT SHOULD EXIST
+
+At minimum:
+
+### Figure 1
+
+Overall framework.
+
+### Figure 2
+
+Training/evaluation protocol.
+
+### Figure 3
+
+Image expert architecture/distillation.
+
+### Figure 4
+
+Fusion architecture.
+
+### Figure 5
+
+ROC/PR comparison.
+
+### Figure 6
+
+Reliability diagrams.
+
+### Figure 7
+
+Prior-shift calibration curves.
+
+### Figure 8
+
+Risk-coverage curve.
+
+### Figure 9
+
+External domain performance.
+
+### Figure 10
+
+Complementarity/conflict analysis.
+
+---
+
+# PART XXXVI — WRITING STYLE
+
+Write like a serious Q1 ML/medical-AI paper.
+
+Avoid marketing language.
+
+Replace:
+
+> “excellent”
+
+with:
+
+> “achieved”
+
+Replace:
+
+> “proves”
+
+with:
+
+> “supports”
+
+Replace:
+
+> “trustworthy”
+
+with:
+
+> “better calibrated according to ECE/Brier score”
+
+Replace:
+
+> “robust”
+
+with a specific robustness measurement.
+
+Replace:
+
+> “clinically safe”
+
+with:
+
+> “designed to reduce false-negative risk under the evaluated decision rule”
+
+Do not imply clinical validation.
+
+---
+
+# PART XXXVII — CLINICAL TERMINOLOGY
+
+Be extremely precise.
+
+Do NOT equate:
+
+* HPV positivity;
+* cytological abnormality;
+* cervical cancer;
+* diagnosis;
+* screening assistance.
+
+Use:
+
+> “screening assistance”
+
+rather than:
+
+> “diagnosis”
+
+unless clinical validation supports diagnosis.
+
+---
+
+# PART XXXVIII — LIMITATIONS
+
+Explicitly discuss:
+
+* unpaired datasets;
+* endpoint mismatch;
+* dataset shift;
+* limited external performance;
+* retrospective datasets;
+* sample size;
+* possible population differences;
+* calibration assumptions;
+* conformal assumptions;
+* lack of prospective clinical validation.
+
+Do not hide these.
+
+---
+
+# PART XXXIX — FINAL CLAIM AUDIT
+
+Before finalizing, create a table:
+
+| Claim                                   | Evidence                    | Status                  |
+| --------------------------------------- | --------------------------- | ----------------------- |
+| Lightweight model maintains performance | Distillation ablation       | Supported/Not supported |
+| Fusion improves discrimination          | AUROC comparison            | Supported/Not supported |
+| Fusion improves calibration             | ECE/Brier                   | Supported/Not supported |
+| CO-PRIOR handles prevalence shift       | Multi-(\tau) experiment     | Supported/Not supported |
+| Any-modality operation                  | Missing-modality experiment | Supported/Not supported |
+| Conformal coverage                      | Coverage experiment         | Supported/Not supported |
+| Generalizes across datasets             | External evaluation         | Supported/Not supported |
+
+Every major claim must be traceable to an experiment.
+
+---
+
+# PART XL — CRITICAL RULE ABOUT IMPROVING BAD RESULTS
+
+When a result is poor, do NOT immediately conclude:
+
+> “The method failed.”
+
+Instead perform a **failure analysis**.
+
+For each poor result answer:
+
+### 1. Is the result valid?
+
+Could leakage, preprocessing, label mismatch, or implementation error explain it?
+
+### 2. Is the data causing it?
+
+Investigate:
+
+* imbalance;
+* noise;
+* domain shift;
+* insufficient data;
+* label quality.
+
+### 3. Is the model causing it?
+
+Try appropriate alternative models.
+
+### 4. Is the training procedure causing it?
+
+Try:
+
+* class weighting;
+* augmentation;
+* regularization;
+* tuning;
+* calibration;
+* alternative loss functions.
+
+### 5. Is the metric inappropriate?
+
+For imbalanced data, inspect AUPRC, balanced accuracy, sensitivity/specificity, Brier, etc.
+
+### 6. Is the problem itself difficult?
+
+If yes, report the difficulty honestly.
+
+Do not endlessly tune until a desired number appears.
+
+---
+
+# PART XLI — HOW TO IMPROVE WITHOUT OVERFITTING THE PAPER
+
+Use a **development → validation → final test** philosophy.
+
+For every proposed improvement:
+
+```text
+Training data
+      ↓
+development/CV
+      ↓
+select methodology
+      ↓
+LOCK FINAL METHOD
+      ↓
+evaluate once on final test
+```
+
+Do not repeatedly inspect the final test set while designing the model.
+
+If no separate test set currently exists, explicitly identify this as a limitation and redesign the evaluation if possible.
+
+---
+
+# PART XLII — FINAL Q1 TARGET
+
+The final paper should ideally demonstrate at least several of the following:
+
+### Strong in-domain image performance
+
+### Improved external generalization
+
+### Valid calibration
+
+### Valid uncertainty estimation
+
+### Meaningful complementary multimodal information
+
+### Robust fusion ablation
+
+### Missing-modality capability
+
+### Computational efficiency
+
+### Strong statistical evaluation
+
+### Clear methodological novelty
+
+Do not assume that having all of them is necessary.
+
+Identify the **2–3 strongest contributions actually supported by the experiments**.
+
+---
+
+# PART XLIII — FINAL DECISION
+
+At the end of the project, give me a brutally honest assessment:
+
+### Option 1
+
+**Q1-ready**
+
+### Option 2
+
+**Promising but requires additional experiments**
+
+### Option 3
+
+**Technically sound but better suited to Q2/Q3**
+
+### Option 4
+
+**Major methodological problems remain**
+
+Explain exactly why.
+
+Do not tell me it is Q1-ready merely because the manuscript is polished.
+
+---
+
+# FINAL OBJECTIVE
+
+I want you to behave as a **research partner, not a manuscript beautifier**.
+
+If a result is bad:
+
+**diagnose → propose legitimate improvements → run experiments → compare → retain what works.**
+
+If a result is invalid:
+
+**identify → correct → rerun.**
+
+If a method does not work:
+
+**do not hide it.**
+
+If a simpler method works better:
+
+**use the simpler method.**
+
+If the multimodal idea does not survive rigorous evaluation:
+
+**drop it.**
+
+If the image-only approach becomes scientifically stronger after the experiments:
+
+**pivot the paper to image-only.**
+
+If fusion genuinely adds complementary value:
+
+**make unpaired multimodal fusion the central contribution.**
+
+The final paper must be built around **what the experiments actually demonstrate**, not around preserving the original narrative or the highest original numbers.
+
+**Optimize for scientific contribution, methodological validity, reproducibility, and Q1-level reviewer defensibility — not for inflated metrics.**

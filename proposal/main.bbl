@@ -1,0 +1,333 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{37}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Alexandari et~al\mbox{.}(2019)]%
+        {alexandari2020maximum}
+\bibfield{author}{\bibinfo{person}{Amr Alexandari}, \bibinfo{person}{Anshul Kundaje}, {and} \bibinfo{person}{Avanti Shrikumar}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Maximum Likelihood with Bias-Corrected Calibration is Hard-To-Beat at Label Shift Adaptation}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:1901.06852}}.
+\newblock
+
+
+\bibitem[Angelopoulos and Bates(2021)]%
+        {angelopoulos2021gentle}
+\bibfield{author}{\bibinfo{person}{Anastasios~N. Angelopoulos} {and} \bibinfo{person}{Stephen Bates}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{A Gentle Introduction to Conformal Prediction and Distribution-Free Uncertainty Quantification}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2107.07511}} (\bibinfo{year}{2021}).
+\newblock
+
+
+\bibitem[Cai et~al\mbox{.}(2024)]%
+        {cai2024hicervix}
+\bibfield{author}{\bibinfo{person}{De Cai}, \bibinfo{person}{Jie Chen}, \bibinfo{person}{Junhan Zhao}, \bibinfo{person}{Yuan Xue}, \bibinfo{person}{Sen Yang}, \bibinfo{person}{Wei Yuan}, \bibinfo{person}{Min Feng}, \bibinfo{person}{Haiyan Weng}, \bibinfo{person}{Shuguang Liu}, \bibinfo{person}{Yulong Peng}, \bibinfo{person}{Junyou Zhu}, \bibinfo{person}{Kanran Wang}, \bibinfo{person}{Christopher Jackson}, \bibinfo{person}{Hongping Tang}, \bibinfo{person}{Junzhou Huang}, {and} \bibinfo{person}{Xiyue Wang}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{HiCervix: An Extensive Hierarchical Dataset and Benchmark for Cervical Cytology Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Medical Imaging}} \bibinfo{volume}{43}, \bibinfo{number}{12} (\bibinfo{year}{2024}), \bibinfo{pages}{4344--4355}.
+\newblock
+\href{https://doi.org/10.1109/tmi.2024.3419697}{doi:\nolinkurl{10.1109/tmi.2024.3419697}}
+
+
+\bibitem[Chawla et~al\mbox{.}(2002)]%
+        {chawla2002smote}
+\bibfield{author}{\bibinfo{person}{N.~V. Chawla}, \bibinfo{person}{K.~W. Bowyer}, \bibinfo{person}{L.~O. Hall}, {and} \bibinfo{person}{W.~P. Kegelmeyer}.} \bibinfo{year}{2002}\natexlab{}.
+\newblock \showarticletitle{SMOTE: Synthetic Minority Over-sampling Technique}.
+\newblock \bibinfo{journal}{\emph{Journal of Artificial Intelligence Research}}  \bibinfo{volume}{16} (\bibinfo{year}{2002}), \bibinfo{pages}{321--357}.
+\newblock
+\href{https://doi.org/10.1613/jair.953}{doi:\nolinkurl{10.1613/jair.953}}
+
+
+\bibitem[Chen et~al\mbox{.}(2021)]%
+        {chen2022proben}
+\bibfield{author}{\bibinfo{person}{Yi-Ting Chen}, \bibinfo{person}{Jinghao Shi}, \bibinfo{person}{Zelin Ye}, \bibinfo{person}{Christoph Mertz}, \bibinfo{person}{Deva Ramanan}, {and} \bibinfo{person}{Shu Kong}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Multimodal Object Detection via Probabilistic Ensembling}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:2104.02904}}.
+\newblock
+
+
+\bibitem[Chlon et~al\mbox{.}(2025)]%
+        {chlon2025aecf}
+\bibfield{author}{\bibinfo{person}{Leon Chlon}, \bibinfo{person}{Maggie Chlon}, {and} \bibinfo{person}{MarcAntonio~M. Awada}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Robust Multimodal Learning via Entropy-Gated Contrastive Fusion}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2505.15417}} (\bibinfo{year}{2025}).
+\newblock
+
+
+\bibitem[DeLong et~al\mbox{.}(1988)]%
+        {delong1988comparing}
+\bibfield{author}{\bibinfo{person}{Elizabeth~R. DeLong}, \bibinfo{person}{David~M. DeLong}, {and} \bibinfo{person}{Daniel~L. Clarke-Pearson}.} \bibinfo{year}{1988}\natexlab{}.
+\newblock \showarticletitle{Comparing the Areas under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach}.
+\newblock \bibinfo{journal}{\emph{Biometrics}} \bibinfo{volume}{44}, \bibinfo{number}{3} (\bibinfo{year}{1988}), \bibinfo{pages}{837}.
+\newblock
+\href{https://doi.org/10.2307/2531595}{doi:\nolinkurl{10.2307/2531595}}
+
+
+\bibitem[Fernandes et~al\mbox{.}(2017)]%
+        {fernandes2017transfer}
+\bibfield{author}{\bibinfo{person}{Kelwin Fernandes}, \bibinfo{person}{Jaime~S. Cardoso}, {and} \bibinfo{person}{Jessica Fernandes}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Transfer Learning with Partial Observability Applied to Cervical Cancer Screening}. In \bibinfo{booktitle}{\emph{Lecture Notes in Computer Science}}. \bibinfo{publisher}{Springer International Publishing}, \bibinfo{pages}{243--250}.
+\newblock
+\href{https://doi.org/10.1007/978-3-319-58838-4_27}{doi:\nolinkurl{10.1007/978-3-319-58838-4_27}}
+
+
+\bibitem[Fernandes et~al\mbox{.}(2018)]%
+        {fernandes2018supervised}
+\bibfield{author}{\bibinfo{person}{Kelwin Fernandes}, \bibinfo{person}{Davide Chicco}, \bibinfo{person}{Jaime~S. Cardoso}, {and} \bibinfo{person}{Jessica Fernandes}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Supervised deep learning embeddings for the prediction of cervical cancer diagnosis}.
+\newblock \bibinfo{journal}{\emph{PeerJ Computer Science}}  \bibinfo{volume}{4} (\bibinfo{year}{2018}), \bibinfo{pages}{e154}.
+\newblock
+\href{https://doi.org/10.7717/peerj-cs.154}{doi:\nolinkurl{10.7717/peerj-cs.154}}
+
+
+\bibitem[Genest and Zidek(1986)]%
+        {genest1986combining}
+\bibfield{author}{\bibinfo{person}{Christian Genest} {and} \bibinfo{person}{James~V. Zidek}.} \bibinfo{year}{1986}\natexlab{}.
+\newblock \showarticletitle{Combining Probability Distributions: A Critique and an Annotated Bibliography}.
+\newblock \bibinfo{journal}{\emph{Statist. Sci.}} \bibinfo{volume}{1}, \bibinfo{number}{1} (\bibinfo{year}{1986}).
+\newblock
+\href{https://doi.org/10.1214/ss/1177013825}{doi:\nolinkurl{10.1214/ss/1177013825}}
+
+
+\bibitem[Godau et~al\mbox{.}(2023)]%
+        {godau2023deployment}
+\bibfield{author}{\bibinfo{person}{Patrick Godau}, \bibinfo{person}{Piotr Kalinowski}, \bibinfo{person}{Evangelia Christodoulou}, \bibinfo{person}{Annika Reinke}, \bibinfo{person}{Minu Tizabi}, \bibinfo{person}{Luciana Ferrer}, \bibinfo{person}{Paul Jäger}, {and} \bibinfo{person}{Lena Maier-Hein}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Deployment of Image Analysis Algorithms under Prevalence Shifts}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:2303.12540}}.
+\newblock
+
+
+\bibitem[Grill et~al\mbox{.}(2017)]%
+        {grill2017comparison}
+\bibfield{author}{\bibinfo{person}{Sonja Grill}, \bibinfo{person}{Donna~P. Ankerst}, \bibinfo{person}{Mitchell~H. Gail}, \bibinfo{person}{Nilanjan Chatterjee}, {and} \bibinfo{person}{Ruth~M. Pfeiffer}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Comparison of approaches for incorporating new information into existing risk prediction models}.
+\newblock \bibinfo{journal}{\emph{Statistics in Medicine}} \bibinfo{volume}{36}, \bibinfo{number}{7} (\bibinfo{year}{2017}), \bibinfo{pages}{1134--1156}.
+\newblock
+\href{https://doi.org/10.1002/sim.7190}{doi:\nolinkurl{10.1002/sim.7190}}
+
+
+\bibitem[Grinsztajn et~al\mbox{.}(2022)]%
+        {grinsztajn2022why}
+\bibfield{author}{\bibinfo{person}{Léo Grinsztajn}, \bibinfo{person}{Edouard Oyallon}, {and} \bibinfo{person}{Gaël Varoquaux}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Why do tree-based models still outperform deep learning on tabular data?}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:2207.08815}}.
+\newblock
+
+
+\bibitem[Gu et~al\mbox{.}(2025)]%
+        {gu2025modality}
+\bibfield{author}{\bibinfo{person}{Yi Gu}, \bibinfo{person}{Kuniaki Saito}, {and} \bibinfo{person}{Jiaxin Ma}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Learning Contrastive Multimodal Fusion with Improved Modality Dropout for Disease Detection and Prediction}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:2509.18284}}.
+\newblock
+
+
+\bibitem[Guo et~al\mbox{.}(2017)]%
+        {guo2017calibration}
+\bibfield{author}{\bibinfo{person}{Chuan Guo}, \bibinfo{person}{Geoff Pleiss}, \bibinfo{person}{Yu Sun}, {and} \bibinfo{person}{Kilian~Q. Weinberger}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{On Calibration of Modern Neural Networks}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:1706.04599}}.
+\newblock
+
+
+\bibitem[Han et~al\mbox{.}(2021)]%
+        {han2021trusted}
+\bibfield{author}{\bibinfo{person}{Zongbo Han}, \bibinfo{person}{Changqing Zhang}, \bibinfo{person}{Huazhu Fu}, {and} \bibinfo{person}{Joey~Tianyi Zhou}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Trusted Multi-View Classification}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:2102.02051}}.
+\newblock
+
+
+\bibitem[Han et~al\mbox{.}(2023)]%
+        {han2023trusted}
+\bibfield{author}{\bibinfo{person}{Zongbo Han}, \bibinfo{person}{Changqing Zhang}, \bibinfo{person}{Huazhu Fu}, {and} \bibinfo{person}{Joey~Tianyi Zhou}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Trusted Multi-View Classification With Dynamic Evidential Fusion}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}} \bibinfo{volume}{45}, \bibinfo{number}{2} (\bibinfo{year}{2023}), \bibinfo{pages}{2551--2566}.
+\newblock
+\href{https://doi.org/10.1109/tpami.2022.3171983}{doi:\nolinkurl{10.1109/tpami.2022.3171983}}
+
+
+\bibitem[Hinton et~al\mbox{.}(2015)]%
+        {hinton2015distilling}
+\bibfield{author}{\bibinfo{person}{Geoffrey Hinton}, \bibinfo{person}{Oriol Vinyals}, {and} \bibinfo{person}{Jeff Dean}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Distilling the Knowledge in a Neural Network}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1503.02531}} (\bibinfo{year}{2015}).
+\newblock
+
+
+\bibitem[Jemane et~al\mbox{.}(2025)]%
+        {kelebet2025multimodal}
+\bibfield{author}{\bibinfo{person}{Kelebet~Chane Jemane}, \bibinfo{person}{Muktar~Bedaso Kuyu}, {and} \bibinfo{person}{Geletaw~Sahle Tegenaw}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Developing multimodal cervical cancer risk assessment and prediction model based on LMIC hospital patient card sheets and histopathological images}.
+\newblock \bibinfo{journal}{\emph{BMC Medical Informatics and Decision Making}} \bibinfo{volume}{25}, \bibinfo{number}{1} (\bibinfo{year}{2025}).
+\newblock
+\href{https://doi.org/10.1186/s12911-025-03174-6}{doi:\nolinkurl{10.1186/s12911-025-03174-6}}
+
+
+\bibitem[Jiang et~al\mbox{.}(2025)]%
+        {zhang2025smartccs}
+\bibfield{author}{\bibinfo{person}{Hao Jiang}, \bibinfo{person}{Cheng Jin}, \bibinfo{person}{Huangjing Lin}, \bibinfo{person}{Yanning Zhou}, \bibinfo{person}{Xi Wang}, \bibinfo{person}{Jiabo Ma}, \bibinfo{person}{Li Ding}, \bibinfo{person}{Jun Hou}, \bibinfo{person}{Runsheng Liu}, \bibinfo{person}{Zhizhong Chai}, \bibinfo{person}{Luyang Luo}, \bibinfo{person}{Huijuan Shi}, \bibinfo{person}{Yinling Qian}, \bibinfo{person}{Qiong Wang}, \bibinfo{person}{Changzhong Li}, \bibinfo{person}{Anjia Han}, \bibinfo{person}{Ronald Cheong~Kin Chan}, {and} \bibinfo{person}{Hao Chen}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Generalizable Cervical Cancer Screening via Large-scale Pretraining and Test-Time Adaptation}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2502.09662}} (\bibinfo{year}{2025}).
+\newblock
+
+
+\bibitem[Kim and Kim(2024)]%
+        {kim2024missing}
+\bibfield{author}{\bibinfo{person}{Donggeun Kim} {and} \bibinfo{person}{Taesup Kim}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Missing Modality Prediction for Unpaired Multimodal Learning via Joint Embedding of Unimodal Models}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:2407.12616}}.
+\newblock
+
+
+\bibitem[Kittler et~al\mbox{.}(1998)]%
+        {kittler1998combining}
+\bibfield{author}{\bibinfo{person}{J. Kittler}, \bibinfo{person}{M. Hatef}, \bibinfo{person}{R.P.W. Duin}, {and} \bibinfo{person}{J. Matas}.} \bibinfo{year}{1998}\natexlab{}.
+\newblock \showarticletitle{On combining classifiers}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}} \bibinfo{volume}{20}, \bibinfo{number}{3} (\bibinfo{year}{1998}), \bibinfo{pages}{226--239}.
+\newblock
+\href{https://doi.org/10.1109/34.667881}{doi:\nolinkurl{10.1109/34.667881}}
+
+
+\bibitem[Lee et~al\mbox{.}(2023)]%
+        {lee2023multimodal}
+\bibfield{author}{\bibinfo{person}{Yi-Lun Lee}, \bibinfo{person}{Yi-Hsuan Tsai}, \bibinfo{person}{Wei-Chen Chiu}, {and} \bibinfo{person}{Chen-Yu Lee}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Multimodal Prompting with Missing Modalities for Visual Recognition}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:2303.03369}}.
+\newblock
+
+
+\bibitem[Ma et~al\mbox{.}(2021)]%
+        {ma2021smil}
+\bibfield{author}{\bibinfo{person}{Mengmeng Ma}, \bibinfo{person}{Jian Ren}, \bibinfo{person}{Long Zhao}, \bibinfo{person}{Sergey Tulyakov}, \bibinfo{person}{Cathy Wu}, {and} \bibinfo{person}{Xi Peng}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{SMIL: Multimodal Learning with Severely Missing Modality}. In \bibinfo{booktitle}{\emph{Proceedings of the AAAI Conference on Artificial Intelligence}}, Vol.~\bibinfo{volume}{35}. \bibinfo{publisher}{Association for the Advancement of Artificial Intelligence (AAAI)}, \bibinfo{pages}{2302--2310}.
+\newblock
+\href{https://doi.org/10.1609/aaai.v35i3.16330}{doi:\nolinkurl{10.1609/aaai.v35i3.16330}}
+
+
+\bibitem[Nayar and Wilbur(2015)]%
+        {nayar2015pap}
+\bibfield{author}{\bibinfo{person}{Ritu Nayar} {and} \bibinfo{person}{David~C. Wilbur}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{The Pap test and Bethesda 2014}.
+\newblock \bibinfo{journal}{\emph{Cancer Cytopathology}} \bibinfo{volume}{123}, \bibinfo{number}{5} (\bibinfo{year}{2015}), \bibinfo{pages}{271--281}.
+\newblock
+\href{https://doi.org/10.1002/cncy.21521}{doi:\nolinkurl{10.1002/cncy.21521}}
+
+
+\bibitem[Plissiti et~al\mbox{.}(2018)]%
+        {plissiti2018sipakmed}
+\bibfield{author}{\bibinfo{person}{Marina~E. Plissiti}, \bibinfo{person}{P. Dimitrakopoulos}, \bibinfo{person}{G. Sfikas}, \bibinfo{person}{Christophoros Nikou}, \bibinfo{person}{O. Krikoni}, {and} \bibinfo{person}{A. Charchanti}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Sipakmed: A New Dataset for Feature and Image Based Classification of Normal and Pathological Cervical Cells in Pap Smear Images}. In \bibinfo{booktitle}{\emph{2018 25th IEEE International Conference on Image Processing (ICIP)}}. \bibinfo{publisher}{IEEE}, \bibinfo{pages}{3144--3148}.
+\newblock
+\href{https://doi.org/10.1109/icip.2018.8451588}{doi:\nolinkurl{10.1109/icip.2018.8451588}}
+
+
+\bibitem[Podkopaev and Ramdas(2021)]%
+        {podkopaev2021distribution}
+\bibfield{author}{\bibinfo{person}{Aleksandr Podkopaev} {and} \bibinfo{person}{Aaditya Ramdas}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Distribution-free uncertainty quantification for classification under label shift}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:2103.03323}}.
+\newblock
+
+
+\bibitem[Poh and Bengio(2006)]%
+        {poh2006using}
+\bibfield{author}{\bibinfo{person}{Norman Poh} {and} \bibinfo{person}{Samy Bengio}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Can Chimeric Persons Be Used in Multimodal Biometric Authentication Experiments?}. In \bibinfo{booktitle}{\emph{Lecture Notes in Computer Science}}. \bibinfo{publisher}{Springer Berlin Heidelberg}, \bibinfo{pages}{87--100}.
+\newblock
+\href{https://doi.org/10.1007/11677482_8}{doi:\nolinkurl{10.1007/11677482_8}}
+
+
+\bibitem[Roy et~al\mbox{.}(2025)]%
+        {roy2025interpretable}
+\bibfield{author}{\bibinfo{person}{Priyanka Roy}, \bibinfo{person}{Mahmudul Hasan}, \bibinfo{person}{Md~Rashedul Islam}, {and} \bibinfo{person}{Md~Palash Uddin}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Interpretable artificial intelligence (AI) for cervical cancer risk analysis leveraging stacking ensemble and expert knowledge}.
+\newblock \bibinfo{journal}{\emph{DIGITAL HEALTH}}  \bibinfo{volume}{11} (\bibinfo{year}{2025}).
+\newblock
+\href{https://doi.org/10.1177/20552076251327945}{doi:\nolinkurl{10.1177/20552076251327945}}
+
+
+\bibitem[Rutjes et~al\mbox{.}(2007)]%
+        {rutjes2007evaluation}
+\bibfield{author}{\bibinfo{person}{A Rutjes}, \bibinfo{person}{J Reitsma}, \bibinfo{person}{A Coomarasamy}, \bibinfo{person}{K Khan}, {and} \bibinfo{person}{P Bossuyt}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Evaluation of diagnostic tests when there is no gold standard. A review of methods}.
+\newblock \bibinfo{journal}{\emph{Health Technology Assessment}} \bibinfo{volume}{11}, \bibinfo{number}{50} (\bibinfo{year}{2007}).
+\newblock
+\href{https://doi.org/10.3310/hta11500}{doi:\nolinkurl{10.3310/hta11500}}
+
+
+\bibitem[Saerens et~al\mbox{.}(2002)]%
+        {saerens2002adjusting}
+\bibfield{author}{\bibinfo{person}{Marco Saerens}, \bibinfo{person}{Patrice Latinne}, {and} \bibinfo{person}{Christine Decaestecker}.} \bibinfo{year}{2002}\natexlab{}.
+\newblock \showarticletitle{Adjusting the Outputs of a Classifier to New a Priori Probabilities: A Simple Procedure}.
+\newblock \bibinfo{journal}{\emph{Neural Computation}} \bibinfo{volume}{14}, \bibinfo{number}{1} (\bibinfo{year}{2002}), \bibinfo{pages}{21--41}.
+\newblock
+\href{https://doi.org/10.1162/089976602753284446}{doi:\nolinkurl{10.1162/089976602753284446}}
+
+
+\bibitem[Sensoy et~al\mbox{.}(2018)]%
+        {sensoy2018evidential}
+\bibfield{author}{\bibinfo{person}{Murat Sensoy}, \bibinfo{person}{Lance Kaplan}, {and} \bibinfo{person}{Melih Kandemir}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Evidential Deep Learning to Quantify Classification Uncertainty}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:1806.01768}}.
+\newblock
+
+
+\bibitem[Tan and Le(2019)]%
+        {tan2019efficientnet}
+\bibfield{author}{\bibinfo{person}{Mingxing Tan} {and} \bibinfo{person}{Quoc~V. Le}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:1905.11946}}.
+\newblock
+
+
+\bibitem[Wang et~al\mbox{.}(2023)]%
+        {wang2023shaspec}
+\bibfield{author}{\bibinfo{person}{Hu Wang}, \bibinfo{person}{Yuanhong Chen}, \bibinfo{person}{Congbo Ma}, \bibinfo{person}{Jodie Avery}, \bibinfo{person}{Louise Hull}, {and} \bibinfo{person}{Gustavo Carneiro}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Multi-modal Learning with Missing Modality via Shared-Specific Feature Modelling}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:2307.14126}}.
+\newblock
+
+
+\bibitem[Wei et~al\mbox{.}(2023)]%
+        {wei2023mmanet}
+\bibfield{author}{\bibinfo{person}{Shicai Wei}, \bibinfo{person}{Yang Luo}, {and} \bibinfo{person}{Chunbo Luo}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{MMANet: Margin-aware Distillation and Modality-aware Regularization for Incomplete Multimodal Learning}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:2304.08028}}.
+\newblock
+
+
+\bibitem[Wu et~al\mbox{.}(2024)]%
+        {wu2024survey}
+\bibfield{author}{\bibinfo{person}{Renjie Wu}, \bibinfo{person}{Hu Wang}, \bibinfo{person}{Hsiang-Ting Chen}, {and} \bibinfo{person}{Gustavo Carneiro}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Deep Multimodal Learning with Missing Modality: A Survey}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2409.07825}} (\bibinfo{year}{2024}).
+\newblock
+
+
+\bibitem[Zhang et~al\mbox{.}(2023)]%
+        {zhang2023provable}
+\bibfield{author}{\bibinfo{person}{Qingyang Zhang}, \bibinfo{person}{Haitao Wu}, \bibinfo{person}{Changqing Zhang}, \bibinfo{person}{Qinghua Hu}, \bibinfo{person}{Huazhu Fu}, \bibinfo{person}{Joey~Tianyi Zhou}, {and} \bibinfo{person}{Xi Peng}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Provable Dynamic Fusion for Low-Quality Multimodal Data}. In \bibinfo{booktitle}{\emph{arXiv preprint arXiv:2306.02050}}.
+\newblock
+
+
+\end{thebibliography}
