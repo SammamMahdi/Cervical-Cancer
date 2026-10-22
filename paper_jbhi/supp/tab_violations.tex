@@ -1,0 +1,43 @@
+\begin{table}[!htbp]
+\caption{Every Assumption-Violation Setting in Full}
+\label{tab:sviolations}
+\centering\scriptsize
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Setting & Image & Naive mean & Sum rule & Proposed & Oracle & ECE$_{\text{prop}}$ \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{V1: residual dependence given the latent state}} \\
+\quad $\rho$ $=$ 0 & 0.8947 & 0.8893 & 0.8911 & 0.8972 & 0.8969 & 0.010 \\
+\quad $\rho$ $=$ 0.2 & 0.8978 & 0.8816 & 0.8885 & 0.8951 & 0.8979 & 0.010 \\
+\quad $\rho$ $=$ 0.4 & 0.8980 & 0.8701 & 0.8821 & 0.8899 & 0.9037 & 0.009 \\
+\quad $\rho$ $=$ 0.6 & 0.8982 & 0.8595 & 0.8764 & 0.8847 & 0.9217 & 0.008 \\
+\quad $\rho$ $=$ 0.8 & 0.8984 & 0.8497 & 0.8712 & 0.8797 & 0.9587 & 0.008 \\
+\multicolumn{7}{@{}l}{\emph{V2: direct questionnaire-to-cytology path}} \\
+\quad $\gamma$ $=$ 0 & 0.8947 & 0.8893 & 0.8911 & 0.8972 & 0.8969 & 0.010 \\
+\quad $\gamma$ $=$ 0.25 & 0.8953 & 0.8993 & 0.8979 & 0.9012 & 0.9027 & 0.012 \\
+\quad $\gamma$ $=$ 0.5 & 0.8956 & 0.9075 & 0.9034 & 0.9044 & 0.9097 & 0.015 \\
+\quad $\gamma$ $=$ 1 & 0.8940 & 0.9196 & 0.9115 & 0.9082 & 0.9245 & 0.024 \\
+\multicolumn{7}{@{}l}{\emph{V3: infection affects the image at fixed cytology}} \\
+\quad $\delta$ $=$ 0 & 0.8947 & 0.8893 & 0.8911 & 0.8972 & 0.8969 & 0.010 \\
+\quad $\delta$ $=$ 0.1 & 0.9152 & 0.9064 & 0.9093 & 0.9160 & 0.9162 & 0.012 \\
+\quad $\delta$ $=$ 0.2 & 0.9235 & 0.9141 & 0.9177 & 0.9233 & 0.9239 & 0.018 \\
+\quad $\delta$ $=$ 0.4 & 0.9270 & 0.9156 & 0.9208 & 0.9250 & 0.9267 & 0.027 \\
+\multicolumn{7}{@{}l}{\emph{V4: the link varies by subgroup}} \\
+\quad spread $=$ 0 & 0.8947 & 0.8893 & 0.8911 & 0.8972 & 0.8969 & 0.010 \\
+\quad spread $=$ 0.25 & 0.8944 & 0.8892 & 0.8910 & 0.8969 & 0.8966 & 0.010 \\
+\quad spread $=$ 0.5 & 0.8937 & 0.8879 & 0.8897 & 0.8959 & 0.8957 & 0.011 \\
+\multicolumn{7}{@{}l}{\emph{V5: an expert is miscalibrated by an unknown temperature}} \\
+\quad questionnaire temperature 1 & 0.8947 & 0.8893 & 0.8911 & 0.8972 & 0.8969 & 0.010 \\
+\quad questionnaire temperature 1.5 & 0.8947 & 0.8922 & 0.8919 & 0.8970 & 0.8969 & 0.010 \\
+\quad questionnaire temperature 2 & 0.8947 & 0.8941 & 0.8928 & 0.8969 & 0.8969 & 0.010 \\
+\quad image temperature 1.5 & 0.8947 & 0.8871 & 0.8932 & 0.8968 & 0.8969 & 0.018 \\
+\quad image temperature 2 & 0.8947 & 0.8813 & 0.8932 & 0.8955 & 0.8969 & 0.026 \\
+\multicolumn{7}{@{}l}{\emph{V6: image domain shift, with and without prevalence change}} \\
+\quad image log-odds bias 0, prevalence 0.0518 & 0.8947 & 0.8893 & 0.8911 & 0.8972 & 0.8969 & 0.010 \\
+\quad image log-odds bias 0, prevalence 0.02 & 0.8934 & 0.8889 & 0.8755 & 0.8962 & 0.8960 & 0.018 \\
+\quad image log-odds bias 1, prevalence 0.0518 & 0.8947 & 0.8893 & 0.8955 & 0.8972 & 0.8969 & 0.038 \\
+\quad image log-odds bias 1, prevalence 0.02 & 0.8934 & 0.8891 & 0.8902 & 0.8962 & 0.8961 & 0.058 \\
+\bottomrule
+\end{tabular}
+\\[2pt]\begin{minipage}{\textwidth}\scriptsize AUROC, mean of 20 replicates of 20,000 women. The oracle is a logistic stacker refitted on paired data and is a reference, not a deployable comparator.\end{minipage}
+\end{table}

@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "n": 9348,
+    "n_pos": 2177,
+    "pos_rate": 0.23288403936670946,
+    "cycles": [
+      "2007-2008",
+      "2009-2010",
+      "2011-2012",
+      "2013-2014",
+      "2015-2016"
+    ],
+    "n_features": 12
+  },
+  "singles": {
+    "LightGBM": 0.7166706264136022,
+    "XGBoost": 0.7165183005325577,
+    "CatBoost": 0.7169182680688249,
+    "RandomForest": 0.7139010241769614,
+    "LogReg": 0.6839657216803736,
+    "kNN": 0.6717858326297282
+  },
+  "best_single": "CatBoost",
+  "fusions": {
+    "soft_vote_trees": 0.7176608086966932,
+    "soft_vote_all": 0.7147314500482247,
+    "soft_vote_diverse_trio": 0.7045302921281149,
+    "rank_average_trees": 0.7175986100295383,
+    "stacking_LR_meta": 0.7170351708160522,
+    "optimal_convex_UPPERBOUND": 0.717904863199124
+  },
+  "optimal_weights": {
+    "LightGBM": 0.253,
+    "XGBoost": 0.0,
+    "CatBoost": 0.493,
+    "RandomForest": 0.254,
+    "LogReg": 0.0,
+    "kNN": 0.0
+  },
+  "tree_mean_corr": 0.9791684851250073
+}

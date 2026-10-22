@@ -1,0 +1,62 @@
+{
+  "dataset": "Herlev",
+  "n": 917,
+  "prevalence": 0.7360959651035986,
+  "per_class": {
+    "carcinoma_in_situ": 150,
+    "light_dysplastic": 182,
+    "moderate_dysplastic": 146,
+    "normal_columnar": 98,
+    "normal_intermediate": 70,
+    "normal_superficiel": 74,
+    "severe_dysplastic": 197
+  },
+  "models": {
+    "student (Protocol A)": {
+      "auroc": 0.676063666972758,
+      "auroc_ci95": [
+        0.6341296492583094,
+        0.7173760095004262
+      ],
+      "ap": 0.8294771248708981,
+      "ece": 0.34962143201376905,
+      "accuracy": 0.5670665212649946,
+      "sensitivity": 0.5140740740740741,
+      "specificity": 0.7148760330578512,
+      "mean_score": 0.453066885471344,
+      "per_class_mean_score": {
+        "carcinoma_in_situ": 0.5174648761749268,
+        "light_dysplastic": 0.6253272294998169,
+        "moderate_dysplastic": 0.5285206437110901,
+        "normal_columnar": 0.4702860414981842,
+        "normal_intermediate": 0.21836967766284943,
+        "normal_superficiel": 0.13292443752288818,
+        "severe_dysplastic": 0.3840545117855072
+      }
+    },
+    "student (Protocol B, slide-grouped)": {
+      "auroc": 0.6412121212121211,
+      "auroc_ci95": [
+        0.5951059863950753,
+        0.6836677649922963
+      ],
+      "ap": 0.7885468091231631,
+      "ece": 0.24685316833067228,
+      "accuracy": 0.6837513631406761,
+      "sensitivity": 0.7496296296296296,
+      "specificity": 0.5,
+      "mean_score": 0.662591278553009,
+      "per_class_mean_score": {
+        "carcinoma_in_situ": 0.8473184704780579,
+        "light_dysplastic": 0.7572770714759827,
+        "moderate_dysplastic": 0.6997337937355042,
+        "normal_columnar": 0.7879117131233215,
+        "normal_intermediate": 0.3903348743915558,
+        "normal_superficiel": 0.20099827647209167,
+        "severe_dysplastic": 0.6147214770317078
+      },
+      "auroc_excluding_columnar": 0.8050617283950617
+    }
+  },
+  "note_columnar": "SIPaKMeD has no columnar class; Herlev columnar cells are pushed to abnormal (median score 0.98)"
+}

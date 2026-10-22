@@ -1,0 +1,664 @@
+{
+  "cohort": {
+    "meta": {
+      "n": 12634,
+      "n_pos": 3103,
+      "pos_rate": 0.24560709197403832,
+      "target": "high_risk",
+      "cycles": [
+        "2003-2004",
+        "2005-2006",
+        "2007-2008",
+        "2009-2010",
+        "2011-2012",
+        "2013-2014",
+        "2015-2016"
+      ],
+      "n_features": 31
+    },
+    "per_cycle": {
+      "2003-2004": {
+        "n": 1558,
+        "hpv_pos_rate": 0.27214377406931967
+      },
+      "2005-2006": {
+        "n": 1728,
+        "hpv_pos_rate": 0.29050925925925924
+      },
+      "2007-2008": {
+        "n": 1783,
+        "hpv_pos_rate": 0.25294447560291644
+      },
+      "2009-2010": {
+        "n": 1955,
+        "hpv_pos_rate": 0.2557544757033248
+      },
+      "2011-2012": {
+        "n": 1767,
+        "hpv_pos_rate": 0.23372948500282967
+      },
+      "2013-2014": {
+        "n": 1985,
+        "hpv_pos_rate": 0.218639798488665
+      },
+      "2015-2016": {
+        "n": 1858,
+        "hpv_pos_rate": 0.20398277717976318
+      }
+    },
+    "missing_pct": {
+      "age": 0.0,
+      "race": 0.0,
+      "education": 8.928288744657275,
+      "marital": 4.962798796897261,
+      "poverty_ratio": 6.830774101630521,
+      "ever_sex": 24.17286686718379,
+      "age_first_sex": 27.9642235238246,
+      "age_first_oral": 58.92037359506095,
+      "ever_oral_man": 47.372170334019316,
+      "ever_anal_man": 47.388000633211966,
+      "n_partners_life": 25.874624030394173,
+      "n_partners_year": 47.419661231597274,
+      "n_vaginal_partners_life": 50.73610891245844,
+      "n_oral_partners_life": 58.96786449263891,
+      "condomless_year": 40.09023270539813,
+      "new_partner_year": 56.624980212126005,
+      "orientation": 28.383726452429954,
+      "herpes_hx": 18.845971188855472,
+      "gonorrhea_hx": 18.790565141681178,
+      "chlamydia_hx": 18.830140889662815,
+      "genital_warts_hx": 18.822225740066486,
+      "age_menarche": 9.640652208326737,
+      "ever_pregnant": 14.081051131866392,
+      "n_pregnancies": 13.827766344783917,
+      "smoked_100": 6.775368054456229,
+      "smoking_status": 6.783283204052556,
+      "hpv_vaccine": 2.4378660756688304,
+      "hsv2": 34.597118885546934,
+      "years_active": 27.9642235238246,
+      "partners_per_active_year": 28.415387050815262,
+      "pregnancies_per_active_year": 31.19360455912617
+    },
+    "age_mean": 37.12648409054931,
+    "age_sd": 12.25421935141368,
+    "features": [
+      "age",
+      "race",
+      "education",
+      "marital",
+      "poverty_ratio",
+      "ever_sex",
+      "age_first_sex",
+      "age_first_oral",
+      "ever_oral_man",
+      "ever_anal_man",
+      "n_partners_life",
+      "n_partners_year",
+      "n_vaginal_partners_life",
+      "n_oral_partners_life",
+      "condomless_year",
+      "new_partner_year",
+      "orientation",
+      "herpes_hx",
+      "gonorrhea_hx",
+      "chlamydia_hx",
+      "genital_warts_hx",
+      "age_menarche",
+      "ever_pregnant",
+      "n_pregnancies",
+      "smoked_100",
+      "smoking_status",
+      "hpv_vaccine",
+      "hsv2",
+      "years_active",
+      "partners_per_active_year",
+      "pregnancies_per_active_year"
+    ],
+    "questionnaire": [
+      {
+        "section": "Demographics",
+        "feature": "age",
+        "question": "What is your age?",
+        "coding": "age in years (18-59)"
+      },
+      {
+        "section": "Demographics",
+        "feature": "race",
+        "question": "Race / Hispanic origin",
+        "coding": "1=MexicanAmerican 2=OtherHispanic 3=White 4=Black 5=Other"
+      },
+      {
+        "section": "Demographics",
+        "feature": "education",
+        "question": "Highest education completed",
+        "coding": "1=<9th 2=9-11th 3=HS/GED 4=SomeCollege 5=CollegeGrad+"
+      },
+      {
+        "section": "Demographics",
+        "feature": "marital",
+        "question": "Marital status",
+        "coding": "1=Married 2=Widowed 3=Divorced 4=Separated 5=NeverMarried 6=LivingWithPartner"
+      },
+      {
+        "section": "Demographics",
+        "feature": "poverty_ratio",
+        "question": "Ratio of family income to the poverty threshold",
+        "coding": "0.0-5.0 (higher = wealthier)"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "ever_sex",
+        "question": "Ever had vaginal, anal, or oral sex?",
+        "coding": "1=Yes 2=No"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "age_first_sex",
+        "question": "How old were you when you had sex for the first time?",
+        "coding": "age in years"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "age_first_oral",
+        "question": "How old were you when you first performed oral sex?",
+        "coding": "age in years (asked 2009+)"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "ever_oral_man",
+        "question": "Ever performed oral sex on a man?",
+        "coding": "1=Yes 2=No (asked 2009+)"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "ever_anal_man",
+        "question": "Ever had anal sex with a man?",
+        "coding": "1=Yes 2=No (asked 2009+)"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "n_partners_life",
+        "question": "How many male sex partners have you had in your lifetime?",
+        "coding": "count"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "n_partners_year",
+        "question": "How many male sex partners in the past 12 months?",
+        "coding": "count"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "n_vaginal_partners_life",
+        "question": "How many male vaginal-sex partners in your lifetime?",
+        "coding": "count (asked 2009+)"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "n_oral_partners_life",
+        "question": "How many male oral-sex partners in your lifetime?",
+        "coding": "count (asked 2009+)"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "condomless_year",
+        "question": "In the past year, how many times did you have sex without a condom?",
+        "coding": "count"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "new_partner_year",
+        "question": "Have you had sex with a new partner in the past year?",
+        "coding": "1=Yes 2=No (asked 2009+)"
+      },
+      {
+        "section": "Sexual behaviour",
+        "feature": "orientation",
+        "question": "Which best describes your sexual orientation?",
+        "coding": "1=Heterosexual 2=Homosexual 3=Bisexual 4=Other"
+      },
+      {
+        "section": "STI history",
+        "feature": "herpes_hx",
+        "question": "Has a doctor ever told you that you had genital herpes?",
+        "coding": "1=Yes 2=No"
+      },
+      {
+        "section": "STI history",
+        "feature": "gonorrhea_hx",
+        "question": "Has a doctor ever told you that you had gonorrhea?",
+        "coding": "1=Yes 2=No"
+      },
+      {
+        "section": "STI history",
+        "feature": "chlamydia_hx",
+        "question": "Has a doctor ever told you that you had chlamydia?",
+        "coding": "1=Yes 2=No"
+      },
+      {
+        "section": "STI history",
+        "feature": "genital_warts_hx",
+        "question": "Has a doctor ever told you that you had genital warts?  [HPV-ADJACENT \u2014 reported with/without]",
+        "coding": "1=Yes 2=No  (warts = low-risk HPV 6/11; target = high-risk types)"
+      },
+      {
+        "section": "Reproductive",
+        "feature": "age_menarche",
+        "question": "How old were you when your periods started?",
+        "coding": "age in years"
+      },
+      {
+        "section": "Reproductive",
+        "feature": "ever_pregnant",
+        "question": "Have you ever been pregnant?",
+        "coding": "1=Yes 2=No"
+      },
+      {
+        "section": "Reproductive",
+        "feature": "n_pregnancies",
+        "question": "How many times have you been pregnant?",
+        "coding": "count (0 if never pregnant)"
+      },
+      {
+        "section": "Smoking",
+        "feature": "smoked_100",
+        "question": "Have you smoked at least 100 cigarettes in your entire life?",
+        "coding": "1=Yes 2=No"
+      },
+      {
+        "section": "Smoking",
+        "feature": "smoking_status",
+        "question": "Current smoking status (derived from SMQ020 + SMQ040)",
+        "coding": "0=Never 1=Former 2=Current"
+      },
+      {
+        "section": "Vaccination",
+        "feature": "hpv_vaccine",
+        "question": "Have you ever received the HPV vaccine (Cervarix or Gardasil)?",
+        "coding": "1=Yes 2=No  (question introduced 2007; set 2=No for pre-2007 cycles)"
+      },
+      {
+        "section": "Biomarker",
+        "feature": "hsv2",
+        "question": "Herpes Simplex Virus type-2 antibody (laboratory blood test)",
+        "coding": "1=Positive 2=Negative  (different virus; marks shared sexual-transmission risk)"
+      }
+    ],
+    "engineered": [
+      "years_active",
+      "partners_per_active_year",
+      "pregnancies_per_active_year"
+    ]
+  },
+  "results": {
+    "Logistic regression": {
+      "auroc": 0.6869544005072173,
+      "auroc_ci95": [
+        0.6761823102634569,
+        0.6970926416771146
+      ],
+      "pr_auc": 0.4036927337865694,
+      "pr_auc_ci95": [
+        0.38717290660829434,
+        0.4217453885823207
+      ],
+      "brier": 0.22340981185630399,
+      "ece": 0.2272802593845509,
+      "accuracy": 0.6422352382460028,
+      "sensitivity": 0.6310022558814051,
+      "specificity": 0.6458923512747875,
+      "precision": 0.36714794674667167,
+      "f1": 0.4642010431484116,
+      "confusion": [
+        [
+          6156,
+          3375
+        ],
+        [
+          1145,
+          1958
+        ]
+      ]
+    },
+    "k-NN": {
+      "auroc": 0.6235621786505104,
+      "auroc_ci95": [
+        0.6118956153991723,
+        0.6343611878591916
+      ],
+      "pr_auc": 0.32517848618024525,
+      "pr_auc_ci95": [
+        0.3120541498908428,
+        0.33860710881844175
+      ],
+      "brier": 0.1975716321038468,
+      "ece": 0.11336077251860059,
+      "accuracy": 0.7264524299509261,
+      "sensitivity": 0.22655494682565258,
+      "specificity": 0.8892036512433114,
+      "precision": 0.39965889710062535,
+      "f1": 0.28918140682846566,
+      "confusion": [
+        [
+          8475,
+          1056
+        ],
+        [
+          2400,
+          703
+        ]
+      ]
+    },
+    "RandomForest": {
+      "auroc": 0.6844468681382423,
+      "auroc_ci95": [
+        0.6742756858719922,
+        0.695233986498899
+      ],
+      "pr_auc": 0.39618015194900036,
+      "pr_auc_ci95": [
+        0.3795504532248317,
+        0.41281244234993225
+      ],
+      "brier": 0.17230612149758123,
+      "ece": 0.02539282119255916,
+      "accuracy": 0.7541554535380719,
+      "sensitivity": 0.14147599097647437,
+      "specificity": 0.9536250131150981,
+      "precision": 0.4982973893303065,
+      "f1": 0.22038152610441766,
+      "confusion": [
+        [
+          9089,
+          442
+        ],
+        [
+          2664,
+          439
+        ]
+      ]
+    },
+    "ExtraTrees": {
+      "auroc": 0.674541000307256,
+      "auroc_ci95": [
+        0.6639250192602678,
+        0.6845584932325324
+      ],
+      "pr_auc": 0.375780565317238,
+      "pr_auc_ci95": [
+        0.36164481700608864,
+        0.3917308089254773
+      ],
+      "brier": 0.17746021279558089,
+      "ece": 0.03983287122477948,
+      "accuracy": 0.7465569099255976,
+      "sensitivity": 0.15823396712858523,
+      "specificity": 0.9380967369635925,
+      "precision": 0.45420906567992597,
+      "f1": 0.2347036328871893,
+      "confusion": [
+        [
+          8941,
+          590
+        ],
+        [
+          2612,
+          491
+        ]
+      ]
+    },
+    "LightGBM": {
+      "auroc": 0.6835942810970177,
+      "auroc_ci95": [
+        0.673350578105645,
+        0.6945725497407731
+      ],
+      "pr_auc": 0.4076986181933373,
+      "pr_auc_ci95": [
+        0.39028627097334867,
+        0.4268451048853462
+      ],
+      "brier": 0.19901502891120776,
+      "ece": 0.13583949307879203,
+      "accuracy": 0.6881431059047016,
+      "sensitivity": 0.49597164034805025,
+      "specificity": 0.7507082152974505,
+      "precision": 0.3931034482758621,
+      "f1": 0.43858649187802795,
+      "confusion": [
+        [
+          7155,
+          2376
+        ],
+        [
+          1564,
+          1539
+        ]
+      ]
+    },
+    "XGBoost": {
+      "auroc": 0.6829291854356696,
+      "auroc_ci95": [
+        0.6720779065767022,
+        0.693356394412269
+      ],
+      "pr_auc": 0.4085508752848012,
+      "pr_auc_ci95": [
+        0.3907408105627223,
+        0.42792776909716296
+      ],
+      "brier": 0.20111602544784546,
+      "ece": 0.14508632609309022,
+      "accuracy": 0.6864809244894728,
+      "sensitivity": 0.5182081856268128,
+      "specificity": 0.7412653446647781,
+      "precision": 0.3946980854197349,
+      "f1": 0.4480980911244252,
+      "confusion": [
+        [
+          7065,
+          2466
+        ],
+        [
+          1495,
+          1608
+        ]
+      ]
+    }
+  },
+  "best": "Logistic regression",
+  "calibration": {
+    "raw": {
+      "ece": 0.2272802593845509,
+      "brier": 0.22340981185630399
+    },
+    "isotonic": {
+      "auroc": 0.686389914512384,
+      "auroc_ci95": [
+        0.6760556087508912,
+        0.6969773674488219
+      ],
+      "pr_auc": 0.4017690402661913,
+      "pr_auc_ci95": [
+        0.3848668119226049,
+        0.42038108385146333
+      ],
+      "brier": 0.1705299028640808,
+      "ece": 0.007486222369551254,
+      "accuracy": 0.6201519708722495,
+      "sensitivity": 0.6812761843377376,
+      "specificity": 0.6002518098835379,
+      "precision": 0.35685347738014855,
+      "f1": 0.4683726597983826,
+      "confusion": [
+        [
+          5721,
+          3810
+        ],
+        [
+          989,
+          2114
+        ]
+      ]
+    }
+  },
+  "permutation_importance": [
+    {
+      "feature": "marital",
+      "auroc_drop": 0.045373682369695544,
+      "sd": 0.0024977440017073626
+    },
+    {
+      "feature": "smoking_status",
+      "auroc_drop": 0.03655879693722704,
+      "sd": 0.009010597935490434
+    },
+    {
+      "feature": "partners_per_active_year",
+      "auroc_drop": 0.02331570994541874,
+      "sd": 0.008014832338596341
+    },
+    {
+      "feature": "smoked_100",
+      "auroc_drop": 0.01788292969730345,
+      "sd": 0.005822950718246463
+    },
+    {
+      "feature": "age",
+      "auroc_drop": 0.013862489812761303,
+      "sd": 0.005735195339183419
+    },
+    {
+      "feature": "ever_sex",
+      "auroc_drop": 0.01238428101034041,
+      "sd": 0.002326130884215733
+    },
+    {
+      "feature": "poverty_ratio",
+      "auroc_drop": 0.004886178373391972,
+      "sd": 0.0013879773091118356
+    },
+    {
+      "feature": "n_partners_year",
+      "auroc_drop": 0.0036389047713540944,
+      "sd": 0.0009583877086288453
+    },
+    {
+      "feature": "new_partner_year",
+      "auroc_drop": 0.002849903996062011,
+      "sd": 0.0006998032582919339
+    },
+    {
+      "feature": "age_first_sex",
+      "auroc_drop": 0.002499011637088744,
+      "sd": 0.0008386296212904622
+    },
+    {
+      "feature": "ever_anal_man",
+      "auroc_drop": 0.0020576223818655716,
+      "sd": 0.0006163711255649839
+    },
+    {
+      "feature": "hsv2",
+      "auroc_drop": 0.0017987873998679227,
+      "sd": 0.00168973774052595
+    },
+    {
+      "feature": "education",
+      "auroc_drop": 0.0012149878208006504,
+      "sd": 0.0014069780071578866
+    },
+    {
+      "feature": "n_pregnancies",
+      "auroc_drop": 0.0008718763505215232,
+      "sd": 0.0007722341286366115
+    },
+    {
+      "feature": "years_active",
+      "auroc_drop": 0.0008317231795636903,
+      "sd": 0.0015403092328351727
+    },
+    {
+      "feature": "herpes_hx",
+      "auroc_drop": 0.000785952959061631,
+      "sd": 0.00032285449197462794
+    },
+    {
+      "feature": "ever_oral_man",
+      "auroc_drop": 0.0007095819323877306,
+      "sd": 0.0015294168071344413
+    },
+    {
+      "feature": "race",
+      "auroc_drop": 0.00041876147100787346,
+      "sd": 0.00044597262934856474
+    },
+    {
+      "feature": "n_partners_life",
+      "auroc_drop": 0.00033069078307358164,
+      "sd": 0.0006060229368024304
+    },
+    {
+      "feature": "age_first_oral",
+      "auroc_drop": 0.00029088291523105437,
+      "sd": 0.0005043594950951956
+    },
+    {
+      "feature": "n_vaginal_partners_life",
+      "auroc_drop": 0.00027033888782544317,
+      "sd": 0.0006412017023485516
+    },
+    {
+      "feature": "ever_pregnant",
+      "auroc_drop": 0.00023897161376026157,
+      "sd": 0.0003455896463086114
+    },
+    {
+      "feature": "chlamydia_hx",
+      "auroc_drop": 0.00015996543905753672,
+      "sd": 0.000411346663871664
+    },
+    {
+      "feature": "n_oral_partners_life",
+      "auroc_drop": 0.00015685590067847865,
+      "sd": 0.00037751407195877733
+    },
+    {
+      "feature": "genital_warts_hx",
+      "auroc_drop": 0.00014641058979221634,
+      "sd": 0.00043677990914130335
+    },
+    {
+      "feature": "pregnancies_per_active_year",
+      "auroc_drop": 6.062157216474068e-05,
+      "sd": 0.0011268669623071422
+    },
+    {
+      "feature": "hpv_vaccine",
+      "auroc_drop": 4.313798830791083e-05,
+      "sd": 0.00011222983994301645
+    },
+    {
+      "feature": "age_menarche",
+      "auroc_drop": -7.877248756698929e-05,
+      "sd": 7.791843571568965e-05
+    },
+    {
+      "feature": "gonorrhea_hx",
+      "auroc_drop": -8.09568683536055e-05,
+      "sd": 0.00012565373120208774
+    },
+    {
+      "feature": "orientation",
+      "auroc_drop": -0.00011984861322068772,
+      "sd": 9.716828068546588e-05
+    },
+    {
+      "feature": "condomless_year",
+      "auroc_drop": -0.0006651208150194555,
+      "sd": 0.0008863175280655163
+    }
+  ],
+  "cv": "stratified 5-fold, seed 42",
+  "seconds": 46.97101163864136
+}

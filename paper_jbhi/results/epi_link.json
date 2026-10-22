@@ -1,0 +1,44 @@
+{
+  "source": "Castle et al., Obstet Gynecol 2009 (KPNC cotesting, n=812,598, women >=30)",
+  "reported": {
+    "p_hpv_pos": 0.0627,
+    "p_hpv_pos_cyt_normal": 0.0399,
+    "p_cyt_abnormal": 0.0518,
+    "p_cyt_abnormal_hpv_neg": 0.0287,
+    "n": 812598
+  },
+  "cells": {
+    "hpv_pos_abn": 0.022800000000000008,
+    "hpv_pos_norm": 0.0399,
+    "hpv_neg_abn": 0.02899999999999999,
+    "hpv_neg_norm": 0.9082999999999999
+  },
+  "consistency_check": 0.00029999999999999125,
+  "estimate": {
+    "q1": 0.3636363636363637,
+    "q0": 0.030939933852555206,
+    "odds_ratio": 17.897536945812817,
+    "risk_ratio": 11.752978056426336,
+    "p_H": 0.0627,
+    "p_A": 0.0518
+  },
+  "ci95": {
+    "odds_ratio": [
+      17.49226131700797,
+      18.312591060096896
+    ],
+    "q1": [
+      0.3595632176606542,
+      0.3677930893010864
+    ],
+    "q0": [
+      0.030553959511827985,
+      0.03134139618827813
+    ]
+  },
+  "athena_margins": {
+    "p_H": 0.126,
+    "p_A": 0.071,
+    "note": "ATHENA (Wright et al. 2012, women >=21) used as an alternative, higher-prevalence deployment setting"
+  }
+}

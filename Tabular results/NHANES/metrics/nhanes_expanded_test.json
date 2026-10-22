@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "n": 12634,
+    "n_pos": 3103,
+    "pos_rate": 0.24560709197403832,
+    "cycles": [
+      "2003-2004",
+      "2005-2006",
+      "2007-2008",
+      "2009-2010",
+      "2011-2012",
+      "2013-2014",
+      "2015-2016"
+    ],
+    "n_features": 31
+  },
+  "sets": {
+    "OLD12": {
+      "LightGBM": 0.6929329748241174,
+      "XGBoost": 0.6993472425901429,
+      "CatBoost": 0.7001464732026129,
+      "RandomForest": 0.6958469526632112,
+      "LogReg": 0.6767639481498591,
+      "soft_vote_trees": 0.7004589362939457,
+      "stacking": 0.7023980265830655
+    },
+    "CLEAN_expanded": {
+      "LightGBM": 0.7007003589183496,
+      "XGBoost": 0.7090148661898198,
+      "CatBoost": 0.7070734090122254,
+      "RandomForest": 0.7051460179147084,
+      "LogReg": 0.6936992718740985,
+      "soft_vote_trees": 0.7090789750547876,
+      "stacking": 0.7116451555388925
+    },
+    "FULL_with_warts": {
+      "LightGBM": 0.703382753626555,
+      "XGBoost": 0.7091384515808836,
+      "CatBoost": 0.7079520994520552,
+      "RandomForest": 0.7054910426289125,
+      "LogReg": 0.6936963301698517,
+      "soft_vote_trees": 0.7100582582547856,
+      "stacking": 0.7116159413725782
+    }
+  },
+  "new_item_univariate": {
+    "ever_sex": 0.5177190784416823,
+    "age_first_oral": 0.5518116043203989,
+    "ever_oral_man": 0.5255236701637096,
+    "ever_anal_man": 0.52486843384076,
+    "n_partners_year": 0.6162375851469701,
+    "n_vaginal_partners_life": 0.6230550218834117,
+    "n_oral_partners_life": 0.6097228129293987,
+    "condomless_year": 0.5273612584112399,
+    "new_partner_year": 0.5738741915508463,
+    "orientation": 0.5097800732901486,
+    "herpes_hx": 0.5088168783754123,
+    "gonorrhea_hx": 0.5023709849070634,
+    "chlamydia_hx": 0.5086877857188847,
+    "genital_warts_hx": 0.5067879009683578,
+    "hpv_vaccine": 0.519299021198629,
+    "hsv2": 0.5308414071695361,
+    "years_active": 0.5936155878574965,
+    "partners_per_active_year": 0.6694112750201047,
+    "pregnancies_per_active_year": 0.5066011283033333
+  }
+}

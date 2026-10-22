@@ -1,0 +1,19 @@
+\begin{table}[!htbp]
+\caption{Questionnaire Model Families on Identical Folds}
+\label{tab:sfamilies}
+\centering\footnotesize
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Model & AUROC & Avg.\ precision & Brier & ECE \\
+\midrule
+Logistic regression & 0.6972 & 0.4125 & 0.2204 & 0.222 \\
+k-NN & 0.6151 & 0.3201 & 0.1998 & 0.120 \\
+RandomForest & 0.6858 & 0.3958 & 0.1723 & 0.026 \\
+ExtraTrees & 0.6632 & 0.3626 & 0.1822 & 0.059 \\
+LightGBM & 0.6875 & 0.4102 & 0.1976 & 0.132 \\
+XGBoost & 0.6856 & 0.4141 & 0.1995 & 0.141 \\
+\midrule nested selection $+$ isotonic & 0.6945 & 0.4086 & 0.1699 & 0.022 \\
+\bottomrule
+\end{tabular}
+\\[2pt]\begin{minipage}{\textwidth}\scriptsize All figures are out of fold with imputation, scaling and calibration fitted inside the training folds. The last row is the nested procedure reported in the main paper, which selected logistic regression in all five outer folds.\end{minipage}
+\end{table}

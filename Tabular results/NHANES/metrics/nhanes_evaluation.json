@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "n": 12634,
+    "n_pos": 3103,
+    "pos_rate": 0.24560709197403832,
+    "cycles": [
+      "2003-2004",
+      "2005-2006",
+      "2007-2008",
+      "2009-2010",
+      "2011-2012",
+      "2013-2014",
+      "2015-2016"
+    ],
+    "n_features": 31
+  },
+  "features": [
+    "age",
+    "race",
+    "education",
+    "marital",
+    "poverty_ratio",
+    "ever_sex",
+    "age_first_sex",
+    "age_first_oral",
+    "ever_oral_man",
+    "ever_anal_man",
+    "n_partners_life",
+    "n_partners_year",
+    "n_vaginal_partners_life",
+    "n_oral_partners_life",
+    "condomless_year",
+    "new_partner_year",
+    "orientation",
+    "herpes_hx",
+    "gonorrhea_hx",
+    "chlamydia_hx",
+    "age_menarche",
+    "ever_pregnant",
+    "n_pregnancies",
+    "smoked_100",
+    "smoking_status",
+    "hpv_vaccine",
+    "hsv2",
+    "years_active",
+    "partners_per_active_year",
+    "pregnancies_per_active_year"
+  ],
+  "results": {
+    "LightGBM": {
+      "auroc": 0.7007003589183496,
+      "accuracy": 0.6547411746082001,
+      "balanced_accuracy": 0.6490181994450458,
+      "precision": 0.37933678359210277,
+      "recall": 0.6377699000966807,
+      "specificity": 0.6602664987934109,
+      "f1": 0.4757211538461538,
+      "ece": 0.15870580737123915,
+      "cm": [
+        6293,
+        3238,
+        1124,
+        1979
+      ],
+      "threshold": 0.45193664210693035
+    },
+    "XGBoost": {
+      "auroc": 0.7090148661898198,
+      "accuracy": 0.6245844546461928,
+      "balanced_accuracy": 0.6543518304653239,
+      "precision": 0.36477572559366755,
+      "recall": 0.7128585240090235,
+      "specificity": 0.5958451369216242,
+      "f1": 0.4826006327042653,
+      "ece": 0.191676214111337,
+      "cm": [
+        5679,
+        3852,
+        891,
+        2212
+      ],
+      "threshold": 0.4437655607859294
+    },
+    "CatBoost": {
+      "auroc": 0.7070734090122254,
+      "accuracy": 0.6420769352540763,
+      "balanced_accuracy": 0.6524700019709418,
+      "precision": 0.3731903485254692,
+      "recall": 0.6728971962616822,
+      "specificity": 0.6320428076802015,
+      "f1": 0.480110370200046,
+      "ece": 0.18937815037050373,
+      "cm": [
+        6024,
+        3507,
+        1015,
+        2088
+      ],
+      "threshold": 0.46150770826367843
+    },
+    "RandomForest": {
+      "auroc": 0.7051460179147084,
+      "accuracy": 0.6368529365205002,
+      "balanced_accuracy": 0.6522678358825229,
+      "precision": 0.3702149973780808,
+      "recall": 0.6825652594263616,
+      "specificity": 0.6219704123386843,
+      "f1": 0.4800543970988214,
+      "ece": 0.13109398007719686,
+      "cm": [
+        5928,
+        3603,
+        985,
+        2118
+      ],
+      "threshold": 0.3865662834336205
+    },
+    "LogReg": {
+      "auroc": 0.6936992718740985,
+      "accuracy": 0.6261674845654582,
+      "balanced_accuracy": 0.6471418147941552,
+      "precision": 0.3625254582484725,
+      "recall": 0.6883660973251692,
+      "specificity": 0.6059175322631414,
+      "f1": 0.47493051695386324,
+      "ece": 0.22427540225638082,
+      "cm": [
+        5775,
+        3756,
+        967,
+        2136
+      ],
+      "threshold": 0.479478369835683
+    },
+    "kNN": {
+      "auroc": 0.6869667590463239,
+      "accuracy": 0.644293177141048,
+      "balanced_accuracy": 0.6378551418944569,
+      "precision": 0.3680516031113641,
+      "recall": 0.6252014179825975,
+      "specificity": 0.6505088658063163,
+      "f1": 0.46333890613804635,
+      "ece": 0.018796152306102116,
+      "cm": [
+        6200,
+        3331,
+        1163,
+        1940
+      ],
+      "threshold": 0.24183006535947713
+    },
+    "SoftVote(trees)": {
+      "auroc": 0.7090789750547876,
+      "accuracy": 0.6250593636219725,
+      "balanced_accuracy": 0.6520584169715642,
+      "precision": 0.36405990016638934,
+      "recall": 0.70512407347728,
+      "specificity": 0.5989927604658483,
+      "f1": 0.4801931306924174,
+      "ece": 0.16771353798256922,
+      "cm": [
+        5709,
+        3822,
+        915,
+        2188
+      ],
+      "threshold": 0.417759456594569
+    },
+    "Stacking": {
+      "auroc": 0.7116823495006356,
+      "accuracy": 0.6433433591894887,
+      "balanced_accuracy": 0.6548308041608412,
+      "precision": 0.374888532191903,
+      "recall": 0.6774089590718659,
+      "specificity": 0.6322526492498164,
+      "f1": 0.4826636050516648,
+      "ece": 0.011999164619069014,
+      "cm": [
+        6026,
+        3505,
+        1001,
+        2102
+      ],
+      "threshold": 0.23521960844541065
+    }
+  }
+}

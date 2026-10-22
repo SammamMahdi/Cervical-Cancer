@@ -1,0 +1,45 @@
+{
+  "best": "RandomForest",
+  "results": {
+    "ExtraTrees": {
+      "accuracy": 0.748,
+      "auroc": 0.675,
+      "pr_auc": 0.378,
+      "f1": 0.236,
+      "precision": 0.46,
+      "recall": 0.159
+    },
+    "RandomForest": {
+      "accuracy": 0.721,
+      "auroc": 0.688,
+      "pr_auc": 0.395,
+      "f1": 0.397,
+      "precision": 0.423,
+      "recall": 0.374
+    },
+    "kNN": {
+      "accuracy": 0.726,
+      "auroc": 0.622,
+      "pr_auc": 0.325,
+      "f1": 0.289,
+      "precision": 0.399,
+      "recall": 0.227
+    },
+    "LightGBM": {
+      "accuracy": 0.688,
+      "auroc": 0.684,
+      "pr_auc": 0.411,
+      "f1": 0.439,
+      "precision": 0.394,
+      "recall": 0.497
+    },
+    "XGBoost": {
+      "accuracy": 0.684,
+      "auroc": 0.684,
+      "pr_auc": 0.41,
+      "f1": 0.444,
+      "precision": 0.391,
+      "recall": 0.514
+    }
+  }
+}

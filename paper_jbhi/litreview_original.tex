@@ -1,0 +1,95 @@
+
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{soul}
+
+% Define custom highlight commands
+\newcommand{\hly}[2][yellow]{{\sethlcolor{#1} \hl{#2}}}
+% Example custom commands for specific colors
+\newcommand{\hlr}[1]{{\sethlcolor{red}\hl{#1}}}
+\newcommand{\hlg}[1]{{\sethlcolor{green}\hl{#1}}}
+
+\usepackage{graphicx} % Required for inserting images
+
+\title{Cervical Cancer}
+\author{MUICT RAS}
+\date{August 2026}
+
+\begin {document}
+
+\section{Literature Review}
+
+\subsection{Introduction (Clinical context + ML risk prediction)}
+
+Cervical cancer remains a major public health challenge affecting women worldwide. According to the World Health Organization (WHO), it is the fourth most common cancer among women and continues to account for a substantial number of cancer-related deaths, particularly in low- and middle-income countries where access to routine screening and early diagnosis remains limited \cite{WHO_cervical_cancer}, \cite{WHO_screening_guideline}. Common cervical cancer screening approaches include HPV testing and cytology-based methods such as conventional Pap smear cytology and liquid-based cytology (LBC), while colposcopy and histopathological biopsy are typically used to evaluate abnormal screening results further \cite{WHO_screening_guideline}.
+
+Prior to the widespread adoption of deep learning,cervical cancer diagnosis primarily relied on traditional machine learning algorithms trained using structured clinical information and patient risk factors. Early studies investigated numerous supervised learning algorithms and ensemble approaches that combine several of these classifiers have generally reported higher performance than individual model and tree-based methods in particular have achieved high classification accuracy on the UCI Cervical Cancer Risk Factors dataset \cite{fernandes2017cervical}. Furthermore, researchers have explored a range of imputation strategies to address missing values from simple mean-value substitution to more sophisticated approaches such as KNN imputation and Support Vector Machine (SVM)-based imputation which is used to reconstruct missing clinical information before classifier training \cite{karamti2023improvingpr}, \cite{munshi2024novel}.
+
+Another major challenge is the severe class imbalance. To address this issue, employ oversampling techniques such as the Synthetic Minority Over-sampling Technique (SMOTE) and SMOTE-Tomek Links often paired with outlier detection before classifier training  as well as related variants including Adaptive Synthetic Sampling (ADASYN) and random oversampling \cite{ijaz2020data}. Ensemble approaches, including voting, boosting, and stacking, have also been investigated to improve predictive performance \cite{sun2022stacking}. 
+
+\subsection{Deep Learning-Based Cervical Cancer Diagnosis}
+
+ Deep learning has advanced cervical cancer diagnosis by enabling automatic feature extraction from medical images. A comparative study evaluated thirteen pretrained CNN architectures for Pap smear image classification and found DenseNet-201 to achieve the highest performance on the Herlev dataset \cite{tan2024cervical}. 
+
+A deep learning framework was developed for cervical cancer subtyping using whole-slide histopathological images \cite{yan2025deep}. It combined patch-level CNN analysis with WSI-level aggregation using machine-learning algorithms and evaluated the approach using one public training dataset and two independent private datasets. This external evaluation provides evidence of generalization beyond the training data \cite{yan2025deep}.
+
+DeepPap was among the early studies applying deep convolutional networks and transfer learning to cervical cell classification. The authors pretrained a CNN on natural images and subsequently fine-tuned it on cervical cell images, demonstrating that pretrained visual representations could be effectively adapted to cervical cytology despite limited annotated data \cite{zhang2017deeppap}.
+
+Swin Transformers with Ensemble Deep Learning Model for Cervical Cancer Screening Using Colposcopy Images employ hierarchical shifted-window attention mechanisms that efficiently balance computational complexity with global feature representation \cite{himabindu2025swin}. In the evaluation reported by the authors, the ensemble incorporating Swin Transformer achieved higher performance than the individual comparison models used in this study \cite{himabindu2025swin}. 
+
+Recent reviews have highlighted persistent challenges in cervical AI, including limited dataset diversity, class imbalance, lack of external validation, and difficulties in clinical translation \cite{vallescoral2026review},\cite{youneszade2023deep}. 
+
+Despite substantial progress, many deep learning studies rely on single datasets that limiting evidence of cross-dataset generalizability. These limitations have motivated the emergence of pathology foundation models and multimodal learning frameworks capable of learning generalized representations from large-scale medical data while integrating complementary imaging and clinical information. 
+
+UniCAS is a cervical cytology foundation model designed for cervical abnormality screening \cite{jiang2026unicas}. It was pretrained through self-supervised learning on a large collection of over 48,000 cervical whole-slide images and evaluated across multiple cytology tasks, including cancer screening, candidiasis detection and subtype diagnosis \cite{jiang2026unicas}.
+
+Several large-scale pathology foundation models like \textit{UNI} represents one of the most influential developments in computational pathology \cite{chen2024uni}. Such transferable representations may be relevant to cervical pathology, particularly when labeled cervical datasets are limited \cite{chen2024uni}.
+
+Another important pathology foundation model is CONCH, which introduces contrastive learning techniques specifically designed for computational pathology \cite{lu2024visual}.More recently, TITAN is a multimodal whole-slide foundation model that learns slide-level representations by aligning pathology images with paired text, using large-scale transformer architectures to capture long-range contextual dependencies across pathology images while maintaining strong transfer learning performance across multiple downstream applications \cite{ding2025titan}. Prov-GigaPath instead introduces hierarchical representation learning for gigapixel whole-slide images, enabling efficient processing of extremely high-resolution pathology slides while preserving tissue-level contextual information \cite{xu2024provgigapath}. 
+
+\subsection{Multimodal Learning for Cervical Cancer Diagnosis}
+
+Although image-based deep learning has advanced automated cervical cancer diagnosis, clinical decision-making also considers complementary patient information. Multimodal learning integrates medical images with structured clinical variables, such as age, HPV status, smoking history, parity, and previous biopsy findings, potentially providing a more comprehensive basis for prediction.
+
+Numerous recent studies have extended this idea to different cervical cancer-related tasks. For example, TopotiCerv integrates acetowhite colposcopic images with clinical findings for cervical lesion classification \cite{das2026topoticerv}, whereas Wang et al. developed a multimodal model combining pre- and post-treatment CT imaging, radiomic features, and clinical variables to predict disease-free survival after radiotherapy \cite{wang2025cervipro}. Unlike conventional diagnostic systems, this framework combines radiological imaging, clinical variables and treatment information to predict patient prognosis following radiotherapy. This study illustrates the broader applicability of multimodal learning beyond disease detection toward personalized treatment planning and outcome prediction \cite{wang2025cervipro}.
+
+CerviFusionNet presents a multimodal deep learning framework for cervical lesion classification by integrating diverse colposcopic imaging modalities — original, acetic-acid reaction and iodine-stained images through a hybrid CNN, Vision Transformer and GRU architecture \cite{sha2024cervifusionnet}. Compared with single-modality approaches, the authors demonstrated that multimodal feature integration improved lesion discrimination and classification performance \cite{sha2024cervifusionnet}. 
+
+One practical challenge encountered by multimodal learning systems is incomplete patient information.Existing approaches address missing modalities through feature completion, modality hallucination, knowledge distillation, and shared or modality-invariant representations \cite{wu2026deep}, \cite{havaei2016hemis}, \cite{yao2024drfuse}. Other multimodal approaches have combined radiomics features with deep image representations. One cervical lesion detection framework integrated radiomics and deep features and demonstrated improved performance over an image-only baseline with external validation \cite{niu2025hybridfeatu}. Similarly, graph neural network (GNN)-based fusion models have been applied within colposcopy images themselves, representing segmented anatomical regions as graph nodes connected by their spatial and textural relationships, which enables more effective information propagation across heterogeneous image regions \cite{chatterjee2025multi}. 
+
+Despite encouraging progress, multimodal cervical cancer research remains limited, particularly regarding evaluation across independent datasets and standardized annotation schemes. These limitations restrict evidence of cross-dataset robustness and clinical generalizability.
+
+\subsection{Dataset heterogeneity and cross-dataset generalization}
+
+Public cervical cytology datasets, including Herlev \cite{jantzen2005herlev}, SIPaKMeD \cite{plissiti2018sipakmed}, CRIC \cite{rezende2021cric}, APACC \cite{kupas2024apacc} and HiCervix \cite{cai2024hicervix} have supported the development of cervical AI. However, differences in image acquisition, staining, sample characteristics, class distributions, and annotation schemes complicate direct comparison and limit cross-dataset generalizability. Newer datasets and hospital-based liquid-based cytology datasets provide more diverse and clinically representative data, but they also further increase dataset heterogeneity \cite{hussain2020liquidbased}. These datasets also represent provide more realistic benchmarks for evaluating model robustness and external validity \cite{hussain2020liquidbased}.
+
+Differences in diagnostic labels and annotation schemes further complicate direct comparison across cervical datasets. The Bethesda System provides a clinically established framework for reporting cervical cytology findings and can support medically justified harmonization of heterogeneous dataset labels \cite{solomon2002bethesda, nayar2015bethesda}.
+
+Cross-dataset generalization refers to the ability of a model trained on one dataset to maintain satisfactory performance when evaluated on previously unseen datasets collected under different clinical conditions.One of the most significant contributors to domain shift is variability in data acquisition. Public cervical cytology datasets are collected using different microscope magnifications, staining procedures, imaging devices, segmentation methods and annotation protocols \cite{coskun2026robust}. 
+
+Consequently, external validation has become increasingly recognized as an essential component of trustworthy AI for healthcare. The importance o large-scale validation is illustrated by an AI cervical cancer screening system evaluated using multicenter retrospective, prospective, and independent external datasets, followed by a randomized observational trial \cite{wang2024aiccs}.
+
+Despite these advances, cross-dataset evaluation remains relatively uncommon in cervical cancer research. Moreover, differences in annotation schemes across datasets complicate fair comparison and hinder the development of generalized diagnostic frameworks. These limitations strongly motivate the use of standardized Bethesda-based label harmonization together with multimodal learning and systematic cross-dataset evaluation, which form the foundation of the proposed research presented in this study.
+
+Furthermore, relatively few investigations combine image-based XAI techniques such as SHAP provides feature-attribution explanations, LIME explains individual predictions through local surrogate models whereas Grad-CAM generates class-discriminative localization maps for CNN-based image predictions \cite{vallescoral2026review}. 
+
+\subsection{Research Gaps and Motivation}
+
+Despite considerable advances in clinical machine learning, image-based deep learning, foundation models and multimodal AI, several challenges remain unresolved. Many studies rely on single datasets, limiting evidence of generalizability across clinical settings, while differences in labels and annotation schemes complicate cross-dataset comparison. Although multimodal approaches have shown promise, relatively few studies have systematically evaluated their performance across heterogeneous cervical datasets. 
+
+Overall, these limitations highlight the need for an interpretable multimodal framework that integrates complementary image and clinical information while addressing dataset heterogeneity through medically justified Bethesda-based label harmonization and rigorous cross-dataset validation.
+
+
+
+\bibliographystyle{unsrt}
+\bibliography{Mybib}
+\end{document}
+
+
+ 
+
+
+
+
+
+

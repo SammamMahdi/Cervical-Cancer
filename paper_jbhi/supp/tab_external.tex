@@ -1,0 +1,19 @@
+\begin{table}[!htbp]
+\caption{Mean Predicted Abnormality on Herlev, by Class}
+\label{tab:sexternal}
+\centering\footnotesize
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Herlev class & Mapped to & $n$ & Protocol A & Protocol B \\
+\midrule
+normal superficial & normal & 74 & 0.133 & 0.201 \\
+normal intermediate & normal & 70 & 0.218 & 0.390 \\
+normal columnar & normal & 98 & 0.470 & 0.788 \\
+light dysplasia & abnormal & 182 & 0.625 & 0.757 \\
+moderate dysplasia & abnormal & 146 & 0.529 & 0.700 \\
+severe dysplasia & abnormal & 197 & 0.384 & 0.615 \\
+carcinoma \emph{in situ} & abnormal & 150 & 0.517 & 0.847 \\
+\bottomrule
+\end{tabular}
+\\[2pt]\begin{minipage}{\textwidth}\scriptsize Neither network ever saw a columnar cell. Both score that class as abnormal, which is what drives the drop in external AUROC; excluding it raises Protocol~B from 0.641 to 0.805.\end{minipage}
+\end{table}

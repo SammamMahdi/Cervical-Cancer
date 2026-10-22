@@ -25,3 +25,28 @@ report/_tools/cache/
 .claude/
 .DS_Store
 Thumbs.db
+
+# ---- Compiled binaries / large regenerable blobs ----
+*.exe
+*.npz
+
+# ---- Trained weights (100MB+ each; regenerate with the training scripts) ----
+*.keras
+*.h5
+*.pb
+paper_jbhi/models/
+Legacy_src/*.keras
+
+# ---- Third-party papers: not ours to redistribute, and ~500MB ----
+/Literature/
+
+# ---- Training logs and scratch ----
+catboost_info/
+**/catboost_info/
+*.log
+*.aux
+*.out
+*.blg
+*.synctex.gz
+"New Text Document.txt"
+/paper_jbhi_overleaf/
