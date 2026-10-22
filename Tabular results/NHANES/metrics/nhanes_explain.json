@@ -1,0 +1,42 @@
+{
+  "shap_importance": {
+    "marital": 0.2812277116874103,
+    "n_partners_life": 0.19744215423763717,
+    "partners_per_active_year": 0.1260296821409587,
+    "age": 0.12117884232575726,
+    "smoking_status": 0.09756708354594673,
+    "education": 0.08897015634013924,
+    "condomless_year": 0.08790128246003061,
+    "poverty_ratio": 0.08657494274690276,
+    "race": 0.074054055860672,
+    "n_partners_year": 0.07219286492221738,
+    "age_first_oral": 0.050684557183592556,
+    "n_oral_partners_life": 0.040290689829536736,
+    "n_vaginal_partners_life": 0.03716074237117469,
+    "pregnancies_per_active_year": 0.025615362926837092,
+    "ever_sex": 0.021123636190147482,
+    "hsv2": 0.019353626913309847,
+    "age_first_sex": 0.013968158576314083,
+    "n_pregnancies": 0.012365928039818572,
+    "ever_anal_man": 0.01005758954668189,
+    "new_partner_year": 0.009498773443272298,
+    "herpes_hx": 0.0074036285031300365,
+    "smoked_100": 0.006036725549822947,
+    "age_menarche": 0.005949292035122324,
+    "ever_pregnant": 0.0033977652168966496,
+    "years_active": 0.003386067343669564,
+    "hpv_vaccine": 0.0033683246209886887,
+    "orientation": 0.0030654624136936433,
+    "ever_oral_man": 0.0018357563856915024,
+    "chlamydia_hx": 0.0006459339142705378,
+    "gonorrhea_hx": 0.000339943831540108
+  },
+  "ebm_top": {
+    "marital": 0.24083339228715048,
+    "n_partners_life": 0.191797762099706,
+    "age": 0.10778222675686407,
+    "partners_per_active_year": 0.10600007815840998,
+    "poverty_ratio": 0.09223175257833488,
+    "education": 0.07877342970369408
+  }
+}

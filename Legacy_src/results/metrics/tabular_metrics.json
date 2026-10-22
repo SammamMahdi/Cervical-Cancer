@@ -1,0 +1,92 @@
+{
+  "Hinselmann": {
+    "target": "Hinselmann",
+    "n": 858,
+    "n_pos": 35,
+    "base_rate": 0.04079254079254079,
+    "auroc": 0.4497309494879361,
+    "auroc_ci95": [
+      0.35259058723291237,
+      0.5423802443531559
+    ],
+    "auroc_above_chance": false,
+    "ap_pr_auc": 0.03647962230052693,
+    "brier": 0.24423941734783916,
+    "ece": 0.029273380462463826,
+    "sensitivity_at_spec90": 0.08571428571428572,
+    "threshold_at_spec90": 0.5459831721847608,
+    "reliability": 0.0
+  },
+  "Schiller": {
+    "target": "Schiller",
+    "n": 858,
+    "n_pos": 74,
+    "base_rate": 0.08624708624708624,
+    "auroc": 0.6190706012134584,
+    "auroc_ci95": [
+      0.5494148232502095,
+      0.6886237379036112
+    ],
+    "auroc_above_chance": true,
+    "ap_pr_auc": 0.14133688670595562,
+    "brier": 0.23924461942911454,
+    "ece": 0.027134419231930242,
+    "sensitivity_at_spec90": 0.20270270270270271,
+    "threshold_at_spec90": 0.584541072303885,
+    "reliability": 0.23814120242691672
+  },
+  "Citology": {
+    "target": "Citology",
+    "n": 858,
+    "n_pos": 44,
+    "base_rate": 0.05128205128205128,
+    "auroc": 0.48830131784677244,
+    "auroc_ci95": [
+      0.4073511400079191,
+      0.5753072525025644
+    ],
+    "auroc_above_chance": false,
+    "ap_pr_auc": 0.08778928580748468,
+    "brier": 0.24692124012573324,
+    "ece": 0.032350613955826,
+    "sensitivity_at_spec90": 0.11363636363636363,
+    "threshold_at_spec90": 0.5866329683292721,
+    "reliability": 0.0
+  },
+  "Biopsy": {
+    "target": "Biopsy",
+    "n": 858,
+    "n_pos": 55,
+    "base_rate": 0.0641025641025641,
+    "auroc": 0.6263896750820784,
+    "auroc_ci95": [
+      0.5523524294079111,
+      0.7028970542394014
+    ],
+    "auroc_above_chance": true,
+    "ap_pr_auc": 0.10181294504455274,
+    "brier": 0.22725626858916614,
+    "ece": 0.08390545818295081,
+    "sensitivity_at_spec90": 0.21818181818181817,
+    "threshold_at_spec90": 0.599317124942142,
+    "reliability": 0.25277935016415687
+  },
+  "any4": {
+    "target": "any4",
+    "n": 858,
+    "n_pos": 102,
+    "base_rate": 0.11888111888111888,
+    "auroc": 0.6029476605456998,
+    "auroc_ci95": [
+      0.5472063874421296,
+      0.6636592712937732
+    ],
+    "auroc_above_chance": true,
+    "ap_pr_auc": 0.18322576805455373,
+    "brier": 0.23668561949431824,
+    "ece": 0.02131256269070443,
+    "sensitivity_at_spec90": 0.14705882352941177,
+    "threshold_at_spec90": 0.592151119894268,
+    "reliability": 0.20589532109139963
+  }
+}

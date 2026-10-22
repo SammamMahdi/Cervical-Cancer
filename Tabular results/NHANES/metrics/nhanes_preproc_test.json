@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "n": 9348,
+    "n_pos": 2177,
+    "pos_rate": 0.23288403936670946,
+    "cycles": [
+      "2007-2008",
+      "2009-2010",
+      "2011-2012",
+      "2013-2014",
+      "2015-2016"
+    ],
+    "n_features": 12
+  },
+  "baseline": "A_median_impute",
+  "results": {
+    "A_median_impute": {
+      "auroc": 0.7153186541489553,
+      "pr_auc": 0.42862138268305017,
+      "delta_vs_baseline": 0.0
+    },
+    "B_native_NaN": {
+      "auroc": 0.7166706264136022,
+      "pr_auc": 0.433360940974935,
+      "delta_vs_baseline": 0.0014
+    },
+    "C_native_NaN+missflags": {
+      "auroc": 0.7166207906123185,
+      "pr_auc": 0.43174868335579686,
+      "delta_vs_baseline": 0.0013
+    },
+    "D_KNN_impute": {
+      "auroc": 0.7131328610291529,
+      "pr_auc": 0.42199218806988176,
+      "delta_vs_baseline": -0.0022
+    },
+    "E_MICE_impute": {
+      "auroc": 0.7147973639807711,
+      "pr_auc": 0.4271221551604941,
+      "delta_vs_baseline": -0.0005
+    },
+    "F_scale+impute": {
+      "auroc": 0.7151478800535537,
+      "pr_auc": 0.42884916676218565,
+      "delta_vs_baseline": -0.0002
+    },
+    "G_yeojohnson+impute": {
+      "auroc": 0.7148940889935455,
+      "pr_auc": 0.4278604514375008,
+      "delta_vs_baseline": -0.0004
+    },
+    "H_quantile+impute": {
+      "auroc": 0.7151526202197426,
+      "pr_auc": 0.4289104917095965,
+      "delta_vs_baseline": -0.0002
+    },
+    "I_targetencode_cats": {
+      "auroc": 0.7164769201628541,
+      "pr_auc": 0.4320154560162213,
+      "delta_vs_baseline": 0.0012
+    }
+  }
+}

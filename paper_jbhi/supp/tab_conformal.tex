@@ -1,0 +1,16 @@
+\begin{table}[!htbp]
+\caption{Conformal Coverage Under Deliberate Shift}
+\label{tab:sconformal}
+\centering\footnotesize
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Scenario & Target & Coverage & SD & Deferral rate \\
+\midrule
+matched & 0.90 & 0.901 & 0.004 & 0.206 \\
+dependence rho=0.6 & 0.90 & 0.880 & 0.003 & 0.195 \\
+miscalibrated image & 0.90 & 0.911 & 0.004 & 0.481 \\
+domain+prevalence shift & 0.90 & 0.755 & 0.006 & 0.301 \\
+\bottomrule
+\end{tabular}
+\\[2pt]\begin{minipage}{\textwidth}\scriptsize Class-conditional coverage holds on matched data and fails under shift, because the guarantee is conditional on exchangeability between calibration and test data.\end{minipage}
+\end{table}

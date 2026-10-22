@@ -1,0 +1,13 @@
+{
+ "tag": "kd_logit_T",
+ "seed": 42,
+ "kd_mode": "logit_T",
+ "student": {
+  "accuracy": 0.9498680738786279,
+  "macro_f1": 0.9489703079877078,
+  "macro_auroc": 0.9976519745670345,
+  "binary_auroc": 0.9972466960352424,
+  "n": 379
+ },
+ "minutes": 22.034787031014762
+}

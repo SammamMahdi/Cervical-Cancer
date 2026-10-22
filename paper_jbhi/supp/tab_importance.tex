@@ -1,0 +1,32 @@
+\begin{table}[!htbp]
+\caption{Permutation Importance of All Inputs, Top 20}
+\label{tab:simportance}
+\centering\footnotesize
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Input & Missingness flag & AUROC drop & SD & Coefficient \\
+\midrule
+gonorrhea hx (asked?) & yes & +0.0914 & 0.0066 & +1.104 \\
+herpes hx (asked?) & yes & +0.0492 & 0.0103 & -0.595 \\
+chlamydia hx (asked?) & yes & +0.0411 & 0.0113 & -0.522 \\
+ever oral man (asked?) & yes & +0.0394 & 0.0215 & -0.488 \\
+age first oral (asked?) & yes & +0.0375 & 0.0177 & +0.314 \\
+smoking status & no & +0.0312 & 0.0083 & +0.327 \\
+ever sex (asked?) & yes & +0.0278 & 0.0239 & +0.322 \\
+partners per active year & no & +0.0225 & 0.0081 & +0.347 \\
+condomless year (asked?) & yes & +0.0209 & 0.0051 & -0.252 \\
+ever oral man & no & +0.0202 & 0.0121 & +0.286 \\
+smoked 100 (asked?) & yes & +0.0153 & 0.0094 & +0.218 \\
+n vaginal partners life (asked?) & yes & +0.0144 & 0.0025 & -0.214 \\
+n oral partners life (asked?) & yes & +0.0133 & 0.0165 & +0.134 \\
+marital 1.0 & no & +0.0128 & 0.0159 & -0.174 \\
+n partners year (asked?) & yes & +0.0120 & 0.0154 & +0.157 \\
+smoked 100 & no & +0.0114 & 0.0053 & -0.188 \\
+marital 5.0 & no & +0.0108 & 0.0070 & +0.150 \\
+age & no & +0.0093 & 0.0048 & -0.154 \\
+ever anal man (asked?) & yes & +0.0082 & 0.0080 & +0.150 \\
+partners per active year (asked?) & yes & +0.0070 & 0.0063 & -0.097 \\
+\bottomrule
+\end{tabular}
+\\[2pt]\begin{minipage}{\textwidth}\scriptsize Measured on held-out folds. Missingness flags record whether a question was asked at all. They head the ranking because they are collinear and carry large offsetting coefficients, so permuting one destroys a cancellation the others rely on; removing all 27 costs 0.0042 AUROC. The main paper's figure therefore shows the substantive items only.\end{minipage}
+\end{table}

@@ -1,0 +1,19 @@
+\begin{table}[!htbp]
+\caption{Stacker Minus Unpaired Rule, by Amount of Paired Data}
+\label{tab:spaired}
+\centering\footnotesize
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Paired patients & $\Delta$AUROC & SD \\
+\midrule
+50 & -0.0141 & 0.0391 \\
+100 & -0.0043 & 0.0061 \\
+200 & -0.0018 & 0.0017 \\
+500 & -0.0018 & 0.0031 \\
+1000 & -0.0018 & 0.0027 \\
+5000 & -0.0002 & 0.0004 \\
+20000 & -0.0004 & 0.0004 \\
+\bottomrule
+\end{tabular}
+\\[2pt]\begin{minipage}{\textwidth}\scriptsize Negative values mean the stacker is worse than the rule that uses no paired data at all. It never overtakes it here, because on matched cohorts the rule is already optimal.\end{minipage}
+\end{table}
